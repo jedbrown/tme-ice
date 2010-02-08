@@ -1,0 +1,235 @@
+\documentclass[10pt,letterpaper,oneeqnum,final]{siamltex}
+%\documentclass[10pt,letterpaper]{amsart}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{graphicx,url,verbatim}
+\usepackage{microtype}
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+
+\setlength{\textwidth}{27pc}
+\setlength{\textheight}{43pc}
+%\linespread{1.6}
+
+\newcommand{\EE}{\mathcal E}
+\newcommand{\KK}{\mathsf K}
+\newcommand{\PP}{\mathsf P}
+\newcommand{\VV}{\bm V}
+\newcommand{\R}{\mathbb R}
+\newcommand{\bigO}{{\mathcal{O}}}
+\newcommand{\abs}[1]{{\left\lvert #1 \right\rvert}}
+\newcommand{\norm}[1]{{\left\lVert #1 \right\rVert}}
+\newcommand{\tcolon}{{ : }}
+\newcommand{\ip}[2]{{\left\langle #1, #2 \right\rangle}}
+
+\DeclareMathOperator{\sspan}{span}
+
+\title{Achieving textbook multigrid efficiency for hydrostatic ice sheet flow}
+
+\author{Jed Brown\thanks{Versuchsanstalt f\"ur Wasserbau, Hydrologie und Glaziologie (VAW), ETH Z\"urich, Z\"urich,
+    Switzerland, \texttt{brown@vaw.baug.ethz.ch}}
+  \and Barry Smith\thanks{Mathematics and Computer Science Division, Argonne National Laboratory, Argonne, IL 60439, \texttt{bsmith@mcs.anl.gov}}
+  %\and Dmitry Karpeev\thanks{Mathematics and Computer Science Division, Argonne National Laboratory, Argonne, IL 60439, \texttt{karpeev@mcs.anl.gov}}
+}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+  The hydrostatic equations for ice sheet flow offer improved fidelity compared to the shallow ice
+  approximation and shelfy stream approximation popular in today's ice sheet models, but
+  it presents a serious bottleneck because it requires the solution of a 3D nonlinear system, as
+  opposed to the 2D system present in SSA.  This system is posed on high-aspect domains with strong
+  anisotropy and variation in coefficients, making it very expensive to solve using the methods
+  currently employed.  This paper presents a multigrid Newton-Krylov solver for the hydrostatic
+  equations that demonstrates textbook multigrid efficiency (an order of magnitude reduction in
+  residual per iteration and solution of the fine-level system in a small multiple of the cost of a
+  residual evaluation).
+\end{abstract}
+\begin{keywords}
+  hydrostatic, ice sheet, Newton-Krylov, multigrid, preconditioning
+\end{keywords}
+\thispagestyle{plain}
+\pagestyle{myheadings}
+\markboth{J. BROWN}{Textbook multigrid efficiency for hydrostatic ice sheet}
+
+\section{Introduction}
+The dynamic response of ice streams and outlet glaciers is poorly represented using the shallowness
+assumptions inherent in the present generation of ice sheet models.  Accurate simulation of this
+response is crucial for prediction of sea level rise and the inability of available models, based on
+the shallow ice approximation (SIA)~\cite{hutter1983tgm} and shallow stream approximation
+(SSA)~\cite{morland1987unconfined,weis1999theory}, to simulate these processes was cited as a major
+deficiency in the IPCC AR4~\cite{ipcc2007ar4-syr}.
+
+The hydrostatic equations were introduced by \cite{blatter1995vas} as a model of intermediate
+complexity between the full non-Newtonian Stokes system and the integrated SIA and SSA models.  A
+more precise analysis, including the limiting cases of fast and slow sliding, was given in
+\cite{schoof2010thin}.  Well-posedness was proven in \cite{colinge1999strongly} and approximation
+properties of finite element methods were analyzed in
+\cite{glowinski2003approximation,chow2004finite}.  The hydrostatic equations were used for transient
+simulation in \cite{pattyn2002tgr} and in 3D in \cite{pattyn2003ntd}, as well as subsequent work.
+Several models of this form were compared in \cite{pattyn2008beh}.
+
+However, the use of hydrostatic equations in current models has been limited due to the cost of solving
+the 3D nonlinear system for velocity.  This cost comes from both slow convergence on the
+nonlinearities (rheology and slip), and expensive linear solves using standard preconditioners such
+as incomplete factorization and 1-level domain decomposition.  The poor linear solve performance is
+attributable to the strong anisotropy and heterogeneity imposed by the rheology and geometry.
+
+In the present work, we present a Newton-Krylov solver that demonstrates textbook multigrid
+efficiency (TME), characterized by convergence in a small multiple of the cost of a single
+fine-level residual evaluation, and typically involving an order of magnitude reduction in residual
+per multigrid (V or F) cycle.  The scheme converges quadratically on the nonlinearities, is rapidly
+globalized using grid sequencing, is very robust to parameters and geometry, coarsens rapidly in
+almost all cases, and exhibits excellent parallel scalability.  Our code is freely available as part
+of the Portable Extensible Toolkit for Scientific computing (PETSc)~\cite{petsc-web-page}.
+
+Section~\ref{sec:equations} presents the equations and discretization, Section~\ref{sec:solver}
+describes the solver, and Section~\ref{sec:examples} demonstrates the performance and scalability
+with numerical examples.
+
+\section{Equations and discretization}\label{sec:equations}
+The hydrostatic equations are obtained from the non-Newtonian Stokes equations in the limit where
+horizontal derivatives of vertical velocity are small.  Neglecting these terms allows
+incompressibility to be enforced implicitly by eliminating pressure and vertical velocity, leaving a
+system involving only horizontal components of velocity.  See \cite{schoof2010thin} for a rigorous
+derivation and asymptotic analysis.
+
+Consider an ice domain $\Omega \subset \R^3$ lying between the bed $b \in C^1(\R^2)$ and surface $s
+\in C^1(\R^2)$, with thickness $H = s-b$ bounded below by a positive constant\footnote{This singular
+  limit is important in the case of grounded margins, but the present work does not pursue it.}  The
+velocity $\bm u = (u,v) \in \bm V = \bm H^1(\Omega)$ satisfies conservation of momentum which,
+omitting inertial terms as is standard for ice sheets, is given by
+\begin{align}\label{eq:momentum}
+  - \nabla\cdot \left[ \eta
+  \begin{pmatrix}
+    4 u_x + 2 v_y & u_y + v_x & u_z \\
+    u_y + v_x & 2 u_x + 4 v_y & v_z
+  \end{pmatrix} \right] + \rho g \nabla s & = 0
+\end{align}
+where
+\begin{align}\label{eq:viscosity}
+  \eta(\gamma) = \frac B 2 (\epsilon^2 + \gamma)^{\frac{1-n}{2n}}
+\end{align}
+is the nonlinear effective viscosity with regularization $\epsilon$ and
+\begin{align*}
+  \gamma = u_x^2 + v_y^2 + u_xv_y + \frac 1 4 (u_y+v_x)^2 + \frac 1 4 u_z^2 + \frac 1 4 v_z^2
+\end{align*}
+is the second invariant.  Ice sheet models typically take $n=3$ as the power law exponent.  Equation
+\eqref{eq:momentum} is subject to natural boundary conditions at the free surface and either no-slip
+$\bm u = 0$ or power-law slip with friction parameter
+\begin{align*}
+  \beta^2(\gamma_b) = \beta_0^2 (\epsilon_b^2 + \gamma_b)^{\frac{m-1}{2}}
+\end{align*}
+where $\gamma_b = \frac 1 2 (u^2 + v^2)$, $\epsilon_b$ is regularization, and $m \in (0,1]$ is the
+exponent that produces Navier slip for $m=1$, Weertman~\cite{weertman1957sliding} sliding for
+$m=1/n$, and Coulomb slip as $m \to 0$.
+
+To discretize this system with a finite element method, we introduce the test functions $\bm \phi
+\in \VV$ and integrate by parts to produce the weak form: find $\bm u \in \VV$ such that
+\begin{align}\label{eq:weak}
+  \int_\Omega \nabla\bm\phi \tcolon \eta
+  \begin{pmatrix}
+    4 u_x + 2 v_y & u_y + v_x & u_z \\
+    u_y + v_x & 2 u_x + 4 v_y & v_z
+  \end{pmatrix} + \bm\phi \cdot\rho g \nabla s
+  + \int_{\Gamma_{\text{bed}}} \bm \phi \cdot \beta^2(\abs{\bm u}^2/2) \bm u = 0
+\end{align}
+for all $\bm \phi \in \VV$ where $\Gamma_{\text{bed}}$ is the slip portion of the bed.
+
+Equation \eqref{eq:weak} was discretized on a structured hexahedral grid using $Q_1$ finite elements
+and standard 8-point Gauss quadrature.  Length, time, and mass units were chosen so that thickness
+and velocities are $\bigO(1)$ and $\rho g = 1$.  See Section~\ref{ssec:dirichlet} for details on the
+enforcement of Dirichlet boundary conditions.
+
+\section{Solver and implementation}\label{sec:solver}
+We begin by writing the discretization of \eqref{eq:weak} as an algebraic system $F(U) = 0$ with
+Jacobian $J(U)$.  This nonlinear system is solved with a Newton iteration which requires an
+(approximate) solution $\delta U$ of
+\begin{align}\label{eq:newton-step}
+  J(U)\delta U = -F(U) .
+\end{align}
+Newton methods are quadratically convergent in the terminal phase, but may converge very slowly or
+not at all in the early phases.  Most applications of the present solver are in a time-stepping code
+where the initial iterates start within the region of quadratic convergence, thus globalization
+would rarely be a concern, but since a good initial iterate is not available in the present tests,
+we use grid sequencing (solving the problem on a sequence of coarser grids) to produce an initial
+iterate on the fine grid.
+
+The Newton step \eqref{eq:newton-step} is solved by a Krylov method such as GMRES, for which the
+iteration count is highly dependent on quality of the preconditioner.  Since $J(U)$ is symmetric
+positive definite, methods such as conjugate gradients could be used, however this work always uses
+GMRES because it allows the use of nonsymmetric preconditioners such as F-cycle multigrid, and the
+iteration counts are always kept very low so that storage and restarts are not an issue.  As an SPD
+system, a wide variety of preconditioners are available, however, the large viscosity contrasts,
+strong anisotropy, and significance of shear terms cause most preconditioners to perform poorly.
+The rest of this section describes the methods used to produce a scalable algorithm in spite of
+these difficulties.
+
+\subsection{Anisotropy}
+The aspect ratio of outlet glaciers (the regions of ice sheets with greatest physical interest)
+range from $\bigO(1)$ to over $100$.  The nonlinear constitutive relation \eqref{eq:viscosity}
+produces several orders of magnitude variation in viscosity (usually with fastest variation in the
+vertical) and the Newton linearization of \eqref{eq:weak} produces additional anisotropy,
+effectively collapsing the conductivity tensor in the direction of the velocity gradient.
+
+For systems with a priori known anisotropy, semi-coarsening has been successful for attaining
+satisfactory multigrid performance even with weak smoothers like SOR, but semi-coarsening is
+unattractive for two reasons.  Firstly, semi-coarsening in the vertical direction would necessitate
+many levels because it only reduces the problem size by a factor of 2 on each coarsening (instead of
+8 for isotropic coarsening), and the fully-coarsened problem would still be far too large for a
+direct solver, necessitating further coarsening in the horizontal direction.  The presence of many
+levels leads to more synchronization in parallel which is detrimental to scalability and makes
+performance more sensitive to network latency.  Second, large viscosity contrasts and anisotropy
+unaligned with the grid arise when friction parameter $\beta^2$ is not smooth, which is the standard
+case when studying the migration of ice stream margins as the bed transitions from frozen (no-slip
+or very high friction) to temperate and very slippery depending on subglacial hydrology.
+
+In order to coarsen isotropically even on high-aspect domains, we order the unknowns so that columns
+are contiguous with a natural block size of 2
+(i.e. $\{u_{i,j,k},v_{i,j,k},u_{i,j,k+1},v_{i,j,k+1},\dotsc\}$ where $k$ is the index which is
+increasing in the vertical direction) and not decomposed in parallel.  This decomposition is
+reasonable since the number of vertical levels used in simulations is typically between 10 and 100,
+and convenient since it is compatible with decompositions used by other climate model components.
+
+With this ordering, zero-fill incomplete factorization effectively performs an exact solve of the
+column since all the neglected fill (relative to an exact factorization) is caused by the coupling
+with adjacent columns.  One might expect that with this smoother, a coarse level would not even be
+required in the high-aspect frozen bed (no slip) case, since a lubrication approximation (SIA) is
+valid in this regime, and thus velocities can be determined locally from driving stress.  However
+this is not the case since certain shear modes are invisible to the preconditioner %TODO
+
+We have observed an interesting weakness of incomplete Cholesky factorizations that make it unusable
+as a stand-alone preconditioner, and 
+
+\subsection{Dirichlet boundary conditions}\label{ssec:dirichlet}
+Multigrid is often sensitive to the enforcement of boundary conditions.  Ideally, Dirichlet
+conditions would be completely removed from the solution space, but doing so complicates grid
+management on structured grids, so instead we leave these degrees of freedom in the system but
+decouple them from the other equations.  During residual evaluation in the finite element context,
+this corresponds to evaluating integrals with the Dirichlet condition satisfied exactly, and setting
+the residual on the Dirichlet nodes to be equal to a multiple of the current solution.  With this
+scheme, all rows and columns of the Jacobian corresponding to Dirichlet nodes are zero except for a
+single diagonal entry, thus the system retains symmetry and satisfaction of the Dirichlet conditions
+does not interfere with solving the other equations.  For good multigrid performance, the diagonal
+entry should be similar to the diagonal entry of the Jacobian for nearby nodes.  To ensure this, we
+set the residual at Dirichlet nodes to
+\begin{align}\label{eq:dirichlet-scale}
+  f_u &= 2 \eta (4 h_yh_z/h_x + h_x h_z/h_y + h_x h_y/h_z) u \\
+  f_v &= 2 \eta (h_yh_z/h_x + 4 h_x h_z/h_y + h_x h_y/h_z) u
+\end{align}
+where $h_x,h_y,h_z$ are the local element dimensions.  This scaling produces the same diagonal
+entries that would appear if the domain was extended so that constant viscosity momentum equations
+appeared at the formerly Dirichlet nodes.
+
+\subsection{Achieving high throughput}
+
+\section{Numerical examples}\label{sec:examples}
+
+\section{Discussion}
+
+\nonumber\section{Acknowledgments} We thank the PETSc team for support and a framework in which this
+work could be naturally expressed.  This work was supported by Swiss National Science Foundation
+Grant 200021-113503/1.
+
+\bibliographystyle{amsalpha}
+\bibliography{flow}
+\end{document}
