@@ -27,8 +27,8 @@
 
 \author{Jed Brown\thanks{Versuchsanstalt f\"ur Wasserbau, Hydrologie und Glaziologie (VAW), ETH Z\"urich, Z\"urich,
     Switzerland, \texttt{brown@vaw.baug.ethz.ch}}
+  \and Dmitry Karpeev\thanks{Mathematics and Computer Science Division, Argonne National Laboratory, Argonne, IL 60439, \texttt{karpeev@mcs.anl.gov}}
   \and Barry Smith\thanks{Mathematics and Computer Science Division, Argonne National Laboratory, Argonne, IL 60439, \texttt{bsmith@mcs.anl.gov}}
-  %\and Dmitry Karpeev\thanks{Mathematics and Computer Science Division, Argonne National Laboratory, Argonne, IL 60439, \texttt{karpeev@mcs.anl.gov}}
 }
 
 \begin{document}
@@ -74,8 +74,8 @@ nonlinearities (rheology and slip), and expensive linear solves using standard p
 as incomplete factorization and 1-level domain decomposition.  The poor linear solve performance is
 attributable to the strong anisotropy and heterogeneity imposed by the rheology and geometry.
 
-In the present work, we present a Newton-Krylov solver that demonstrates textbook multigrid
-efficiency (TME), characterized by convergence in a small multiple of the cost of a single
+In the present work, we present a multigrid Newton-Krylov solver that demonstrates textbook
+multigrid efficiency (TME), characterized by convergence in a small multiple of the cost of a single
 fine-level residual evaluation, and typically involving an order of magnitude reduction in residual
 per multigrid (V or F) cycle.  The scheme converges quadratically on the nonlinearities, is rapidly
 globalized using grid sequencing, is very robust to parameters and geometry, coarsens rapidly in
@@ -233,3 +233,12 @@ Grant 200021-113503/1.
 \bibliographystyle{amsalpha}
 \bibliography{flow}
 \end{document}
+
+
+% mpiexec.mpd -n 8 ./ex48 -M 16 -P 3 -thi_nlevels 6 -thi_hom x -thi_L 80e3 -pc_mg_type multiplicative -ksp_gmres_restart 60 -snes_monitor -ksp_monitor -ksp_converged_reason -mg_levels_pc_type asm -mg_levels_pc_asm_overlap 0 -da_refine_hierarchy_x 1,1,4,4,4 -da_refine_hierarchy_y 2,2,1,1,1 -da_refine_hierarchy_z 2,2,1,1,1 -dmmg_grid_sequence -mg_levels_1_sub_pc_type cholesky -mg_levels_2_sub_pc_type cholesky -thi_mat_type sbaij -log_summary
+% Level 0 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  16x 16x  3 (     768), size (m) 5000 x 5000 x 500
+% Level 1 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  32x 32x  3 (    3072), size (m) 2500 x 2500 x 500
+% Level 2 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  64x 64x  3 (   12288), size (m) 1250 x 1250 x 500
+% Level 3 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  64x 64x  9 (   36864), size (m) 1250 x 1250 x 125
+% Level 4 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  64x 64x 33 (  135168), size (m) 1250 x 1250 x 31.25
+% Level 5 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  64x 64x129 (  528384), size (m) 1250 x 1250 x 7.8125
