@@ -2,9 +2,12 @@
 
 from optparse import OptionParser
 from pylab import *
-import pprint
-import re
+import pprint, re, itertools
 from collections import namedtuple
+from funcparserlib.lexer import Spec, make_tokenizer
+from funcparserlib.contrib.common import sometok,unarg
+from funcparserlib.parser import maybe, many, oneplus, finished, skip, forward_decl, SyntaxError
+
 import pdb
 
 class SNES(object):
@@ -24,29 +27,25 @@ class SNES(object):
     def __repr__(self):
         return 'SNES(indent=%r, reason=%r, res=%r, level=%r)' % (self.indent, self.reason, self.res, self.level)
 
-#SNES   = namedtuple('SNES', 'level indent reason res')
-
+def Dict(**args): return args
 KSP    = namedtuple('KSP', 'reason res')
-Solve  = namedtuple('Solve', 'level residuals')
-Sample = namedtuple('Sample', 'fname solves')
 SNESIt = namedtuple('SNESIt', 'indent res ksp')
 Event  = namedtuple('Event', 'name count time flops Mflops')
 Stage  = namedtuple('Stage', 'name events')
-Run    = namedtuple('Run', 'levels solves stages options')
 
-const = lambda x: lambda _: x
-instanceof = lambda t: lambda x: isinstance(x,t)
-residuals = lambda pred: lambda solve: [x.res for x in solve.residuals if pred(x)]
-def onlevel(lev):
-    def go(res):
-        its = []
-        i = 0
-        while i < len(res) and (not isinstance(res[i],SNES) or res[i].level != lev): i+=1 # skip initial segment
-        while i < len(res) and (not isinstance(res[i],SNES) or res[i].level == lev): # grab relevant segment
-            its.append(res[i])
-            i+=1
-        return its
-    return go
+class Run(object):
+    def __init__(self, levels, solves, exename, petsc_arch, hostname, np, stages, options, **args):
+        self.levels     = levels
+        self.solves     = solves
+        self.exename    = exename
+        self.petsc_arch = petsc_arch
+        self.hostname   = hostname
+        self.np         = np
+        self.stages     = stages
+        self.options    = options
+        self.__dict__.update(args)
+    def __repr__(self):
+        return 'Run(%s)' % ', '.join('%s=%r' % (k,v) for (k,v) in self.__dict__.items())
 
 def span(pred):
     def go(lst):
@@ -55,7 +54,6 @@ def span(pred):
                 return lst[:i], lst[i:]
         return (lst,[])
     return go
-
 def groupBy(f,lst):
     'Group input, f(elem) == None is agnostic'
     chunks = []
@@ -84,19 +82,22 @@ class Level(object):
         return ('Level(level=%r, Lx=%r, Ly=%r, Lz=%r, M=%r, N=%r, P=%r, count=%r, hx=%r, hy=%r, hz=%r)'
                 % tuple(getattr(self,p) for p in 'level Lx Ly Lz M N P count hx hy hz'.split()))
 
-from funcparserlib.lexer import Spec, make_tokenizer
 def tokenize(str):
     'str -> Sequence(Token)'
     MSpec = lambda t,r: Spec(t,r,re.MULTILINE)
     specs = [
         MSpec('level', r'^Level \d+.*$'),
         MSpec('snes_monitor', r'^\s+\d+ SNES Function norm.*$'),
-        MSpec('snes_converged', r'^\s*Nonlinear solve converged due to.*$'),
+        MSpec('snes_converged', r'^\s*Nonlinear solve converged due to \w+$'),
+        MSpec('snes_diverged', r'^\s*Nonlinear solve did not converge due to \w+$'),
         MSpec('ksp_monitor', r'^\s+\d+ KSP Residual norm.*$'),
-        MSpec('ksp_converged', r'^\s*Linear solve converged due to.*$'),
+        MSpec('ksp_converged', r'^\s*Linear solve converged due to \w+$'),
+        MSpec('ksp_diverged', r'^\s*Linear solve did not converge due to \w+$'),
         MSpec('event', r'^\S{1,16}\s+\d+ \d\.\d \d\.\d{4}e[-+]\d\d \d\.\d \d\.\d\de[-+]\d\d \d\.\d (\d\.\de[-+]\d\d ){3}.*$'),
         MSpec('stage', r'^--- Event Stage \d+: .*$'),
         MSpec('memory_usage', r'^Memory usage is given in bytes:'),
+        MSpec('summary_begin', r'^---------------------------------------------- PETSc Performance Summary: ----------------------------------------------$'),
+        MSpec('hostline', r'^\S+ on a \S+ named \S+ with \d+ processors?, by .*$'),
         MSpec('option_table_begin', r'^#PETSc Option Table entries:$'),
         MSpec('option_table_entry', r'^-\w+(\s+\w+)?$'),
         MSpec('option_table_end', r'^#End of? PETSc Option Table entries$'),
@@ -105,14 +106,12 @@ def tokenize(str):
         ]
     ignored = 'nl other'.split()
     t = make_tokenizer(specs)
-    print t(str)
     return [x for x in t(str) if x.type not in ignored]
 
-from funcparserlib.contrib.common import n,op,op_,sometok
-from funcparserlib.parser import maybe, many, oneplus, finished, skip, forward_decl, SyntaxError
 def parse(seq):
     'Sequence(Token) -> object'
-    LogSummary = namedtuple('LogSummary', 'stages options')
+    Host = namedtuple('Host', 'exename arch host np')
+    LogSummary = namedtuple('LogSummary', 'host stages options')
     def mkLevel(s):
         rfloat = r'[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?'
         rint   = r'[-+]?\d+'
@@ -144,36 +143,37 @@ def parse(seq):
     def mkEvent(s):
         s = s.split()
         return Event(name=s[0], count=int(s[1]), time=float(s[3]), flops=float(s[5]), Mflops=float(s[-1]))
-    def mkStage(s):
-        name = re.match(r'^--- Event Stage \d+: (.*)', s[0]).groups()[0]
-        events = s[1]
+    def mkStage(stageheader, events):
+        name = re.match(r'^--- Event Stage \d+: (.*)', stageheader).groups()[0]
         return Stage(name, events)
     def mkOption(s):
         return re.match(r'^(-\w+)(?:\s+(.+))?$',s).groups()
-    def mkLogSummary(s):
-        return LogSummary(stages=s[0], options=s[1])
-    def mkRun(s):
-        levels = s[0]
-        solves = s[1]
-        log    = s[2]
+    def mkRun(levels, solves, log):
         for x in solves:
             x.level = levels[-1-x.indent]
-        return Run(levels, solves, log.stages, log.options)
+        h = log.host
+        return Run(levels, solves, h.exename, h.arch, h.host, h.np, log.stages, log.options)
+    def mkHost(s):
+        (exename, arch, host, np) = re.match(r'^(\S+) on a (\S+) named (\S+) with (\d+) processors?, by .*$', s).groups()
+        return Host(exename, arch, host, int(np))
 
     level = sometok('level') >> mkLevel
     kspit = sometok('ksp_monitor')   >> mkKSPIt
     ksp_converged = sometok('ksp_converged') >> (lambda s: s.strip().split()[5])
-    ksp   = many(kspit) + maybe(ksp_converged) >> mkKSP
+    ksp_diverged = sometok('ksp_diverged') >> (lambda s: s.strip().split()[7])
+    ksp   = many(kspit) + maybe(ksp_converged | ksp_diverged) >> mkKSP
     snesit = sometok('snes_monitor') + maybe(ksp) >> mkSNESIt
     snes_converged = sometok('snes_converged') >> (lambda s: s.strip().split()[5])
-    snes  = oneplus(snesit) + snes_converged >> mkSNES
+    snes_diverged = sometok('snes_diverged') >> (lambda s: s.strip().split()[7])
+    snes  = oneplus(snesit) + (snes_converged | snes_diverged) >> mkSNES
     event = sometok('event') >> mkEvent
-    stage = sometok('stage') + many(event) >> mkStage
+    stage = sometok('stage') + many(event) >> unarg(mkStage)
     memory_usage = sometok('memory_usage') + many(sometok('stage')) # No plans for memory usage
     option_table_entry = sometok('option_table_entry') >> mkOption
     option_table = skip(sometok('option_table_begin')) + many(option_table_entry) + skip(sometok('option_table_end')) >> dict
-    log_summary = many(stage) + skip(memory_usage) + option_table >> mkLogSummary
-    petsc_log = many(level) + many(snes) + log_summary + skip(finished) >> mkRun
+    host = sometok('hostline') >> mkHost
+    log_summary = skip(sometok('summary_begin')) + host + many(stage) + skip(memory_usage) + option_table >> unarg(LogSummary)
+    petsc_log = many(level) + many(snes) + log_summary + skip(finished) >> unarg(mkRun)
     return petsc_log.parse(seq)
 
 def read_file(fname):
@@ -203,7 +203,7 @@ def set_sizes_talk():
                      'ytick.labelsize': 18,
                      'text.usetex': True,
                      'figure.figsize': fig_size})
-    subplots_adjust(left=0.06,right=0.975,bottom=0.08,top=0.94)
+    subplots_adjust(left=0.08,right=0.975,bottom=0.08,top=0.94)
 
 def set_sizes_poster():
     golden = (sqrt(5)-1)/2
@@ -238,13 +238,12 @@ def set_sizes_paper():
     subplots_adjust(left=0.09,right=0.975,bottom=0.11,top=0.93)
 
 def plot_snes_convergence(solves,sequence=False,withksp=False):
-    marker = list('osv^<>*D').__iter__()
+    marker = itertools.cycle(list('osv^<>*D'))
     offset = 0
     for s in solves:
         res = array([[i,x.res] for (i,x) in enumerate(s.res)])
-        name = 'Level %d (%d)' % (s.level.level, s.level.count)
         name = s.name()
-        semilogy(offset+res[:,0],res[:,1],'-'+marker.next(),label=name)
+        semilogy(offset+res[:,0],res[:,1],'-'+next(marker),label=name)
         if withksp:
             for (k,ksp) in enumerate([r.ksp for r in s.res]):
                 if not ksp.res:
@@ -256,42 +255,57 @@ def plot_snes_convergence(solves,sequence=False,withksp=False):
     ylabel('Nonlinear residual')
     xlabel('Newton iteration')
     legend()
-    show()
 
-def plot_poisson(format):
-    if format:
-        rcParams.update({'backend': format})
-    plot_loglog(libmesh_poisson,1,4,'r','o',"Libmesh $Q_2$",600)
-    plot_loglog(dohp_poisson_q3,1,4,'g','s',"Dohp $Q_3$",1000)
-    plot_loglog(dohp_poisson_q5,1,4,'b','^',"Dohp $Q_5$",1200)
-    plot_loglog(dohp_poisson_q7,1,4,'k','*',"Dohp $Q_7$",1400)
-    #plot_loglog(dummy_direct_mumps,1,3,'k','o',"MUMPS direct solve",1600)
-    #title('Scaling of 3D Poisson solvers with algebraic multigrid preconditioning')
-    xlim(2e4,3e6)
-    ylim(1,4e2)
-    ylabel('Linear solve time (seconds)')
-    xlabel('Degrees of freedom')
-    legend(loc='upper left',numpoints=1)
-    if format:
-        savefig('timing.'+format)
+def plot_snes(opts, logfiles):
+    '''Plots the nonlinear convergence for a single file.'''
+    if len(logfiles) != 1:
+        raise RuntimeError('Must supply exactly one file for SNES plotting')
+    run = parse(tokenize(read_file(logfiles[0])))
+    plot_snes_convergence(run.solves[1:], sequence=True, withksp=True)
+
+def segment(logfiles):
+    '''turn a flat semicolon-delimited list
+           ['a', 'b', ';', 'c', 'd', 'e']
+       into a generator of lists
+           [['a', 'b'], ['c', 'd', 'e']]'''
+    return filter(lambda x: x != [';'], groupBy(lambda x: x==';', logfiles))
+
+def plot_algorithmic(opts, logfiles):
+    '''Plots algorithmic scalability for several file series.  File
+    series are separated by ';' (must be escaped from the shell).  Each
+    file series is expected to be a list of log files with common
+    algorithm and increasing problem size.  The result is a log-linear
+    plot of iteration count for each series.
+    '''
+    marker = itertools.cycle(list('osv^<>*D'))
+    plotter = semilogx
+    for logs in segment(logfiles):
+        series = [parse(tokenize(read_file(fname))) for fname in logs]
+        solves = [s.solves[-1] for s in series]
+        its = array([(s.level.count, mean([len(r.ksp.res) for r in s.res][:-1])) for s in solves])
+        plotter(its[:,0],its[:,1],'-'+next(marker),label=logs[0])
+    ylabel('Average Krylov iterations per Newton at finest level')
+    xlabel('Number of degrees of freedom')
+    legend(loc='upper left')
+
+def plot_strong(opts, logfiles):
+    ''
+
+def main():
+    parser = OptionParser()
+    parser.add_option('-f', '--format', help='|png|eps', dest='format', type='string', default=None)
+    parser.add_option('-m', '--mode', help='talk|poster|paper', dest='mode', type='string', default='talk')
+    parser.add_option('-t', '--type', help='snes|algorithmic|weak|strong', dest='type', type='string', default='snes')
+    parser.add_option('-o', '--output', help='Output filename', dest='output', default=None)
+    opts, logfiles = parser.parse_args()
+    {'talk' : set_sizes_talk, 'poster' : set_sizes_poster, 'paper' : set_sizes_paper}[opts.mode]()
+    print 'Plotting %s using format %s from files: %s' % (opts.type, opts.format, ' '.join(logfiles))
+    if format: rcParams.update({'backend': format})
+    {'snes': plot_snes, 'algorithmic' : plot_algorithmic}[opts.type](opts, logfiles)
+    if opts.output:
+        savefig(opts.output)
     else:
         show()
 
-def main1 ():
-    parser = OptionParser()
-    parser.add_option('-f', '--format', help='|png|eps', dest='format', type='string', default=None)
-    parser.add_option('-m', '--mode', help='talk|poster', dest='mode', type='string', default='talk')
-    parser.add_option('-t', '--type', help='poisson|stokes', dest='type', type='string', default='poisson')
-    opts, args = parser.parse_args()
-    {'talk' : set_sizes_talk, 'poster' : set_sizes_poster, 'paper' : set_sizes_paper}[opts.mode]()
-    print 'Plotting ', opts.type, 'using format', opts.format
-    {'poisson': plot_poisson, 'stokes' : plot_stokes}[opts.type](opts.format)
-
-def main2():
-    asm = read_file('z.10km.asm20.seq.rtol-2.log')
-    toks = tokenize(asm)
-    p = parse(toks)
-    plot_snes_convergence(p.solves[1:],sequence=True,withksp=True)
-
 if __name__ == "__main__":
-    main2()
+    main()
