@@ -192,12 +192,12 @@ def plot_loglog(arr,xcol,ycol,color,marker,name,loc):
 
 def set_sizes_talk():
     golden = (sqrt(5)-1)/2
-    fig_width = 15;
+    fig_width = 13;
     fig_size = (fig_width,fig_width*golden)
     rcParams.update({'axes.titlesize': 18,
                      'axes.labelsize': 18,
                      'text.fontsize': 24,
-                     'legend.fontsize': 16,
+                     'legend.fontsize': 18,
                      #'legend.markerscale' : 8,
                      'xtick.labelsize': 18,
                      'ytick.labelsize': 18,
