@@ -206,8 +206,8 @@ in the horizontal), independent of the number of elements in the vertical, and i
 number of subdomains (provided they do not get too small, there is some degredation when subdomain
 size approaches a single column).  However, none of these favorable performance characteristics
 remain when the elements become small relative to the ice thickness or when the bed becomes
-slippery, since the usual $\bigO{(L/H)^2}$ condition number for second order elliptic problems
-preconditioned by additive Schwarz methods kicks in.
+slippery, since the usual $\bigO\big((L/H)^2\big)$ condition number for second order elliptic problems
+preconditioned by 1-level Schwarz methods with subdomains of size $H$ kicks in.
 
 We have observed a weakness of incomplete Cholesky factorization that makes it nearly unusable as a
 stand-alone preconditioner for this problem.  The Jacobian, including each subdomain problem in an
@@ -250,9 +250,9 @@ The most expensive operations are Jacobian assembly and sparse matrix kernels.  
 The Jacobian is always symmetric positive definite and has a natural block size of 2, so we use a symmetric block format (PETSc's SBAIJ).  This format stores one column index per $2\times 2$ block in the upper triangular part of the matrix and therefore uses about half the storage of the nonsymmetric BAIJ format which in turn uses 25\% less memory than a scalar format (AIJ). Multiplication for symmetric storage requires twice as much parallel communication as nonsymmetric storage, albeit with the same number of messages. In return, the diagonal part of a parallel decomposition does twice as much work per matrix entry and thus achieves higher throughput in our tests, shown in Table~\ref{tab:sbaij}.
 
 \begin{table}
-  \centering\caption{Throughput (Mflop/s) for different matrix formats on Core 2 Duo (P8700) and Opteron 2356. \texttt{MatSolve} is a forward- and back-solve with incomplete Cholesky factors.  The AIJ format is using ``inodes'' which unrolls across consecutive rows with identical nonzero pattern (pairs in this case).}\label{tab:sbaij}
+  \centering\caption{Throughput (Mflop/s) for different matrix formats on Core 2 Duo (P8700) and Opteron 2356 (two sockets). \texttt{MatSolve} is a forward- and back-solve with incomplete Cholesky factors.  The AIJ format is using ``inodes'' which unrolls across consecutive rows with identical nonzero pattern (pairs in this case).}\label{tab:sbaij}
   \begin{tabular}{l|c|c|c|c|c|c}
-    \multirow{2}{*}{\backslashbox{kernel}{format}} & \multicolumn{3}{|c|}{Core 2, 1 thread} & \multicolumn{3}{|c}{Opteron, 4 threads} \\
+    \multirow{2}{*}{\backslashbox{kernel}{format}} & \multicolumn{3}{c|}{Core 2, 1 thread} & \multicolumn{3}{c}{Opteron, 4 threads} \\
                       & AIJ & BAIJ & SBAIJ & AIJ  & BAIJ & SBAIJ \\ \hline
     \texttt{MatMult}  & 812 & 985  & 1507  & 2226 & 2918 & 3119  \\
     \texttt{MatSolve} & 718 & 957  & 955   & 1573 & 2869 & 2858  \\
@@ -260,16 +260,27 @@ The Jacobian is always symmetric positive definite and has a natural block size 
 \end{table}
 
 \section{Numerical examples}\label{sec:examples}
-\subsection{Algorithmic Scalability}\label{sec:ascaling} We consider three model problems inspired by the ISMIP-HOM~\cite{pattyn2008beh} tests.  All use surface $s(x,y) = -x\sin \alpha$ where $\alpha$ is the surface slope (the coordinate system is not rotated) and a bed similar to $b_A(x,y) = s(x,y) - \SI{1000}{\metre} + \SI{500}{\metre} \cdot \sin(2\pi x/L)\sin(2\pi y/L)$ for $(x,y) \in [0,L)^2$.  Test $X$ uses bed $b_X = b_A$ and slipperyness
+\subsection{Algorithmic Scalability}\label{sec:ascaling}
+We consider three model problems inspired by the ISMIP-HOM~\cite{pattyn2008beh} tests.  All use surface $s(x,y) = -x\sin \alpha$ where $\alpha$ is the surface slope (the coordinate system is not rotated) and a bed similar to $b_A(x,y) = s(x,y) - \SI{1000}{\metre} + \SI{500}{\metre} \cdot \sin\hat{x}\sin\hat{y}$ for $(x,y) \in [0,L)^2$ with $\hat{x} = 2\pi x/L,\hat{y}=2\pi y/L$.  Test $X$ uses bed $b_X = b_A$ and stickyness parameter
 \begin{align*}
   \beta_X^2(x,y) =
   \begin{cases}
-    \SI{2000}{\pascal\year\per\metre} & \text{if } \abs{(\frac{2\pi x}{L},\frac{2\pi         y}{L}) - (\pi,\pi)} < 1 \\
+    \SI{2000}{\pascal\year\per\metre} & \text{if } \abs{(\frac{2\pi x}{L},\frac{2\pi y}{L}) - (\pi,\pi)} < 1 \\
 0 & \text{otherwise}
   \end{cases}
 \end{align*}
-which is free slip except for a sticky circle at the center of the domain which is not aligned with the grid.  This problem exhibits shear localization at the edges of the sticky region and is most extreme at high aspect ratio.
+which is free slip except for a sticky circle at the center of the domain which is not aligned with the grid.  This problem exhibits shear localization at the edges of the sticky region and is most extreme at high aspect ratio.  We choose $L = \SI{80}{\kilo\metre}$ and $\alpha = 0.05^\circ$.
 
+Test $Y$ places a \SI{200}{\metre} tower with vertical walls on the top of each hump and uses an uncorrelated, but smoothely varying stickyness
+
+\begin{gather*}
+  b_Y(x,y) &=
+  \begin{cases}
+    b_A(x,y) & \text{if } b_A(x,y) < \SI{-700}{\metre} \\
+    b_A(x,y) + \SI{200}{\metre} & \text{otherwise}
+  \end{cases} \\
+  \beta_Y^2 &= \SI{1000}{\Pascal\year\per\metre} \cdot (1 + \sin(\sqrt{16*r})/sqrt{1e-2 + 16r}\cos\frac{3\hat x}{2}\cos\frac{3\hat y}{2}
+\end{gather*}
 
 
 We compare to serial incomplete factorization and 1-level additive Schwarz since these methods are presently used by several groups to solve the hydrostatic equations.
