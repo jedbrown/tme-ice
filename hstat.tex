@@ -1,16 +1,10 @@
 \documentclass[3p]{elsarticle}
-%\documentclass[a4paper]{amsart}
 \usepackage{amsmath,amssymb,bm}
 \usepackage{graphicx,url,verbatim,slashbox,multirow,hyperref}
 \usepackage{microtype}
 \usepackage{ucs}
 \usepackage[utf8x]{inputenc}
 \usepackage{siunitx}
-%\usepackage[amssymb]{SIunits}
-
-%\setlength{\textwidth}{27pc}
-%\setlength{\textheight}{43pc}
-%\linespread{1.6}
 
 \newcommand{\EE}{\mathcal E}
 \newcommand{\KK}{\mathsf K}
@@ -53,8 +47,6 @@
     hydrostatic, ice sheet, Newton-Krylov, multigrid, preconditioning
   \end{keyword}
   \thispagestyle{plain}
-  \pagestyle{myheadings}
-  \markboth{J. BROWN}{TME for hydrostatic ice sheet flow}
 \end{frontmatter}
 
 \section{Introduction}
@@ -271,16 +263,22 @@ This tests the quality of the coarse grids even when large geometric errors are 
   % petscplot -m paper -t snes --solve-spec '1:' y.10km.m10p6l5.ew.log -o ../figures/y-10km-m10p6l5-ew.pdf
 \end{figure}
 
-Finally, test $Z$ sets $b_Z = b_A$ and $\beta_Z^2 = \beta_X^2$ and is a regime where the hydrostatic equations are valid, provided the wavelength $L$ is not too small.
+Finally, test $Z$ sets $b_Z = b_A$, $\beta_Z^2 = \beta_X^2$, and nonlinear sliding with exponent $m=0.3$, and is a regime where the hydrostatic equations are valid, provided the wavelength $L$ is not too small.  We use this case to explore linear solve performance in Figure~\ref{fig:linear}.
+
+\begin{figure}
+  \centering\caption{Average number of Krylov iterations per nonlinear iteration.  Each nonlinear system was solved to a relative tolerance of $10^{-2}$.}\label{fig:linear}
+  \includegraphics{figures/linear4-mine}
+  % ~/petscplot/petscplot -m paper --width-pt 380 -t algorithmic z.m6p4l5.newton.icc.log : z.m6p4l5.picard.asm8.icc1.log : z.m6p4l6.picard.icc.log : z.m6p4l6.mult.n8.o0.r2.log --legend-labels 'Newton, ICC(0), serial:Picard ASM(1)/ICC(1), 8 subdomains:Picard ICC(0) serial:Newton, V-cycle, 8 subdomains' -o ../figures/linear4-mine.pdf
+\end{figure}
 
 \subsection{Parallel Scalability on Blue Gene/P}\label{sec:pscaling}
-We investigate strong scaling using test $Z$ at \SI{80}{\kilo\metre} with basal friction exponent $m= 0.3$ on Shaheen, a Blue Gene/P at KAUST.  Two problem sizes are solved, with coarse meshes of $16\times 16\times 3$ and $32\times 32\times 3$ respectively.  Both use 5 levels of isotropic refinement to reach target meshes of $256\times 256\times 48$ and $512\times 512\times 48$, the latter with nominal element sizes of $156\times 156\times 21$ meters.  The coarse problems are solved redundantly in each case, and also using the $XX^T$ direct solver of~\cite{tufo2001fast} (TFS) which exhibits significantly better scalability.  Figure~\ref{fig:shaheen} shows strong (fixed global problem size) and weak (fixed subdomain problem size) scalability. For the latter, the size of the coarse grid problem was held constant and additional levels were added.
+We investigate strong scaling using test $Z$ at \SI{80}{\kilo\metre} with basal friction exponent $m= 0.3$ on Shaheen, a Blue Gene/P at the KAUST Supercomputing Laboratory.  Two problem sizes are solved, with coarse meshes of $16\times 16\times 3$ and $32\times 32\times 3$ respectively.  Both use 5 levels of isotropic refinement to reach target meshes of $256\times 256\times 48$ and $512\times 512\times 48$, the latter with nominal element sizes of $156\times 156\times 21$ meters.  The coarse problems are solved redundantly in each case, and also using the $XX^T$ direct solver of~\cite{tufo2001fast} (TFS) which exhibits significantly better scalability.  Figure~\ref{fig:shaheen} shows strong (fixed global problem size) and weak (fixed subdomain problem size) scalability. For the latter, the size of the coarse grid problem was held constant and additional levels were added.
 
 \begin{figure}
   \centering\caption{Strong (top) and weak scaling on Shaheen, the straight lines on the strong scaling plot have slope $-1$ which is optimal.  Both use grid sequencing, but the strong scaling case shows only the nonlinear solve on the finest level while the weak scaling plot includes all the grid-sequenced problems.}\label{fig:shaheen}
-\includegraphics{figures/shaheen-strong} \\
-\includegraphics{figures/shaheen-weak}
+  \includegraphics{figures/shaheen-strong} \\
   % /petscplot -m paper --events SNESSolve --stages 3 -t strong fast_strong_*_16_4_*.out : fast_strong_*_32_4_*.out : strong_tfs_*.out --legend-labels '$256\times 256\times 48$ Redundant:$512\times 512\times 48$ Redundant:$512\times 512\times 48$ TFS' -o ../figures/shaheen-strong.pdf
+  \includegraphics{figures/shaheen-weak}
   % ~/petscplot/petscplot -m paper --events SNESSolve --stages 1 -t weak weak_[345]*.out --title '' --legend-labels '$32\times 32\times 3$ coarse level, Redundant' -o ../figures/shaheen-weak.pdf --width-pt 234
 \end{figure}
 
@@ -326,18 +324,8 @@ A different refinement involves a $10\times 10\times 1$ coarse grid and semi-ref
 We have presented a grid-sequenced Newton-Krylov multigrid algorithm for solving the hydrostatic equations for ice sheet flow.  It demonstrates ``textbook multigrid efficiency'' under extreme topography and basal conditions, and offers $\bigO(1000)$ speedups relative to Picard linearization and 1-level domain decomposition with incomplete factorization which is currently used to solve these equations~\cite{seacism,issm,johnson2007modeling,desmedt2010using,pattyn2003ntd}.
 
 \nonumber\section{Acknowledgments} This work was supported by Swiss National Science Foundation Grant 200021-113503/1
-and U.S. Department of Energy Office of Advanced Scientific Computing Research grant {\bf ?? SISPHUS ??} and KAUST Shaheen
-supercomputing facility {\bf ?? What here, Aron ??}.
+and U.S. Department of Energy Office of Advanced Scientific Computing Research grant {\bf ?? SISPHUS ??} and Shaheen Supercomputing Laboratory at KAUST.
 
 \bibliographystyle{model1-num-names}
 \bibliography{flow}
 \end{document}
-
-
-% mpiexec.mpd -n 8 ./ex48 -M 16 -P 3 -thi_nlevels 6 -thi_hom x -thi_L 80e3 -pc_mg_type multiplicative -ksp_gmres_restart 60 -snes_monitor -ksp_monitor -ksp_converged_reason -mg_levels_pc_type asm -mg_levels_pc_asm_overlap 0 -da_refine_hierarchy_x 1,1,4,4,4 -da_refine_hierarchy_y 2,2,1,1,1 -da_refine_hierarchy_z 2,2,1,1,1 -dmmg_grid_sequence -mg_levels_1_sub_pc_type cholesky -mg_levels_2_sub_pc_type cholesky -thi_mat_type sbaij -log_summary
-% Level 0 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  16x 16x  3 (     768), size (m) 5000 x 5000 x 500
-% Level 1 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  32x 32x  3 (    3072), size (m) 2500 x 2500 x 500
-% Level 2 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  64x 64x  3 (   12288), size (m) 1250 x 1250 x 500
-% Level 3 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  64x 64x  9 (   36864), size (m) 1250 x 1250 x 125
-% Level 4 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  64x 64x 33 (  135168), size (m) 1250 x 1250 x 31.25
-% Level 5 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  64x 64x129 (  528384), size (m) 1250 x 1250 x 7.8125
