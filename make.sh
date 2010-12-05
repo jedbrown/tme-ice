@@ -1,6 +1,6 @@
 #!/bin/sh
 
-petscplot="petscplot/petscplot --mode paper"
+petscplot="python2.7 petscplot/petscplot --mode paper"
 
 generate_figures() {
     mkdir -p figures
