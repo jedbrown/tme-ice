@@ -1,0 +1,556 @@
+Level 0 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  16 x  16 x   4 (    1024), size (m) 5000 x 5000 x 333.333
+Level 1 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  32 x  32 x   7 (    7168), size (m) 2500 x 2500 x 166.667
+Level 2 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  64 x  64 x  13 (   53248), size (m) 1250 x 1250 x 83.3333
+Level 3 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements 128 x 128 x  25 (  409600), size (m) 625 x 625 x 41.6667
+Level 4 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements 256 x 256 x  49 ( 3211264), size (m) 312.5 x 312.5 x 20.8333
+          0 SNES Function norm 1.890950239303e+03 
+Linear solve converged due to CONVERGED_ITS iterations 1
+          1 SNES Function norm 1.757287341813e+03 
+Linear solve converged due to CONVERGED_ITS iterations 1
+          2 SNES Function norm 1.465775464679e+03 
+Linear solve converged due to CONVERGED_ITS iterations 1
+          3 SNES Function norm 1.063685356286e+03 
+Linear solve converged due to CONVERGED_ITS iterations 1
+          4 SNES Function norm 5.748318651833e+02 
+Linear solve converged due to CONVERGED_ITS iterations 1
+          5 SNES Function norm 1.532424959762e+02 
+Linear solve converged due to CONVERGED_ITS iterations 1
+          6 SNES Function norm 9.041261408271e+00 
+Linear solve converged due to CONVERGED_ITS iterations 1
+          7 SNES Function norm 2.886591244043e-02 
+Linear solve converged due to CONVERGED_ITS iterations 1
+          8 SNES Function norm 3.086920713512e-07 
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE
+        0 SNES Function norm 6.890537207436e+02 
+          0 KSP Residual norm 6.890537207436e+02 
+          1 KSP Residual norm 1.381604853865e+01 
+          2 KSP Residual norm 9.619429115741e-01 
+Linear solve converged due to CONVERGED_RTOL iterations 2
+        1 SNES Function norm 5.667148037819e+01 
+          0 KSP Residual norm 5.667148037819e+01 
+          1 KSP Residual norm 3.846189665196e+00 
+          2 KSP Residual norm 4.781366786255e-01 
+Linear solve converged due to CONVERGED_RTOL iterations 2
+        2 SNES Function norm 8.978336014470e+00 
+          0 KSP Residual norm 8.978336014470e+00 
+          1 KSP Residual norm 8.816267028886e-01 
+          2 KSP Residual norm 1.155838138888e-01 
+          3 KSP Residual norm 2.451534474322e-02 
+Linear solve converged due to CONVERGED_RTOL iterations 3
+        3 SNES Function norm 1.292304936514e+00 
+          0 KSP Residual norm 1.292304936514e+00 
+          1 KSP Residual norm 1.034051066161e-01 
+          2 KSP Residual norm 9.696473957217e-03 
+Linear solve converged due to CONVERGED_RTOL iterations 2
+        4 SNES Function norm 4.628828197455e-02 
+          0 KSP Residual norm 4.628828197455e-02 
+          1 KSP Residual norm 3.710887207174e-03 
+          2 KSP Residual norm 5.621967186054e-04 
+          3 KSP Residual norm 9.688673661672e-05 
+Linear solve converged due to CONVERGED_RTOL iterations 3
+        5 SNES Function norm 1.202741433444e-04 
+          0 KSP Residual norm 1.202741433444e-04 
+          1 KSP Residual norm 2.310587923308e-05 
+          2 KSP Residual norm 3.879988259674e-06 
+          3 KSP Residual norm 3.188169699060e-07 
+Linear solve converged due to CONVERGED_RTOL iterations 3
+        6 SNES Function norm 3.187983316827e-07 
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE
+      0 SNES Function norm 2.488680090082e+02 
+        0 KSP Residual norm 2.488680090082e+02 
+        1 KSP Residual norm 8.456551138196e+00 
+        2 KSP Residual norm 4.643242760628e-01 
+Linear solve converged due to CONVERGED_RTOL iterations 2
+      1 SNES Function norm 7.735713117542e+00 
+        0 KSP Residual norm 7.735713117542e+00 
+        1 KSP Residual norm 1.266737516669e+00 
+        2 KSP Residual norm 2.904349728469e-01 
+        3 KSP Residual norm 6.786724850048e-02 
+Linear solve converged due to CONVERGED_RTOL iterations 3
+      2 SNES Function norm 1.898956791065e+00 
+        0 KSP Residual norm 1.898956791065e+00 
+        1 KSP Residual norm 1.315559479981e-01 
+        2 KSP Residual norm 3.118117187696e-02 
+        3 KSP Residual norm 7.983564213951e-03 
+Linear solve converged due to CONVERGED_RTOL iterations 3
+      3 SNES Function norm 3.688195203135e-01 
+        0 KSP Residual norm 3.688195203135e-01 
+        1 KSP Residual norm 2.794922220670e-02 
+        2 KSP Residual norm 7.159991699080e-03 
+        3 KSP Residual norm 2.050073892604e-03 
+Linear solve converged due to CONVERGED_RTOL iterations 3
+      4 SNES Function norm 2.381218945562e-02 
+        0 KSP Residual norm 2.381218945562e-02 
+        1 KSP Residual norm 1.653966962480e-03 
+        2 KSP Residual norm 7.371736103987e-04 
+        3 KSP Residual norm 3.109454063765e-04 
+        4 KSP Residual norm 1.086874181923e-04 
+Linear solve converged due to CONVERGED_RTOL iterations 4
+      5 SNES Function norm 1.727194308745e-04 
+        0 KSP Residual norm 1.727194308745e-04 
+        1 KSP Residual norm 4.701313724388e-05 
+        2 KSP Residual norm 2.031031789251e-05 
+        3 KSP Residual norm 7.963220414481e-06 
+        4 KSP Residual norm 2.699473152430e-06 
+        5 KSP Residual norm 7.268255853837e-07 
+Linear solve converged due to CONVERGED_RTOL iterations 5
+      6 SNES Function norm 7.267103711432e-07 
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE
+    0 SNES Function norm 8.891305236419e+01 
+      0 KSP Residual norm 8.891305236419e+01 
+      1 KSP Residual norm 2.817385340122e+00 
+      2 KSP Residual norm 1.714183730898e-01 
+Linear solve converged due to CONVERGED_RTOL iterations 2
+    1 SNES Function norm 1.073349396527e+00 
+      0 KSP Residual norm 1.073349396527e+00 
+      1 KSP Residual norm 2.551146312672e-01 
+      2 KSP Residual norm 5.562456167438e-02 
+      3 KSP Residual norm 1.517528438453e-02 
+      4 KSP Residual norm 6.017531864231e-03 
+Linear solve converged due to CONVERGED_RTOL iterations 4
+    2 SNES Function norm 1.920745492895e-01 
+      0 KSP Residual norm 1.920745492895e-01 
+      1 KSP Residual norm 1.752840905216e-02 
+      2 KSP Residual norm 4.280506584694e-03 
+      3 KSP Residual norm 1.572586630958e-03 
+Linear solve converged due to CONVERGED_RTOL iterations 3
+    3 SNES Function norm 1.264663199466e-02 
+      0 KSP Residual norm 1.264663199466e-02 
+      1 KSP Residual norm 1.642209588406e-03 
+      2 KSP Residual norm 6.621705867382e-04 
+      3 KSP Residual norm 2.905095776943e-04 
+      4 KSP Residual norm 1.489223817365e-04 
+      5 KSP Residual norm 5.736364981695e-05 
+Linear solve converged due to CONVERGED_RTOL iterations 5
+    4 SNES Function norm 1.965664414094e-04 
+      0 KSP Residual norm 1.965664414094e-04 
+      1 KSP Residual norm 3.188849586880e-05 
+      2 KSP Residual norm 1.746419277534e-05 
+      3 KSP Residual norm 7.050089992237e-06 
+      4 KSP Residual norm 2.531323021249e-06 
+      5 KSP Residual norm 9.927235326456e-07 
+Linear solve converged due to CONVERGED_RTOL iterations 5
+    5 SNES Function norm 9.916696249546e-07 
+      0 KSP Residual norm 9.916696249546e-07 
+      1 KSP Residual norm 4.072595707093e-07 
+      2 KSP Residual norm 1.987060340239e-07 
+      3 KSP Residual norm 7.961806740589e-08 
+      4 KSP Residual norm 3.617999879702e-08 
+      5 KSP Residual norm 1.482816296602e-08 
+      6 KSP Residual norm 4.941004431385e-09 
+Linear solve converged due to CONVERGED_RTOL iterations 6
+    6 SNES Function norm 4.941080276341e-09 
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE
+  0 SNES Function norm 3.159932834591e+01 
+    0 KSP Residual norm 3.159932834591e+01 
+    1 KSP Residual norm 8.466845869397e-01 
+    2 KSP Residual norm 6.154745061666e-02 
+Linear solve converged due to CONVERGED_RTOL iterations 2
+  1 SNES Function norm 1.434229997458e-01 
+    0 KSP Residual norm 1.434229997458e-01 
+    1 KSP Residual norm 3.360331400235e-02 
+    2 KSP Residual norm 9.834610897707e-03 
+    3 KSP Residual norm 3.458206311865e-03 
+    4 KSP Residual norm 1.240458729251e-03 
+Linear solve converged due to CONVERGED_RTOL iterations 4
+  2 SNES Function norm 9.243006492013e-03 
+    0 KSP Residual norm 9.243006492013e-03 
+    1 KSP Residual norm 2.116871278982e-03 
+    2 KSP Residual norm 6.247343089215e-04 
+    3 KSP Residual norm 3.251895149401e-04 
+    4 KSP Residual norm 1.318728025304e-04 
+    5 KSP Residual norm 5.473915880756e-05 
+Linear solve converged due to CONVERGED_RTOL iterations 5
+  3 SNES Function norm 2.955305116608e-04 
+    0 KSP Residual norm 2.955305116608e-04 
+    1 KSP Residual norm 5.839729241965e-05 
+    2 KSP Residual norm 2.751811622784e-05 
+    3 KSP Residual norm 1.654591500688e-05 
+    4 KSP Residual norm 6.092790380259e-06 
+    5 KSP Residual norm 3.096794543416e-06 
+    6 KSP Residual norm 1.380545946890e-06 
+Linear solve converged due to CONVERGED_RTOL iterations 6
+  4 SNES Function norm 1.471699797799e-06 
+    0 KSP Residual norm 1.471699797799e-06 
+    1 KSP Residual norm 7.910306555856e-07 
+    2 KSP Residual norm 4.029702206990e-07 
+    3 KSP Residual norm 1.888020745809e-07 
+    4 KSP Residual norm 9.052820303319e-08 
+    5 KSP Residual norm 4.497895611369e-08 
+    6 KSP Residual norm 1.524325324180e-08 
+    7 KSP Residual norm 7.223303855793e-09 
+Linear solve converged due to CONVERGED_RTOL iterations 7
+  5 SNES Function norm 7.222908829091e-09 
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE
+Solution statistics after solve: Full
+CONVERGED_FNORM_RELATIVE: Number of Newton iterations = 5, total linear iterations = 24
+|X|_2 152736   u in [6.21764, 195.728]   v in [-4.65832, 5.18426]   c in [6.2177, 195.729] 
+Surface statistics: u in [8.286853e+00, 1.957280e+02] mean 7.833398e+01
+Global eta range   [2.5482e+10, 9.2273e+12], converged range [2.5482e+10, 5.09052e+12]
+Global beta2 range [5.43915e+09, 2.24552e+13], converged range [5.43923e+09, 1.58366e+10]
+
+    0 SNES Function norm 4.131901529273e+01 
+      0 KSP Residual norm 4.131901529273e+01 
+      1 KSP Residual norm 3.675198369981e-01 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+    1 SNES Function norm 2.486723376568e+00 
+      0 KSP Residual norm 2.486723376568e+00 
+      1 KSP Residual norm 5.023181287229e-02 
+      2 KSP Residual norm 7.164347490859e-03 
+Linear solve converged due to CONVERGED_RTOL iterations 2
+    2 SNES Function norm 1.220402695825e-02 
+      0 KSP Residual norm 1.220402695825e-02 
+      1 KSP Residual norm 3.287253545692e-03 
+      2 KSP Residual norm 1.138813077679e-03 
+      3 KSP Residual norm 4.501356060527e-04 
+      4 KSP Residual norm 1.654769161294e-04 
+      5 KSP Residual norm 5.797079605057e-05 
+Linear solve converged due to CONVERGED_RTOL iterations 5
+    3 SNES Function norm 8.627862585479e-05 
+      0 KSP Residual norm 8.627862585479e-05 
+      1 KSP Residual norm 3.442734105093e-05 
+      2 KSP Residual norm 1.352245189613e-05 
+      3 KSP Residual norm 5.395247606320e-06 
+      4 KSP Residual norm 1.841904870809e-06 
+      5 KSP Residual norm 7.162733038095e-07 
+Linear solve converged due to CONVERGED_RTOL iterations 5
+    4 SNES Function norm 7.161249111298e-07 
+      0 KSP Residual norm 7.161249111298e-07 
+      1 KSP Residual norm 3.816591929361e-07 
+      2 KSP Residual norm 1.507532335677e-07 
+      3 KSP Residual norm 6.040197028746e-08 
+      4 KSP Residual norm 2.842019418989e-08 
+      5 KSP Residual norm 1.260316235121e-08 
+      6 KSP Residual norm 4.896080946590e-09 
+Linear solve converged due to CONVERGED_RTOL iterations 6
+    5 SNES Function norm 4.895923832841e-09 
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE
+Solution statistics after solve: Fine-1
+CONVERGED_FNORM_RELATIVE: Number of Newton iterations = 5, total linear iterations = 19
+|X|_2 54419.5   u in [6.2178, 195.628]   v in [-4.65821, 5.1834]   c in [6.21785, 195.629] 
+Surface statistics: u in [8.287820e+00, 1.956280e+02] mean 7.830505e+01
+Global eta range   [2.5482e+10, 9.2273e+12], converged range [2.60519e+10, 3.09791e+12]
+Global beta2 range [5.42066e+09, 2.24552e+13], converged range [5.47317e+09, 1.57354e+10]
+
+  0 SNES Function norm 3.159932834591e+01 
+    0 KSP Residual norm 3.159932834591e+01 
+    1 KSP Residual norm 8.466845869367e-01 
+    2 KSP Residual norm 6.154745064295e-02 
+Linear solve converged due to CONVERGED_RTOL iterations 2
+  1 SNES Function norm 1.434230001389e-01 
+    0 KSP Residual norm 1.434230001389e-01 
+    1 KSP Residual norm 3.360331399111e-02 
+    2 KSP Residual norm 9.834610842308e-03 
+    3 KSP Residual norm 3.458206296529e-03 
+    4 KSP Residual norm 1.240458706333e-03 
+Linear solve converged due to CONVERGED_RTOL iterations 4
+  2 SNES Function norm 9.243006516647e-03 
+    0 KSP Residual norm 9.243006516647e-03 
+    1 KSP Residual norm 2.116871274469e-03 
+    2 KSP Residual norm 6.247343082390e-04 
+    3 KSP Residual norm 3.251895063129e-04 
+    4 KSP Residual norm 1.318727963738e-04 
+    5 KSP Residual norm 5.473915933846e-05 
+Linear solve converged due to CONVERGED_RTOL iterations 5
+  3 SNES Function norm 2.955305105955e-04 
+    0 KSP Residual norm 2.955305105955e-04 
+    1 KSP Residual norm 5.839729350425e-05 
+    2 KSP Residual norm 2.751811659392e-05 
+    3 KSP Residual norm 1.654591496917e-05 
+    4 KSP Residual norm 6.092790591286e-06 
+    5 KSP Residual norm 3.096794687351e-06 
+    6 KSP Residual norm 1.380545888604e-06 
+Linear solve converged due to CONVERGED_RTOL iterations 6
+  4 SNES Function norm 1.471700185703e-06 
+    0 KSP Residual norm 1.471700185703e-06 
+    1 KSP Residual norm 7.910306477101e-07 
+    2 KSP Residual norm 4.029702895452e-07 
+    3 KSP Residual norm 1.888020743598e-07 
+    4 KSP Residual norm 9.052819650421e-08 
+    5 KSP Residual norm 4.497896747324e-08 
+    6 KSP Residual norm 1.524325805226e-08 
+    7 KSP Residual norm 7.223304279668e-09 
+Linear solve converged due to CONVERGED_RTOL iterations 7
+  5 SNES Function norm 7.222797073802e-09 
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE
+Solution statistics after solve: Fine
+CONVERGED_FNORM_RELATIVE: Number of Newton iterations = 5, total linear iterations = 24
+|X|_2 152736   u in [6.21764, 195.728]   v in [-4.65832, 5.18426]   c in [6.2177, 195.729] 
+Surface statistics: u in [8.286853e+00, 1.957280e+02] mean 7.833398e+01
+Global eta range   [2.5482e+10, 9.2273e+12], converged range [2.5482e+10, 5.09052e+12]
+Global beta2 range [5.42066e+09, 2.24552e+13], converged range [5.43923e+09, 1.58366e+10]
+
+************************************************************************************************************************
+***             WIDEN YOUR WINDOW TO 120 CHARACTERS.  Use 'enscript -r -fCourier9' to print this document            ***
+************************************************************************************************************************
+
+---------------------------------------------- PETSc Performance Summary: ----------------------------------------------
+
+./ex48 on a bgp-xlc-r named ionode60 with 32 processors, by Unknown Tue Sep 14 00:23:58 2010
+Using Petsc Development HG revision: aeb2eea2e3ddfd0635951d6560aa7114704dab25  HG Date: Sat Aug 21 15:26:55 2010 -0500
+
+                         Max       Max/Min        Avg      Total 
+Time (sec):           3.852e+02      1.00000   3.852e+02
+Objects:              8.660e+02      1.00000   8.660e+02
+Flops:                2.356e+10      1.01691   2.337e+10  7.478e+11
+Flops/sec:            6.117e+07      1.01691   6.066e+07  1.941e+09
+MPI Messages:         2.617e+04      1.01308   2.585e+04  8.272e+05
+MPI Message Lengths:  2.085e+08      1.00100   8.060e+03  6.668e+09
+MPI Reductions:       4.276e+03      1.00000
+
+Flop counting convention: 1 flop = 1 real number operation of type (multiply/divide/add/subtract)
+                            e.g., VecAXPY() for real vectors of length N --> 2N flops
+                            and VecAXPY() for complex vectors of length N --> 8N flops
+
+Summary of Stages:   ----- Time ------  ----- Flops -----  --- Messages ---  -- Message Lengths --  -- Reductions --
+                        Avg     %Total     Avg     %Total   counts   %Total     Avg         %Total   counts   %Total 
+ 0:      Main Stage: 1.0054e-01   0.0%  8.0511e+07   0.0%  8.740e+02   0.1%  1.141e+00        0.0%  1.500e+01   0.4% 
+ 1:      Full solve: 2.1726e+02  56.4%  4.4074e+11  58.9%  5.402e+05  65.3%  4.572e+03       56.7%  2.619e+03  61.2% 
+ 2:    Fine-1 solve: 2.4985e+01   6.5%  5.2765e+10   7.1%  1.147e+05  13.9%  7.536e+02        9.3%  5.380e+02  12.6% 
+ 3: Fine-only solve: 1.4287e+02  37.1%  2.5417e+11  34.0%  1.715e+05  20.7%  2.733e+03       33.9%  8.460e+02  19.8% 
+
+------------------------------------------------------------------------------------------------------------------------
+See the 'Profiling' chapter of the users' manual for details on interpreting output.
+Phase summary info:
+   Count: number of times phase was executed
+   Time and Flops: Max - maximum over all processors
+                   Ratio - ratio of maximum to minimum over all processors
+   Mess: number of messages sent
+   Avg. len: average message length
+   Reduct: number of global reductions
+   Global: entire computation
+   Stage: stages of a computation. Set stages with PetscLogStagePush() and PetscLogStagePop().
+      %T - percent time in this phase         %F - percent flops in this phase
+      %M - percent messages in this phase     %L - percent message lengths in this phase
+      %R - percent reductions in this phase
+   Total Mflop/s: 10e-6 * (sum of flops over all processors)/(max time over all processors)
+------------------------------------------------------------------------------------------------------------------------
+Event                Count      Time (sec)     Flops                             --- Global ---  --- Stage ---   Total
+                   Max Ratio  Max     Ratio   Max  Ratio  Mess   Avg len Reduct  %T %F %M %L %R  %T %F %M %L %R Mflop/s
+------------------------------------------------------------------------------------------------------------------------
+
+--- Event Stage 0: Main Stage
+
+VecSet                 2 1.0 5.8174e-05 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecPointwiseMult       1 1.0 5.3310e-04 1.2 2.56e+04 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  1  0  0  0  1537
+VecScatterBegin        2 1.0 1.4901e-04 1.0 0.00e+00 0.0 1.9e+02 4.9e+03 0.0e+00  0  0  0  0  0   0  0 22100  0     0
+VecScatterEnd          2 1.0 8.2326e-04 3.8 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatMult                1 1.0 1.3978e-02 1.0 1.14e+06 1.0 9.6e+01 4.9e+03 0.0e+00  0  0  0  0  0  14 46 11 50  0  2621
+MatMultTranspose       1 1.0 1.7599e-02 1.0 1.35e+06 1.0 9.6e+01 4.9e+03 0.0e+00  0  0  0  0  0  17 53 11 50  0  2447
+
+--- Event Stage 1: Full solve
+
+VecDot                31 1.0 4.4943e-02 4.5 2.36e+06 1.0 0.0e+00 0.0e+00 3.1e+01  0  0  0  0  1   0  0  0  0  1  1681
+VecMDot              544 1.0 8.2528e-01 3.5 6.02e+07 1.0 0.0e+00 0.0e+00 5.4e+02  0  0  0  0 13   0  0  0  0 21  2333
+VecNorm             1323 1.0 3.3785e+00 1.1 8.15e+07 1.0 0.0e+00 0.0e+00 1.3e+03  1  0  0  0 31   1  1  0  0 51   772
+VecScale            1027 1.0 4.0587e-01 1.0 3.21e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  2528
+VecCopy              576 1.0 8.3300e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecSet              5735 1.0 1.8962e-01 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecAXPY              709 1.0 4.0940e-01 1.0 4.04e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  3157
+VecAYPX              226 1.0 1.1716e-01 1.0 6.34e+06 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  1731
+VecWAXPY              31 1.0 2.6332e-02 1.0 1.18e+06 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  1434
+VecMAXPY            1027 1.0 7.6059e-01 1.0 9.66e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  1  0  0  0  4064
+VecPointwiseMult      56 1.0 3.9387e-03 1.1 1.74e+05 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  1411
+VecScatterBegin     1902 1.0 2.5220e-01 1.0 0.00e+00 0.0 4.5e+05 2.7e+03 0.0e+00  0  0 55 19  0   0  0 84 33  0     0
+VecScatterEnd       1902 1.0 1.9402e+00 6.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecReduceArith        10 1.0 3.2857e-02 1.1 9.21e+05 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0   897
+VecReduceComm          5 1.0 6.7484e-03 5.6 0.00e+00 0.0 0.0e+00 0.0e+00 5.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecNormalize         920 1.0 2.5976e+00 1.2 7.61e+07 1.0 0.0e+00 0.0e+00 9.2e+02  1  0  0  0 22   1  1  0  0 35   937
+MatMult             1031 1.0 3.1957e+01 1.0 3.46e+09 1.1 2.6e+05 4.0e+03 0.0e+00  8 14 32 16  0  14 24 49 28  0  3358
+MatMultAdd           226 1.0 5.5050e-01 1.0 4.24e+07 1.0 2.2e+04 9.5e+02 0.0e+00  0  0  3  0  0   0  0  4  1  0  2465
+MatMultTranspose     286 1.0 1.1958e+00 1.7 5.30e+07 1.0 2.7e+04 9.4e+02 0.0e+00  0  0  3  0  0   0  0  5  1  0  1418
+MatSolve            1230 1.0 2.6016e+01 1.0 3.39e+09 1.0 0.0e+00 0.0e+00 0.0e+00  7 15  0  0  0  12 25  0  0  0  4171
+MatLUFactorSym         5 1.0 3.9259e-01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 5.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatLUFactorNum        31 1.0 5.7086e+01 1.0 5.46e+09 1.0 0.0e+00 0.0e+00 0.0e+00 15 23  0  0  0  26 40  0  0  0  3061
+MatCholFctrSym         4 1.0 3.1784e-03 1.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatCholFctrNum        56 1.0 1.0582e+01 1.0 1.15e+09 1.0 0.0e+00 0.0e+00 0.0e+00  3  5  0  0  0   5  8  0  0  0  3478
+MatICCFactorSym        6 1.0 2.2120e-01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyBegin     127 1.0 1.2723e+00 4.0 0.00e+00 0.0 2.5e+04 7.0e+04 2.5e+02  0  0  3 26  6   0  0  5 46 10     0
+MatAssemblyEnd       127 1.0 1.0640e+00 1.6 0.00e+00 0.0 5.6e+03 2.0e+03 8.8e+01  0  0  1  0  2   0  0  1  0  3     0
+MatGetRowIJ           42 1.0 7.3268e-03 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatGetOrdering        42 1.0 6.6178e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 9.4e+01  0  0  0  0  2   0  0  0  0  4     0
+MatZeroEntries        87 1.0 6.4652e-02 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatGetRedundant       31 1.0 4.4963e-01 1.0 0.00e+00 0.0 4.1e+04 1.9e+04 1.0e+01  0  0  5 12  0   0  0  8 20  0     0
+SNESSolve              5 1.0 2.1494e+02 1.0 1.39e+10 1.0 5.3e+05 7.1e+03 2.4e+03 56 59 64 57 55  99100 98100 90  2050
+SNESLineSearch        31 1.0 2.4110e+01 1.0 1.37e+08 1.1 2.4e+04 3.7e+03 1.2e+02  6  1  3  1  3  11  1  4  2  5   177
+SNESFunctionEval      36 1.0 2.7042e+01 1.0 0.00e+00 0.0 1.8e+04 3.4e+03 1.0e+01  7  0  2  1  0  12  0  3  2  0     0
+SNESJacobianEval      31 1.0 5.4500e+01 1.0 9.22e+06 1.0 5.3e+04 3.4e+04 2.4e+02 14  0  6 27  5  25  0 10 47  9     5
+KSPGMRESOrthog       544 1.0 1.2932e+00 1.8 1.20e+08 1.0 0.0e+00 0.0e+00 5.4e+02  0  1  0  0 13   1  1  0  0 21  2978
+KSPSetup             205 1.0 1.5882e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+KSPSolve              31 1.0 1.3179e+02 1.0 1.37e+10 1.0 4.5e+05 4.2e+03 1.9e+03 34 58 54 28 46  61 99 83 50 74  3308
+PCSetUp               87 1.0 6.8833e+01 1.0 6.61e+09 1.0 5.1e+04 1.5e+04 1.7e+02 18 28  6 12  4  32 48  9 21  7  3073
+PCSetUpOnBlocks      452 1.0 1.0852e+01 1.0 1.15e+09 1.0 0.0e+00 0.0e+00 7.8e+01  3  5  0  0  2   5  8  0  0  3  3391
+PCApply               92 1.0 6.7494e+01 1.0 7.57e+09 1.0 3.8e+05 2.5e+03 1.7e+03 18 32 45 14 39  31 54 70 25 64  3548
+
+--- Event Stage 2: Fine-1 solve
+
+VecDot                 5 1.0 7.4744e-03 6.4 2.56e+05 1.0 0.0e+00 0.0e+00 5.0e+00  0  0  0  0  0   0  0  0  0  1  1096
+VecMDot              133 1.0 1.1144e-01 4.5 5.05e+06 1.0 0.0e+00 0.0e+00 1.3e+02  0  0  0  0  3   0  0  0  0 25  1450
+VecNorm              319 1.0 3.7007e-01 1.3 7.32e+06 1.0 0.0e+00 0.0e+00 3.2e+02  0  0  0  0  7   1  0  0  0 59   633
+VecScale             252 1.0 3.7185e-02 1.0 2.85e+06 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  2450
+VecCopy              134 1.0 8.7261e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecSet              1416 1.0 2.2377e-02 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecAXPY              176 1.0 3.7317e-02 1.0 3.60e+06 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  3091
+VecAYPX               57 1.0 1.1346e-02 1.0 5.58e+05 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  1574
+VecWAXPY               5 1.0 3.1292e-03 1.1 1.28e+05 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  1309
+VecMAXPY             252 1.0 7.5134e-02 1.1 8.25e+06 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  1  0  0  0  3515
+VecPointwiseMult      15 1.0 4.9210e-04 1.1 1.92e+04 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  1249
+VecScatterBegin      451 1.0 4.5082e-02 1.0 0.00e+00 0.0 1.0e+05 1.9e+03 0.0e+00  0  0 13  3  0   0  0 91 32  0     0
+VecScatterEnd        451 1.0 2.9514e-01 5.8 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
+VecReduceArith         2 1.0 3.5520e-03 1.1 1.02e+05 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0   923
+VecReduceComm          1 1.0 2.1670e-0365.4 0.00e+00 0.0 0.0e+00 0.0e+00 1.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecNormalize         228 1.0 2.9508e-01 1.4 6.70e+06 1.0 0.0e+00 0.0e+00 2.3e+02  0  0  0  0  5   1  0  0  0 42   726
+MatMult              252 1.0 2.7838e+00 1.1 3.07e+08 1.1 6.5e+04 2.5e+03 0.0e+00  1  1  8  2  0  11 18 56 26  0  3354
+MatMultAdd            57 1.0 5.2434e-02 1.0 3.71e+06 1.0 5.5e+03 5.9e+02 0.0e+00  0  0  1  0  0   0  0  5  1  0  2264
+MatMultTranspose      72 1.0 1.6493e-01 2.4 4.69e+06 1.0 6.9e+03 5.9e+02 0.0e+00  0  0  1  0  0   0  0  6  1  0   909
+MatSolve             304 1.0 2.2195e+00 1.0 3.09e+08 1.0 0.0e+00 0.0e+00 0.0e+00  1  1  0  0  0   9 19  0  0  0  4456
+MatLUFactorNum         5 1.0 9.2211e+00 1.0 8.81e+08 1.0 0.0e+00 0.0e+00 0.0e+00  2  4  0  0  0  37 53  0  0  0  3056
+MatCholFctrNum        15 1.0 1.1978e+00 1.0 1.31e+08 1.0 0.0e+00 0.0e+00 0.0e+00  0  1  0  0  0   5  8  0  0  0  3492
+MatAssemblyBegin      25 1.0 1.9306e-01 2.3 0.00e+00 0.0 5.8e+03 5.4e+04 5.5e+01  0  0  1  5  1   0  0  5 50 10     0
+MatAssemblyEnd        25 1.0 1.6187e-01 2.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatGetRowIJ           10 1.0 5.0068e-05 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatGetOrdering        10 1.0 4.4918e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 2.0e+01  0  0  0  0  0   0  0  0  0  4     0
+MatZeroEntries        20 1.0 7.2308e-03 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatGetRedundant        5 1.0 7.0883e-02 1.1 0.00e+00 0.0 5.0e+03 2.3e+04 0.0e+00  0  0  1  2  0   0  0  4 19  0     0
+SNESSolve              1 1.0 2.4985e+01 1.0 1.66e+09 1.0 1.1e+05 5.4e+03 5.4e+02  6  7 14  9 13 100100100100100  2112
+SNESLineSearch         5 1.0 2.5787e+00 1.0 1.48e+07 1.1 3.8e+03 4.2e+03 2.0e+01  1  0  0  0  0  10  1  3  3  4   176
+SNESFunctionEval       6 1.0 2.9052e+00 1.0 0.00e+00 0.0 3.1e+03 3.8e+03 0.0e+00  1  0  0  0  0  12  0  3  2  0     0
+SNESJacobianEval       5 1.0 5.9160e+00 1.0 9.96e+05 1.0 1.2e+04 2.6e+04 5.5e+01  2  0  1  5  1  24  0 11 51 10     5
+KSPGMRESOrthog       133 1.0 1.5849e-01 2.3 1.01e+07 1.0 0.0e+00 0.0e+00 1.3e+02  0  0  0  0  3   1  1  0  0 25  2039
+KSPSetup              45 1.0 2.0289e-04 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+KSPSolve               5 1.0 1.5992e+01 1.0 1.65e+09 1.0 9.8e+04 2.9e+03 4.6e+02  4  7 12  4 11  64 99 85 46 85  3268
+PCSetUp               20 1.0 1.0496e+01 1.0 1.01e+09 1.0 5.0e+03 2.3e+04 2.0e+01  3  4  1  2  0  42 61  4 19  4  3083
+PCSetUpOnBlocks      114 1.0 1.2041e+00 1.0 1.31e+08 1.0 0.0e+00 0.0e+00 2.0e+01  0  1  0  0  0   5  8  0  0  4  3474
+PCApply               19 1.0 6.1953e+00 1.0 7.07e+08 1.0 8.8e+04 1.7e+03 4.2e+02  2  3 11  2 10  25 42 77 24 78  3585
+
+--- Event Stage 3: Fine-only solve
+
+VecDot                 5 1.0 3.2899e-02 4.2 2.01e+06 1.0 0.0e+00 0.0e+00 5.0e+00  0  0  0  0  0   0  0  0  0  1  1952
+VecMDot              216 1.0 6.4239e-01 3.3 5.30e+07 1.0 0.0e+00 0.0e+00 2.2e+02  0  0  0  0  5   0  1  0  0 26  2640
+VecNorm              519 1.0 2.7923e+00 1.1 7.09e+07 1.0 0.0e+00 0.0e+00 5.2e+02  1  0  0  0 12   2  1  0  0 61   812
+VecScale             413 1.0 3.5003e-01 1.0 2.79e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  2551
+VecCopy              212 1.0 6.9552e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecSet              2309 1.0 1.4943e-01 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecAXPY              293 1.0 3.5416e-01 1.0 3.51e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  3175
+VecAYPX               96 1.0 1.0022e-01 1.0 5.52e+06 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  1763
+VecWAXPY               5 1.0 2.1888e-02 1.0 1.00e+06 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  1467
+VecMAXPY             413 1.0 6.5267e-01 1.0 8.47e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  1  0  0  0  4154
+VecPointwiseMult      20 1.0 3.1700e-03 1.2 1.47e+05 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  1486
+VecScatterBegin      710 1.0 1.5208e-01 1.0 0.00e+00 0.0 1.6e+05 5.6e+03 0.0e+00  0  0 19 13  0   0  0 93 40  0     0
+VecScatterEnd        710 1.0 1.4573e+00 9.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecReduceArith         2 1.0 2.8460e-02 1.1 8.03e+05 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0   903
+VecReduceComm          1 1.0 7.1752e-03204.7 0.00e+00 0.0 0.0e+00 0.0e+00 1.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecNormalize         384 1.0 2.1402e+00 1.2 6.63e+07 1.0 0.0e+00 0.0e+00 3.8e+02  1  0  0  0  9   1  1  0  0 45   991
+MatMult              413 1.0 2.7821e+01 1.0 3.01e+09 1.1 1.1e+05 7.4e+03 0.0e+00  7 13 13 12  0  19 37 62 35  0  3368
+MatMultAdd            96 1.0 4.6805e-01 1.0 3.70e+07 1.0 9.2e+03 1.7e+03 0.0e+00  0  0  1  0  0   0  0  5  1  0  2528
+MatMultTranspose     116 1.0 9.9484e-01 1.7 4.47e+07 1.0 1.1e+04 1.7e+03 0.0e+00  0  0  1  0  0   1  1  6  1  0  1437
+MatSolve             504 1.0 2.2313e+01 1.0 2.85e+09 1.0 0.0e+00 0.0e+00 0.0e+00  6 12  0  0  0  16 36  0  0  0  4091
+MatLUFactorNum         5 1.0 9.2238e+00 1.0 8.81e+08 1.0 0.0e+00 0.0e+00 0.0e+00  2  4  0  0  0   6 11  0  0  0  3055
+MatCholFctrNum        20 1.0 8.5327e+00 1.0 9.18e+08 1.0 0.0e+00 0.0e+00 0.0e+00  2  4  0  0  0   6 12  0  0  0  3443
+MatAssemblyBegin      30 1.0 8.5565e-01 4.1 0.00e+00 0.0 7.2e+03 1.7e+05 7.0e+01  0  0  1 19  2   0  0  4 55  8     0
+MatAssemblyEnd        30 1.0 6.5600e-01 2.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatGetRowIJ           15 1.0 7.6056e-05 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatGetOrdering        15 1.0 3.0757e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 3.0e+01  0  0  0  0  1   0  0  0  0  4     0
+MatZeroEntries        25 1.0 5.4327e-02 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatGetRedundant        5 1.0 7.1320e-02 1.1 0.00e+00 0.0 5.0e+03 2.3e+04 0.0e+00  0  0  1  2  0   0  0  3  5  0     0
+SNESSolve              1 1.0 1.4287e+02 1.0 8.02e+09 1.0 1.7e+05 1.3e+04 8.5e+02 37 34 21 34 20 100100100100100  1779
+SNESLineSearch         5 1.0 2.0545e+01 1.0 1.16e+08 1.0 3.8e+03 1.6e+04 2.0e+01  5  0  0  1  0  14  1  2  3  2   177
+SNESFunctionEval       6 1.0 2.3159e+01 1.0 0.00e+00 0.0 3.1e+03 1.4e+04 0.0e+00  6  0  0  1  0  16  0  2  2  0     0
+SNESJacobianEval       5 1.0 4.6307e+01 1.0 7.85e+06 1.0 1.6e+04 8.2e+04 7.0e+01 12  0  2 19  2  32  0  9 57  8     5
+KSPGMRESOrthog       216 1.0 1.0410e+00 1.8 1.06e+08 1.0 0.0e+00 0.0e+00 2.2e+02  0  0  0  0  5   1  1  0  0 26  3258
+KSPSetup              55 1.0 2.4176e-04 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+KSPSolve               5 1.0 7.2054e+01 1.0 7.89e+09 1.0 1.5e+05 6.0e+03 7.5e+02 19 33 18 14 18  50 98 88 40 89  3472
+PCSetUp               25 1.0 1.7858e+01 1.0 1.80e+09 1.0 5.0e+03 2.3e+04 3.0e+01  5  8  1  2  1  12 23  3  5  4  3223
+PCSetUpOnBlocks      192 1.0 8.5663e+00 1.0 9.18e+08 1.0 0.0e+00 0.0e+00 3.0e+01  2  4  0  0  1   6 12  0  0  4  3429
+PCApply               24 1.0 5.7230e+01 1.0 6.41e+09 1.0 1.4e+05 4.8e+03 7.0e+02 15 27 17 10 16  40 80 82 30 83  3546
+------------------------------------------------------------------------------------------------------------------------
+
+Memory usage is given in bytes:
+
+Object Type          Creations   Destructions     Memory  Descendants' Mem.
+Reports information only for process 0.
+
+--- Event Stage 0: Main Stage
+
+           Container     0              5         1500     0
+ Toy Hydrostatic Ice     0              1          500     0
+   Distributed array     0             10      1087096     0
+                 Vec     0            316     90185320     0
+         Vec Scatter     0             47        28388     0
+           Index Set     0             25       659540     0
+   IS L to G Mapping     0             20      1593424     0
+              Matrix     0             59    147174492     0
+                SNES     0              5         3740     0
+       Krylov Solver     0             35       275224     0
+      Preconditioner     0             35        18044     0
+              Viewer     0              1          400     0
+
+--- Event Stage 1: Full solve
+
+           Container     5              0            0     0
+ Toy Hydrostatic Ice     1              0            0     0
+   Distributed array    10              0            0     0
+                 Vec   395             79      4032740     0
+         Vec Scatter    47              0            0     0
+           Index Set   193            168      6352972     0
+   IS L to G Mapping    20              0            0     0
+              Matrix    59              0            0     0
+                SNES     5              0            0     0
+       Krylov Solver    35              0            0     0
+      Preconditioner    35              0            0     0
+              Viewer     1              0            0     0
+
+--- Event Stage 2: Fine-1 solve
+
+                 Vec     5              5         6780     0
+           Index Set    20             20       586000     0
+
+--- Event Stage 3: Fine-only solve
+
+                 Vec     5              5         6780     0
+           Index Set    30             30      4603800     0
+========================================================================================================================
+Average time to get PetscTime(): 3.50475e-06
+Average time for MPI_Barrier(): 2.19345e-06
+Average time for zero size MPI_Send(): 1.10641e-05
+#PETSc Option Table entries:
+-M 16
+-P 4
+-dmmg_form_function_ghost 1
+-dmmg_grid_sequence 1
+-ksp_converged_reason
+-ksp_monitor
+-ksp_rtol 1e-2
+-log_summary
+-mg_levels_1_sub_pc_type cholesky
+-pc_mg_type multiplicative
+-repeat_fine_solve 1
+-snes_converged_reason
+-snes_monitor
+-thi_L 80e3
+-thi_friction_m 0.3
+-thi_hom z
+-thi_nlevels 5
+#End of PETSc Option Table entries
+Compiled without FORTRAN kernels
+Compiled with full precision matrices (default)
+sizeof(short) 2 sizeof(int) 4 sizeof(long) 4 sizeof(void*) 4 sizeof(PetscScalar) 8
+Configure run at: Mon Sep 13 22:38:37 2010
+Configure options: --with-x=0 --with-is-color-value-type=short --with-debugging=1 --with-fortran-kernels=1 --with-mpi-dir=/bgsys/drivers/ppcfloor/comm --with-batch=1 --known-mpi-shared-libraries=1 --known-memcmp-ok --known-sizeof-char=1 --known-sizeof-void-p=4 --known-sizeof-short=2 --known-sizeof-int=4 --known-sizeof-long=4 --known-sizeof-size_t=4 --known-sizeof-long-long=8 --known-sizeof-float=4 --known-sizeof-double=8 --known-bits-per-byte=8 --known-sizeof-MPI_Comm=4 --known-sizeof-MPI_Fint=4 --known-mpi-long-double=1 --known-level1-dcache-assoc=0 --known-level1-dcache-linesize=32 --known-level1-dcache-size=32768 --download-c-blas-lapack=yes --with-shared=0 --prefix=/opt/share/ksl/petsc/dev-aug30/ppc450d-bgp_xlc_ref --with-clanguage=c --cflags= --CXXFLAGS= LIBS=" " --CC=/bgsys/drivers/ppcfloor/comm/xl/bin/mpixlc_r --CXX=/bgsys/drivers/ppcfloor/comm/xl/bin/mpixlcxx_r --with-fortran=0 --with-debugging=0 --with-fortran-kernels=0 PETSC_ARCH=bgp-xlc-ref
+-----------------------------------------
+Libraries compiled on Mon Sep 13 22:38:37 2010 on fen1 
+Machine characteristics: Linux-2.6.16.60-0.66.1-ppc64-ppc64-with-SuSE-10-ppc
+Using PETSc directory: /scratch/aron/sandbox/process/installs/builddir_ppc64/petsc-dev-aug30-bgp_xlc_ref/petsc-dev-16784
+Using PETSc arch: bgp-xlc-ref
+-----------------------------------------
+
+Using C compiler: /bgsys/drivers/ppcfloor/comm/xl/bin/mpixlc_r  -O  ${COPTFLAGS} ${CFLAGS}
+-----------------------------------------
+
+Using include paths: -I/scratch/aron/sandbox/process/installs/builddir_ppc64/petsc-dev-aug30-bgp_xlc_ref/petsc-dev-16784/bgp-xlc-ref/include -I/scratch/aron/sandbox/process/installs/builddir_ppc64/petsc-dev-aug30-bgp_xlc_ref/petsc-dev-16784/include -I/bgsys/drivers/ppcfloor/comm/include
+-----------------------------------------
+
+Using C linker: /bgsys/drivers/ppcfloor/comm/xl/bin/mpixlc_r
+Using libraries: -Wl,-rpath,/scratch/aron/sandbox/process/installs/builddir_ppc64/petsc-dev-aug30-bgp_xlc_ref/petsc-dev-16784/bgp-xlc-ref/lib -L/scratch/aron/sandbox/process/installs/builddir_ppc64/petsc-dev-aug30-bgp_xlc_ref/petsc-dev-16784/bgp-xlc-ref/lib -lpetscts -lpetscsnes -lpetscksp -lpetscdm -lpetscmat -lpetscvec -lpetscsys -Wl,-rpath,/scratch/aron/sandbox/process/installs/builddir_ppc64/petsc-dev-aug30-bgp_xlc_ref/petsc-dev-16784/bgp-xlc-ref/lib -L/scratch/aron/sandbox/process/installs/builddir_ppc64/petsc-dev-aug30-bgp_xlc_ref/petsc-dev-16784/bgp-xlc-ref/lib -lf2clapack -lf2cblas -lnsl -lrt -ldl 
+-----------------------------------------
+
