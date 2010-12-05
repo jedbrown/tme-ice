@@ -1,10 +1,10 @@
 #!/bin/sh
 
-petscplot="${HOME}/petscplot/petscplot --mode paper"
+petscplot="petscplot/petscplot --mode paper"
 
 generate_figures() {
     mkdir -p figures
-${petscplot} -t strong --events SNESSolve --stages 3 \
+    ${petscplot} -t strong --events SNESSolve --stages 3 \
         shaheen/fast_strong_*_16_4_*.out : shaheen/fast_strong_*_32_4_*.out : shaheen/strong_tfs_*.out \
         --legend-labels '$256\times 256\times 48$ Redundant:$512\times 512\times 48$ Redundant:$512\times 512\times 48$ TFS' \
         -o figures/shaheen-strong.pdf
