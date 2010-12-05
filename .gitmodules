@@ -1,3 +1,6 @@
 [submodule "jedbib"]
 	path = jedbib
 	url = git://github.com/jedbrown/jedbib.git
+[submodule "petscplot"]
+	path = petscplot
+	url = git://github.com/jedbrown/petscplot.git
