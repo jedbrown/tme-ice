@@ -1,0 +1,490 @@
+Level 0 domain size (m)    1e+04 x    1e+04 x    1e+03, num elements  10 x  10 x   6 (     600), size (m) 1000 x 1000 x 200
+Level 1 domain size (m)    1e+04 x    1e+04 x    1e+03, num elements  20 x  20 x  11 (    4400), size (m) 500 x 500 x 100
+Level 2 domain size (m)    1e+04 x    1e+04 x    1e+03, num elements  40 x  40 x  21 (   33600), size (m) 250 x 250 x 50
+Level 3 domain size (m)    1e+04 x    1e+04 x    1e+03, num elements  80 x  80 x  41 (  262400), size (m) 125 x 125 x 25
+Level 4 domain size (m)    1e+04 x    1e+04 x    1e+03, num elements 160 x 160 x  81 ( 2073600), size (m) 62.5 x 62.5 x 12.5
+          0 SNES Function norm 3.755496520440e+01 
+          Linear solve converged due to CONVERGED_ITS iterations 1
+          1 SNES Function norm 3.347873195423e+01 
+          Linear solve converged due to CONVERGED_ITS iterations 1
+          2 SNES Function norm 3.226618830252e+01 
+          Linear solve converged due to CONVERGED_ITS iterations 1
+          3 SNES Function norm 3.071113997659e+01 
+          Linear solve converged due to CONVERGED_ITS iterations 1
+          4 SNES Function norm 2.702239562403e+01 
+          Linear solve converged due to CONVERGED_ITS iterations 1
+          5 SNES Function norm 1.811611074599e+01 
+          Linear solve converged due to CONVERGED_ITS iterations 1
+          6 SNES Function norm 3.493495307614e+00 
+          Linear solve converged due to CONVERGED_ITS iterations 1
+          7 SNES Function norm 1.461447408503e-01 
+          Linear solve converged due to CONVERGED_ITS iterations 1
+          8 SNES Function norm 2.729192074366e-04 
+          Linear solve converged due to CONVERGED_ITS iterations 1
+          9 SNES Function norm 1.002786743235e-09 
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE
+        0 SNES Function norm 1.387303231582e+01 
+          0 KSP Residual norm 1.387303231582e+01 
+          1 KSP Residual norm 4.331572041145e-01 
+        Linear solve converged due to CONVERGED_RTOL iterations 1
+        1 SNES Function norm 2.849441743019e+00 
+          0 KSP Residual norm 2.849441743019e+00 
+          1 KSP Residual norm 1.448726162160e-01 
+        Linear solve converged due to CONVERGED_RTOL iterations 1
+        2 SNES Function norm 4.994514687323e-01 
+          0 KSP Residual norm 4.994514687323e-01 
+          1 KSP Residual norm 3.839601522053e-02 
+          2 KSP Residual norm 5.677694450086e-03 
+        Linear solve converged due to CONVERGED_RTOL iterations 2
+        3 SNES Function norm 3.022652369417e-02 
+          0 KSP Residual norm 3.022652369417e-02 
+          1 KSP Residual norm 2.024602577828e-03 
+          2 KSP Residual norm 4.582012896241e-04 
+          3 KSP Residual norm 7.299320125780e-05 
+        Linear solve converged due to CONVERGED_RTOL iterations 3
+        4 SNES Function norm 1.700899237231e-04 
+          0 KSP Residual norm 1.700899237231e-04 
+          1 KSP Residual norm 1.506863806445e-05 
+          2 KSP Residual norm 2.083548950720e-06 
+          3 KSP Residual norm 2.950081900548e-07 
+          4 KSP Residual norm 5.922841629805e-08 
+        Linear solve converged due to CONVERGED_RTOL iterations 4
+        5 SNES Function norm 5.973062093357e-08 
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE
+      0 SNES Function norm 5.545303104648e+00 
+        0 KSP Residual norm 5.545303104648e+00 
+        1 KSP Residual norm 1.990016142588e-01 
+      Linear solve converged due to CONVERGED_RTOL iterations 1
+      1 SNES Function norm 3.629870570857e+00 
+        0 KSP Residual norm 3.629870570857e+00 
+        1 KSP Residual norm 2.655445670228e-01 
+      Linear solve converged due to CONVERGED_RTOL iterations 1
+      2 SNES Function norm 4.602885657197e-01 
+        0 KSP Residual norm 4.602885657197e-01 
+        1 KSP Residual norm 3.022320137164e-02 
+      Linear solve converged due to CONVERGED_RTOL iterations 1
+      3 SNES Function norm 5.456427087549e-02 
+        0 KSP Residual norm 5.456427087549e-02 
+        1 KSP Residual norm 1.481969448080e-02 
+        2 KSP Residual norm 4.393506189379e-03 
+        3 KSP Residual norm 1.131986177442e-03 
+      Linear solve converged due to CONVERGED_RTOL iterations 3
+      4 SNES Function norm 1.646554159986e-03 
+        0 KSP Residual norm 1.646554159986e-03 
+        1 KSP Residual norm 3.834154749391e-04 
+        2 KSP Residual norm 8.151647170095e-05 
+        3 KSP Residual norm 2.606553459789e-05 
+        4 KSP Residual norm 7.969620185502e-06 
+      Linear solve converged due to CONVERGED_RTOL iterations 4
+      5 SNES Function norm 8.193121947546e-06 
+        0 KSP Residual norm 8.193121947546e-06 
+        1 KSP Residual norm 3.009110695456e-06 
+        2 KSP Residual norm 9.465637901692e-07 
+        3 KSP Residual norm 2.541878733292e-07 
+        4 KSP Residual norm 6.026074240767e-08 
+        5 KSP Residual norm 1.679883513217e-08 
+      Linear solve converged due to CONVERGED_RTOL iterations 5
+      6 SNES Function norm 1.680004781448e-08 
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE
+    0 SNES Function norm 2.815553633152e+00 
+      0 KSP Residual norm 2.815553633152e+00 
+      1 KSP Residual norm 2.733603382898e-01 
+    Linear solve converged due to CONVERGED_RTOL iterations 1
+    1 SNES Function norm 1.724661359652e+00 
+      0 KSP Residual norm 1.724661359652e+00 
+      1 KSP Residual norm 2.043254485060e-01 
+    Linear solve converged due to CONVERGED_RTOL iterations 1
+    2 SNES Function norm 1.038529063613e+00 
+      0 KSP Residual norm 1.038529063613e+00 
+      1 KSP Residual norm 3.732055461569e-01 
+      2 KSP Residual norm 1.357832102685e-01 
+    Linear solve converged due to CONVERGED_RTOL iterations 2
+    3 SNES Function norm 1.771880315259e-01 
+      0 KSP Residual norm 1.771880315259e-01 
+      1 KSP Residual norm 9.898568291352e-02 
+      2 KSP Residual norm 4.198349810332e-02 
+      3 KSP Residual norm 1.918458626442e-02 
+    Linear solve converged due to CONVERGED_RTOL iterations 3
+    4 SNES Function norm 2.090331922996e-02 
+      0 KSP Residual norm 2.090331922996e-02 
+      1 KSP Residual norm 1.211329828132e-02 
+      2 KSP Residual norm 5.661655843902e-03 
+      3 KSP Residual norm 2.470907800356e-03 
+      4 KSP Residual norm 1.046387270254e-03 
+      5 KSP Residual norm 5.974680720942e-04 
+    Linear solve converged due to CONVERGED_RTOL iterations 5
+    5 SNES Function norm 6.272425095184e-04 
+      0 KSP Residual norm 6.272425095184e-04 
+      1 KSP Residual norm 3.953121083345e-04 
+      2 KSP Residual norm 2.375578260893e-04 
+      3 KSP Residual norm 1.204238340289e-04 
+      4 KSP Residual norm 5.257155530177e-05 
+      5 KSP Residual norm 2.965560315453e-05 
+      6 KSP Residual norm 1.286604516190e-05 
+      7 KSP Residual norm 6.738589341624e-06 
+      8 KSP Residual norm 3.694720105254e-06 
+    Linear solve converged due to CONVERGED_RTOL iterations 8
+    6 SNES Function norm 3.712889599482e-06 
+      0 KSP Residual norm 3.712889599482e-06 
+      1 KSP Residual norm 2.533519918909e-06 
+      2 KSP Residual norm 1.536038489758e-06 
+      3 KSP Residual norm 6.088935371615e-07 
+      4 KSP Residual norm 3.486284503623e-07 
+      5 KSP Residual norm 1.846096145701e-07 
+      6 KSP Residual norm 9.393193195287e-08 
+      7 KSP Residual norm 5.003557009820e-08 
+      8 KSP Residual norm 2.430401525436e-08 
+    Linear solve converged due to CONVERGED_RTOL iterations 8
+    7 SNES Function norm 2.430436427011e-08 
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE
+  0 SNES Function norm 1.875818528996e+00 
+    0 KSP Residual norm 1.875818528996e+00 
+    1 KSP Residual norm 6.336196211772e-01 
+    2 KSP Residual norm 2.572835287935e-01 
+  Linear solve converged due to CONVERGED_RTOL iterations 2
+  1 SNES Function norm 1.066951351925e+00 
+    0 KSP Residual norm 1.066951351925e+00 
+    1 KSP Residual norm 5.964772776652e-01 
+    2 KSP Residual norm 2.729172148654e-01 
+  Linear solve converged due to CONVERGED_RTOL iterations 2
+  2 SNES Function norm 5.246474775407e-01 
+    0 KSP Residual norm 5.246474775407e-01 
+    1 KSP Residual norm 4.616320948217e-01 
+    2 KSP Residual norm 3.608497607142e-01 
+    3 KSP Residual norm 3.046092338837e-01 
+    4 KSP Residual norm 2.600298444964e-01 
+    5 KSP Residual norm 2.183902587912e-01 
+    6 KSP Residual norm 1.823338119937e-01 
+    7 KSP Residual norm 1.490871305529e-01 
+  Linear solve converged due to CONVERGED_RTOL iterations 7
+  3 SNES Function norm 1.867402621641e-01 
+    0 KSP Residual norm 1.867402621641e-01 
+    1 KSP Residual norm 1.605151532183e-01 
+    2 KSP Residual norm 1.532103765327e-01 
+    3 KSP Residual norm 1.448798074939e-01 
+    4 KSP Residual norm 1.299379742229e-01 
+    5 KSP Residual norm 1.103058531735e-01 
+    6 KSP Residual norm 9.406218359080e-02 
+    7 KSP Residual norm 8.053777442723e-02 
+    8 KSP Residual norm 6.951392541997e-02 
+    9 KSP Residual norm 6.223425749228e-02 
+   10 KSP Residual norm 5.686656239893e-02 
+   11 KSP Residual norm 5.187764226141e-02 
+   12 KSP Residual norm 4.631065803260e-02 
+   13 KSP Residual norm 4.165010326374e-02 
+   14 KSP Residual norm 3.613764831099e-02 
+   15 KSP Residual norm 3.189712710373e-02 
+  Linear solve converged due to CONVERGED_RTOL iterations 15
+  4 SNES Function norm 3.641591511497e-02 
+    0 KSP Residual norm 3.641591511497e-02 
+    1 KSP Residual norm 3.288568505939e-02 
+    2 KSP Residual norm 3.054811921942e-02 
+    3 KSP Residual norm 2.815100471854e-02 
+    4 KSP Residual norm 2.492017792792e-02 
+    5 KSP Residual norm 2.188638249731e-02 
+    6 KSP Residual norm 1.896463210036e-02 
+    7 KSP Residual norm 1.698597275686e-02 
+    8 KSP Residual norm 1.509806252993e-02 
+    9 KSP Residual norm 1.303299338221e-02 
+   10 KSP Residual norm 1.166578695147e-02 
+   11 KSP Residual norm 1.008290345765e-02 
+   12 KSP Residual norm 8.544391107009e-03 
+   13 KSP Residual norm 6.486366974266e-03 
+   14 KSP Residual norm 5.037848243700e-03 
+   15 KSP Residual norm 3.864923228432e-03 
+   16 KSP Residual norm 3.019089206168e-03 
+   17 KSP Residual norm 2.417344834408e-03 
+  Linear solve converged due to CONVERGED_RTOL iterations 17
+  5 SNES Function norm 2.601468911301e-03 
+    0 KSP Residual norm 2.601468911301e-03 
+    1 KSP Residual norm 2.293374241605e-03 
+    2 KSP Residual norm 2.108814166330e-03 
+    3 KSP Residual norm 1.929828766954e-03 
+    4 KSP Residual norm 1.680845493732e-03 
+    5 KSP Residual norm 1.471397353750e-03 
+    6 KSP Residual norm 1.316615705063e-03 
+    7 KSP Residual norm 1.196949314747e-03 
+    8 KSP Residual norm 1.084631457152e-03 
+    9 KSP Residual norm 9.416222431801e-04 
+   10 KSP Residual norm 8.179130533714e-04 
+   11 KSP Residual norm 7.177735204270e-04 
+   12 KSP Residual norm 6.328389827810e-04 
+   13 KSP Residual norm 5.596385416278e-04 
+   14 KSP Residual norm 4.999952828456e-04 
+   15 KSP Residual norm 4.374509661048e-04 
+   16 KSP Residual norm 3.696733481395e-04 
+   17 KSP Residual norm 3.171905463184e-04 
+   18 KSP Residual norm 2.716261756311e-04 
+   19 KSP Residual norm 2.342416711892e-04 
+   20 KSP Residual norm 2.041656808572e-04 
+   21 KSP Residual norm 1.798251979696e-04 
+   22 KSP Residual norm 1.582835304679e-04 
+   23 KSP Residual norm 1.424124425592e-04 
+   24 KSP Residual norm 1.285619343852e-04 
+   25 KSP Residual norm 1.154193141038e-04 
+   26 KSP Residual norm 1.050117500379e-04 
+   27 KSP Residual norm 9.318829031521e-05 
+   28 KSP Residual norm 8.136722322065e-05 
+   29 KSP Residual norm 7.186001790432e-05 
+   30 KSP Residual norm 6.238957343171e-05 
+   31 KSP Residual norm 5.791438074002e-05 
+   32 KSP Residual norm 5.316008657149e-05 
+   33 KSP Residual norm 4.886029152614e-05 
+   34 KSP Residual norm 4.463691983424e-05 
+   35 KSP Residual norm 4.040860187574e-05 
+   36 KSP Residual norm 3.681677440873e-05 
+   37 KSP Residual norm 3.407176097992e-05 
+  Linear solve converged due to CONVERGED_RTOL iterations 37
+  6 SNES Function norm 3.437317180044e-05 
+    0 KSP Residual norm 3.437317180044e-05 
+    1 KSP Residual norm 3.258203405556e-05 
+    2 KSP Residual norm 3.083811341214e-05 
+    3 KSP Residual norm 2.845350867941e-05 
+    4 KSP Residual norm 2.684082778690e-05 
+    5 KSP Residual norm 2.526572407515e-05 
+    6 KSP Residual norm 2.320479917100e-05 
+    7 KSP Residual norm 2.117085288019e-05 
+    8 KSP Residual norm 1.888656200658e-05 
+    9 KSP Residual norm 1.652927289240e-05 
+   10 KSP Residual norm 1.484366782317e-05 
+   11 KSP Residual norm 1.242976677582e-05 
+   12 KSP Residual norm 1.033680803746e-05 
+   13 KSP Residual norm 8.104960417712e-06 
+   14 KSP Residual norm 6.282051229837e-06 
+   15 KSP Residual norm 5.097315838493e-06 
+   16 KSP Residual norm 4.403003227662e-06 
+   17 KSP Residual norm 3.952988497988e-06 
+   18 KSP Residual norm 3.629722384008e-06 
+   19 KSP Residual norm 3.288922646831e-06 
+   20 KSP Residual norm 2.987211050480e-06 
+   21 KSP Residual norm 2.703429416646e-06 
+   22 KSP Residual norm 2.426802212994e-06 
+   23 KSP Residual norm 2.072117044282e-06 
+   24 KSP Residual norm 1.751212329812e-06 
+   25 KSP Residual norm 1.471788439552e-06 
+   26 KSP Residual norm 1.246158023799e-06 
+   27 KSP Residual norm 1.074627742569e-06 
+   28 KSP Residual norm 8.904675489059e-07 
+   29 KSP Residual norm 7.515392601430e-07 
+   30 KSP Residual norm 6.339609658521e-07 
+   31 KSP Residual norm 5.817944626340e-07 
+   32 KSP Residual norm 5.336704470103e-07 
+   33 KSP Residual norm 4.770344949289e-07 
+   34 KSP Residual norm 4.081790306885e-07 
+   35 KSP Residual norm 3.608942361444e-07 
+   36 KSP Residual norm 3.207926676965e-07 
+   37 KSP Residual norm 2.862153229844e-07 
+   38 KSP Residual norm 2.562170201641e-07 
+   39 KSP Residual norm 2.295057104278e-07 
+   40 KSP Residual norm 2.077717920732e-07 
+   41 KSP Residual norm 1.834361663695e-07 
+   42 KSP Residual norm 1.623827433936e-07 
+   43 KSP Residual norm 1.390340075157e-07 
+   44 KSP Residual norm 1.212088238282e-07 
+   45 KSP Residual norm 1.062596177209e-07 
+   46 KSP Residual norm 8.999171072723e-08 
+   47 KSP Residual norm 7.953806468180e-08 
+   48 KSP Residual norm 6.999213978728e-08 
+   49 KSP Residual norm 6.082326606809e-08 
+   50 KSP Residual norm 5.127570060094e-08 
+   51 KSP Residual norm 4.521941611639e-08 
+   52 KSP Residual norm 3.792778230751e-08 
+   53 KSP Residual norm 3.240304242701e-08 
+  Linear solve converged due to CONVERGED_RTOL iterations 53
+  7 SNES Function norm 3.251477691888e-08 
+    0 KSP Residual norm 3.251477691888e-08 
+    1 KSP Residual norm 2.996110555956e-08 
+    2 KSP Residual norm 2.707235303680e-08 
+    3 KSP Residual norm 2.466929192887e-08 
+    4 KSP Residual norm 2.232111316436e-08 
+    5 KSP Residual norm 2.036644356920e-08 
+    6 KSP Residual norm 1.831061881272e-08 
+    7 KSP Residual norm 1.631413874039e-08 
+    8 KSP Residual norm 1.410472435386e-08 
+    9 KSP Residual norm 1.231185112531e-08 
+   10 KSP Residual norm 1.081944471022e-08 
+   11 KSP Residual norm 9.518836630345e-09 
+  Linear solve converged due to CONVERGED_RTOL iterations 11
+  8 SNES Function norm 9.518836246997e-09 
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE
+Solution statistics after solve: Full
+CONVERGED_FNORM_RELATIVE: Number of Newton iterations = 8, total linear iterations = 144
+|X|_2 126965   u in [57.8523, 99.9401]   v in [-6.47196, 6.46719]   c in [58.0623, 99.9402] 
+Surface statistics: u in [7.346603e+01, 9.994007e+01] mean 9.200402e+01
+Global eta range   [1.21054e+10, 9.2273e+12], converged range [1.71685e+10, 4.51611e+12]
+Global beta2 range [3.06377e+09, 3.59573e+09], converged range [3.06377e+09, 3.59573e+09]
+
+************************************************************************************************************************
+***             WIDEN YOUR WINDOW TO 120 CHARACTERS.  Use 'enscript -r -fCourier9' to print this document            ***
+************************************************************************************************************************
+
+---------------------------------------------- PETSc Performance Summary: ----------------------------------------------
+
+./ex48 on a mpich-opt named vierzack01 with 8 processors, by jedbrow Sat Dec  4 17:33:52 2010
+Using Petsc Development HG revision: f521cb51726fe18fd02926273a0567a1c5ba0597  HG Date: Wed Dec 01 22:27:53 2010 -0600
+
+                         Max       Max/Min        Avg      Total 
+Time (sec):           3.442e+02      1.00000   3.442e+02
+Objects:              8.700e+02      1.00000   8.700e+02
+Flops:                1.109e+11      1.01846   1.099e+11  8.791e+11
+Flops/sec:            3.222e+08      1.01846   3.192e+08  2.554e+09
+MPI Messages:         2.386e+04      1.00311   2.380e+04  1.904e+05
+MPI Message Lengths:  5.205e+08      1.00727   2.179e+04  4.149e+09
+MPI Reductions:       6.934e+03      1.00000
+
+Flop counting convention: 1 flop = 1 real number operation of type (multiply/divide/add/subtract)
+                            e.g., VecAXPY() for real vectors of length N --> 2N flops
+                            and VecAXPY() for complex vectors of length N --> 8N flops
+
+Summary of Stages:   ----- Time ------  ----- Flops -----  --- Messages ---  -- Message Lengths --  -- Reductions --
+                        Avg     %Total     Avg     %Total   counts   %Total     Avg         %Total   counts   %Total 
+ 0:      Main Stage: 1.5608e-01   0.0%  0.0000e+00   0.0%  1.540e+02   0.1%  3.235e-03        0.0%  5.000e+00   0.1% 
+ 1:      Full solve: 3.4406e+02 100.0%  8.7912e+11 100.0%  1.903e+05  99.9%  2.179e+04      100.0%  6.468e+03  93.3% 
+
+------------------------------------------------------------------------------------------------------------------------
+See the 'Profiling' chapter of the users' manual for details on interpreting output.
+Phase summary info:
+   Count: number of times phase was executed
+   Time and Flops: Max - maximum over all processors
+                   Ratio - ratio of maximum to minimum over all processors
+   Mess: number of messages sent
+   Avg. len: average message length
+   Reduct: number of global reductions
+   Global: entire computation
+   Stage: stages of a computation. Set stages with PetscLogStagePush() and PetscLogStagePop().
+      %T - percent time in this phase         %F - percent flops in this phase
+      %M - percent messages in this phase     %L - percent message lengths in this phase
+      %R - percent reductions in this phase
+   Total Mflop/s: 10e-6 * (sum of flops over all processors)/(max time over all processors)
+------------------------------------------------------------------------------------------------------------------------
+Event                Count      Time (sec)     Flops                             --- Global ---  --- Stage ---   Total
+                   Max Ratio  Max     Ratio   Max  Ratio  Mess   Avg len Reduct  %T %F %M %L %R  %T %F %M %L %R Mflop/s
+------------------------------------------------------------------------------------------------------------------------
+
+--- Event Stage 0: Main Stage
+
+
+--- Event Stage 1: Full solve
+
+VecDot                35 1.0 6.6927e-02 3.2 9.33e+06 1.0 0.0e+00 0.0e+00 3.5e+01  0  0  0  0  1   0  0  0  0  1  1115
+VecMDot             1609 1.0 1.1125e+01 1.5 2.03e+09 1.0 0.0e+00 0.0e+00 1.6e+03  3  2  0  0 23   3  2  0  0 25  1460
+VecNorm             3835 1.0 8.8612e+00 3.3 1.06e+09 1.0 0.0e+00 0.0e+00 3.8e+03  2  1  0  0 55   2  1  0  0 59   959
+VecScale            3048 1.0 3.2315e+00 1.1 4.33e+08 1.0 0.0e+00 0.0e+00 0.0e+00  1  0  0  0  0   1  0  0  0  0  1072
+VecCopy             1542 1.0 1.9339e+00 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  1  0  0  0  0   1  0  0  0  0     0
+VecSet             16832 1.0 5.8959e+00 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  2  0  0  0  0   2  0  0  0  0     0
+VecAXPY             2140 1.0 4.0808e+00 1.1 5.38e+08 1.0 0.0e+00 0.0e+00 0.0e+00  1  0  0  0  0   1  0  0  0  0  1054
+VecAYPX              701 1.0 1.2961e+00 1.2 8.77e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0   541
+VecWAXPY              44 1.0 1.4094e-01 1.1 7.91e+06 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0   449
+VecMAXPY            3048 1.0 1.5377e+01 1.2 2.53e+09 1.0 0.0e+00 0.0e+00 0.0e+00  4  2  0  0  0   4  2  0  0  0  1319
+VecPointwiseMult      70 1.0 5.5408e-03 1.4 6.79e+05 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0   979
+VecScatterBegin     5159 1.0 1.0162e+00 1.3 0.00e+00 0.0 1.8e+05 1.5e+04 0.0e+00  0  0 93 65  0   0  0 93 65  0     0
+VecScatterEnd       5159 1.0 1.0004e+01 4.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  2  0  0  0  0   2  0  0  0  0     0
+VecReduceArith        10 1.0 5.6462e-03 1.5 2.37e+06 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  3364
+VecReduceComm          5 1.0 9.3651e-0314.7 0.00e+00 0.0 0.0e+00 0.0e+00 5.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecNormalize        2822 1.0 7.4949e+00 1.8 1.05e+09 1.0 0.0e+00 0.0e+00 2.8e+03  2  1  0  0 41   2  1  0  0 44  1124
+MatMult             3052 1.0 8.8742e+01 1.1 4.68e+10 1.0 1.2e+05 2.0e+04 0.0e+00 25 42 64 60  0  25 42 64 60  0  4128
+MatMultAdd           701 1.0 4.0184e+00 1.1 5.89e+08 1.0 1.7e+04 2.9e+03 0.0e+00  1  1  9  1  0   1  1  9  1  0  1173
+MatMultTranspose     775 1.0 3.5083e+00 1.3 6.29e+08 1.0 1.9e+04 2.9e+03 0.0e+00  1  1 10  1  0   1  1 10  1  0  1434
+MatSolve            3721 1.0 1.2930e+02 1.1 4.61e+10 1.0 0.0e+00 0.0e+00 0.0e+00 36 42  0  0  0  36 42  0  0  0  2849
+MatLUFactorSym         5 1.0 8.9078e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 5.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatLUFactorNum        35 1.0 8.7148e+00 1.0 4.65e+09 1.0 0.0e+00 0.0e+00 0.0e+00  2  4  0  0  0   2  4  0  0  0  4269
+MatCholFctrSym         4 1.0 3.5720e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatCholFctrNum        70 1.0 7.7829e+00 1.0 5.47e+09 1.0 0.0e+00 0.0e+00 0.0e+00  2  5  0  0  0   2  5  0  0  0  5619
+MatICCFactorSym        6 1.0 2.2171e-01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyBegin     149 1.0 1.1351e+00 1.4 0.00e+00 0.0 7.6e+03 1.8e+05 3.0e+02  0  0  4 32  4   0  0  4 32  5     0
+MatAssemblyEnd       149 1.0 1.5024e+00 1.3 0.00e+00 0.0 9.7e+02 5.8e+03 8.8e+01  0  0  1  0  1   0  0  1  0  1     0
+MatGetRowIJ           53 1.0 1.1432e-03 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatGetOrdering        53 1.0 6.2583e-02 1.4 0.00e+00 0.0 0.0e+00 0.0e+00 1.2e+02  0  0  0  0  2   0  0  0  0  2     0
+MatZeroEntries       105 1.0 7.3337e-01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatGetRedundant       35 1.0 1.2757e-01 1.1 0.00e+00 0.0 2.5e+03 4.9e+04 1.0e+01  0  0  1  3  0   0  0  1  3  0     0
+SNESSolve              5 1.0 3.4229e+02 1.0 1.11e+11 1.0 1.9e+05 2.2e+04 6.2e+03 99100 99100 89  99100 99100 96  2568
+SNESLineSearch        35 1.0 1.7571e+01 1.0 5.45e+08 1.0 4.8e+03 1.6e+04 1.5e+02  5  0  2  2  2   5  0  3  2  2   244
+SNESFunctionEval      47 1.0 1.8049e+01 1.0 0.00e+00 0.0 3.8e+03 1.4e+04 1.0e+01  5  0  2  1  0   5  0  2  1  0     0
+SNESJacobianEval      35 1.0 4.5302e+01 1.0 3.65e+07 1.0 1.3e+04 1.0e+05 2.9e+02 13  0  7 33  4  13  0  7 33  4     6
+KSPGMRESOrthog      1609 1.0 2.2083e+01 1.1 4.06e+09 1.0 0.0e+00 0.0e+00 1.6e+03  6  4  0  0 23   6  4  0  0 25  1471
+KSPSetup             245 1.0 1.1249e-01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 4.0e+01  0  0  0  0  1   0  0  0  0  1     0
+KSPSolve              35 1.0 2.7760e+02 1.0 1.10e+11 1.0 1.7e+05 1.6e+04 5.7e+03 81 99 89 65 82  81 99 89 65 88  3150
+PCSetUp              105 1.0 1.7061e+01 1.0 1.01e+10 1.0 3.2e+03 3.8e+04 2.0e+02  5  9  2  3  3   5  9  2  3  3  4744
+PCSetUpOnBlocks     1402 1.0 8.0638e+00 1.0 5.47e+09 1.0 0.0e+00 0.0e+00 1.0e+02  2  5  0  0  1   2  5  0  0  2  5423
+PCApply              207 1.0 2.3458e+02 1.0 9.35e+10 1.0 1.6e+05 1.4e+04 5.0e+03 68 84 83 53 73  68 84 83 53 78  3160
+------------------------------------------------------------------------------------------------------------------------
+
+Memory usage is given in bytes:
+
+Object Type          Creations   Destructions     Memory  Descendants' Mem.
+Reports information only for process 0.
+
+--- Event Stage 0: Main Stage
+
+           Container     0              5         2620     0
+ Toy Hydrostatic Ice     0              1          724     0
+   Distributed array     0             10      2693220     0
+                 Vec     0            354    389032120     0
+         Vec Scatter     0             47        47564     0
+           Index Set     0             25      1424400     0
+   IS L to G Mapping     0             20        10800     0
+              Matrix     0             59    287349812     0
+                SNES     0              5         5960     0
+       Krylov Solver     0             35       295216     0
+      Preconditioner     0             35        30816     0
+              Viewer     0              1          680     0
+
+--- Event Stage 1: Full solve
+
+           Container     5              0            0     0
+ Toy Hydrostatic Ice     1              0            0     0
+   Distributed array    10              0            0     0
+                 Vec   437             83     10356304     0
+         Vec Scatter    47              0            0     0
+           Index Set   215            190     10134656     0
+   IS L to G Mapping    20              0            0     0
+              Matrix    59              0            0     0
+                SNES     5              0            0     0
+       Krylov Solver    35              0            0     0
+      Preconditioner    35              0            0     0
+              Viewer     1              0            0     0
+========================================================================================================================
+Average time to get PetscTime(): 1.90735e-07
+Average time for MPI_Barrier(): 9.46045e-05
+Average time for zero size MPI_Send(): 3.16203e-05
+#PETSc Option Table entries:
+-M 10
+-P 6
+-dmmg_form_function_ghost 1
+-dmmg_grid_sequence
+-ksp_converged_reason
+-ksp_monitor
+-log_summary
+-mg_levels_1_sub_pc_type cholesky
+-pc_mg_type multiplicative
+-snes_converged_reason
+-snes_ksp_ew
+-snes_ksp_ew_rtolmax 0.3
+-snes_ksp_ew_version 3
+-snes_monitor
+-thi_L 10e3
+-thi_hom Y
+-thi_nlevels 5
+#End of PETSc Option Table entries
+Compiled without FORTRAN kernels
+Compiled with full precision matrices (default)
+sizeof(short) 2 sizeof(int) 4 sizeof(long) 8 sizeof(void*) 8 sizeof(PetscScalar) 8
+Configure run at: Fri Dec  3 15:41:11 2010
+Configure options: --with-debugging=0 --with-mpi-dir=/home/jedbrow/usr --with-fortran=0 --with-blas-lapack-dir=/usr/pack/acml-3.0.0-ds/gfortran64 --download-sowing=externalpackages/sowing-1.1.16a.tar.gz PETSC_ARCH=mpich-opt --download-c2html=externalpackages/c2html.tar.gz --with-shared-libraries -COPTFLAGS="-O2 -march=native"
+-----------------------------------------
+Libraries compiled on Fri Dec  3 15:41:11 2010 on vierzack02 
+Machine characteristics: Linux-2.6.32.21+drm33.7-generic64-isg-ee-smp-5-x86_64-with-debian-5.0.6
+Using PETSc directory: /home/jedbrow/petsc
+Using PETSc arch: mpich-opt
+-----------------------------------------
+
+Using C compiler: /home/jedbrow/usr/bin/mpicc  -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -O2 -march=native  ${COPTFLAGS} ${CFLAGS}
+-----------------------------------------
+
+Using include paths: -I/home/jedbrow/petsc/mpich-opt/include -I/home/jedbrow/petsc/include -I/home/jedbrow/petsc/include -I/home/jedbrow/petsc/mpich-opt/include -I/home/jedbrow/usr/include
+-----------------------------------------
+
+Using C linker: /home/jedbrow/usr/bin/mpicc
+Using libraries: -Wl,-rpath,/home/jedbrow/petsc/mpich-opt/lib -L/home/jedbrow/petsc/mpich-opt/lib -lpetscts -lpetscsnes -lpetscksp -lpetscdm -lpetscmat -lpetscvec -lpetscsys -lX11 -Wl,-rpath,/usr/pack/acml-3.0.0-ds/gfortran64 -L/usr/pack/acml-3.0.0-ds/gfortran64 -llapack -lcblas -lf77blas -latlas -lm -ldl 
+-----------------------------------------
+

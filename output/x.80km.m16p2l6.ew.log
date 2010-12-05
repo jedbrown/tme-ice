@@ -1,0 +1,922 @@
+Level 0 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  16 x  16 x   2 (     512), size (m) 5000 x 5000 x 1000
+Level 1 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  32 x  32 x   2 (    2048), size (m) 2500 x 2500 x 1000
+Level 2 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  64 x  64 x   2 (    8192), size (m) 1250 x 1250 x 1000
+Level 3 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  64 x  64 x   9 (   36864), size (m) 1250 x 1250 x 125
+Level 4 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  64 x  64 x  65 (  266240), size (m) 1250 x 1250 x 15.625
+Level 5 domain size (m)    8e+04 x    8e+04 x    1e+03, num elements  64 x  64 x 513 ( 2101248), size (m) 1250 x 1250 x 1.95312
+            0 SNES Function norm 2.536912209364e+02 
+Linear solve converged due to CONVERGED_ITS iterations 1
+            1 SNES Function norm 2.407079206534e+02 
+Linear solve converged due to CONVERGED_ITS iterations 1
+            2 SNES Function norm 2.372236520045e+02 
+Linear solve converged due to CONVERGED_ITS iterations 1
+            3 SNES Function norm 2.352212046646e+02 
+Linear solve converged due to CONVERGED_ITS iterations 1
+            4 SNES Function norm 2.305552902552e+02 
+Linear solve converged due to CONVERGED_ITS iterations 1
+            5 SNES Function norm 2.210380723815e+02 
+Linear solve converged due to CONVERGED_ITS iterations 1
+            6 SNES Function norm 2.123148891142e+02 
+Linear solve converged due to CONVERGED_ITS iterations 1
+            7 SNES Function norm 1.980430834863e+02 
+Linear solve converged due to CONVERGED_ITS iterations 1
+            8 SNES Function norm 1.784276996963e+02 
+Linear solve converged due to CONVERGED_ITS iterations 1
+            9 SNES Function norm 1.502365624565e+02 
+Linear solve converged due to CONVERGED_ITS iterations 1
+           10 SNES Function norm 1.154406349904e+02 
+Linear solve converged due to CONVERGED_ITS iterations 1
+           11 SNES Function norm 1.295848745811e+01 
+Linear solve converged due to CONVERGED_ITS iterations 1
+           12 SNES Function norm 1.392553912419e-01 
+Linear solve converged due to CONVERGED_ITS iterations 1
+           13 SNES Function norm 1.605170661399e-05 
+Linear solve converged due to CONVERGED_ITS iterations 1
+           14 SNES Function norm 4.765419695804e-11 
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE
+          0 SNES Function norm 7.384551581113e+02 
+            0 KSP Residual norm 7.384551581113e+02 
+            1 KSP Residual norm 9.957504235183e+01 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+          1 SNES Function norm 3.118611977375e+02 
+            0 KSP Residual norm 3.118611977375e+02 
+            1 KSP Residual norm 6.659113057268e+01 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+          2 SNES Function norm 1.444307298263e+02 
+            0 KSP Residual norm 1.444307298263e+02 
+            1 KSP Residual norm 4.110026081733e+01 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+          3 SNES Function norm 9.169380803504e+01 
+            0 KSP Residual norm 9.169380803504e+01 
+            1 KSP Residual norm 2.231928914217e+01 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+          4 SNES Function norm 4.011587575853e+01 
+            0 KSP Residual norm 4.011587575853e+01 
+            1 KSP Residual norm 1.570762116522e+01 
+            2 KSP Residual norm 3.010675541639e+00 
+Linear solve converged due to CONVERGED_RTOL iterations 2
+          5 SNES Function norm 2.100951790047e+01 
+            0 KSP Residual norm 2.100951790047e+01 
+            1 KSP Residual norm 2.286489135555e+00 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+          6 SNES Function norm 1.396470955262e+01 
+            0 KSP Residual norm 1.396470955262e+01 
+            1 KSP Residual norm 1.410789307988e+00 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+          7 SNES Function norm 5.633619919953e+00 
+            0 KSP Residual norm 5.633619919953e+00 
+            1 KSP Residual norm 8.197195635945e-01 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+          8 SNES Function norm 2.243771657205e+00 
+            0 KSP Residual norm 2.243771657205e+00 
+            1 KSP Residual norm 3.232607602360e-01 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+          9 SNES Function norm 4.238966158218e-01 
+            0 KSP Residual norm 4.238966158218e-01 
+            1 KSP Residual norm 1.435275506398e-01 
+            2 KSP Residual norm 5.248210847080e-02 
+            3 KSP Residual norm 6.747621598975e-03 
+Linear solve converged due to CONVERGED_RTOL iterations 3
+         10 SNES Function norm 1.133408450034e-02 
+            0 KSP Residual norm 1.133408450034e-02 
+            1 KSP Residual norm 1.794961249575e-03 
+            2 KSP Residual norm 8.241552290546e-04 
+            3 KSP Residual norm 2.162914328149e-04 
+Linear solve converged due to CONVERGED_RTOL iterations 3
+         11 SNES Function norm 2.158313720555e-04 
+            0 KSP Residual norm 2.158313720555e-04 
+            1 KSP Residual norm 7.684753796319e-05 
+            2 KSP Residual norm 2.795457326188e-05 
+            3 KSP Residual norm 5.189024561941e-06 
+Linear solve converged due to CONVERGED_RTOL iterations 3
+         12 SNES Function norm 5.189059840385e-06 
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE
+        0 SNES Function norm 4.956822870254e+02 
+          0 KSP Residual norm 4.956822870254e+02 
+          1 KSP Residual norm 5.757284336080e+01 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+        1 SNES Function norm 1.711476851400e+02 
+          0 KSP Residual norm 1.711476851400e+02 
+          1 KSP Residual norm 6.420221235207e+01 
+          2 KSP Residual norm 3.897104793151e+01 
+          3 KSP Residual norm 1.431402551499e+01 
+Linear solve converged due to CONVERGED_RTOL iterations 3
+        2 SNES Function norm 5.123966136657e+01 
+          0 KSP Residual norm 5.123966136657e+01 
+          1 KSP Residual norm 1.856793584047e+01 
+          2 KSP Residual norm 8.572779117486e+00 
+          3 KSP Residual norm 2.698171900858e+00 
+Linear solve converged due to CONVERGED_RTOL iterations 3
+        3 SNES Function norm 1.462172084946e+01 
+          0 KSP Residual norm 1.462172084946e+01 
+          1 KSP Residual norm 3.370927634722e+00 
+          2 KSP Residual norm 1.138166403866e+00 
+Linear solve converged due to CONVERGED_RTOL iterations 2
+        4 SNES Function norm 6.067884252714e+00 
+          0 KSP Residual norm 6.067884252714e+00 
+          1 KSP Residual norm 1.076940939830e+00 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+        5 SNES Function norm 2.514855113655e+00 
+          0 KSP Residual norm 2.514855113655e+00 
+          1 KSP Residual norm 5.452656759243e-01 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+        6 SNES Function norm 5.885036814005e-01 
+          0 KSP Residual norm 5.885036814005e-01 
+          1 KSP Residual norm 3.160929714538e-01 
+          2 KSP Residual norm 8.035271019511e-02 
+          3 KSP Residual norm 1.752727152340e-02 
+Linear solve converged due to CONVERGED_RTOL iterations 3
+        7 SNES Function norm 1.743784169525e-02 
+          0 KSP Residual norm 1.743784169525e-02 
+          1 KSP Residual norm 6.844019451144e-03 
+          2 KSP Residual norm 2.325682157780e-03 
+          3 KSP Residual norm 7.439551360549e-04 
+          4 KSP Residual norm 3.642872990028e-04 
+Linear solve converged due to CONVERGED_RTOL iterations 4
+        8 SNES Function norm 3.642063547310e-04 
+          0 KSP Residual norm 3.642063547310e-04 
+          1 KSP Residual norm 1.998719504196e-04 
+          2 KSP Residual norm 4.711460191325e-05 
+          3 KSP Residual norm 1.841667557128e-05 
+          4 KSP Residual norm 3.123806973107e-06 
+Linear solve converged due to CONVERGED_RTOL iterations 4
+        9 SNES Function norm 3.123773298004e-06 
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE
+      0 SNES Function norm 2.449637569235e+02 
+        0 KSP Residual norm 2.449637569235e+02 
+        1 KSP Residual norm 6.041997210870e+00 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+      1 SNES Function norm 4.011880576738e+01 
+        0 KSP Residual norm 4.011880576738e+01 
+        1 KSP Residual norm 3.119375075695e+00 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+      2 SNES Function norm 4.963423898334e+00 
+        0 KSP Residual norm 4.963423898334e+00 
+        1 KSP Residual norm 2.322487811871e+00 
+        2 KSP Residual norm 4.428752356687e-01 
+        3 KSP Residual norm 1.616571331254e-01 
+Linear solve converged due to CONVERGED_RTOL iterations 3
+      3 SNES Function norm 3.182158939347e+00 
+        0 KSP Residual norm 3.182158939347e+00 
+        1 KSP Residual norm 8.361847953669e-01 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+      4 SNES Function norm 2.764851702284e+00 
+        0 KSP Residual norm 2.764851702284e+00 
+        1 KSP Residual norm 4.918821648146e-01 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+      5 SNES Function norm 1.285093655701e+00 
+        0 KSP Residual norm 1.285093655701e+00 
+        1 KSP Residual norm 2.187089977438e-01 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+      6 SNES Function norm 5.253134383418e-01 
+        0 KSP Residual norm 5.253134383418e-01 
+        1 KSP Residual norm 8.158682310292e-02 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+      7 SNES Function norm 1.670585778882e-01 
+        0 KSP Residual norm 1.670585778882e-01 
+        1 KSP Residual norm 4.246586641537e-02 
+        2 KSP Residual norm 1.246245553037e-02 
+Linear solve converged due to CONVERGED_RTOL iterations 2
+      8 SNES Function norm 1.215926320531e-02 
+        0 KSP Residual norm 1.215926320531e-02 
+        1 KSP Residual norm 4.132526663594e-03 
+        2 KSP Residual norm 1.717553851023e-03 
+        3 KSP Residual norm 1.787458636510e-04 
+Linear solve converged due to CONVERGED_RTOL iterations 3
+      9 SNES Function norm 1.754446404992e-04 
+        0 KSP Residual norm 1.754446404992e-04 
+        1 KSP Residual norm 3.809174602356e-05 
+        2 KSP Residual norm 2.315621487764e-05 
+        3 KSP Residual norm 6.642140257865e-06 
+        4 KSP Residual norm 1.922904045828e-06 
+Linear solve converged due to CONVERGED_RTOL iterations 4
+     10 SNES Function norm 1.923129282029e-06 
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE
+    0 SNES Function norm 1.143579474831e+02 
+      0 KSP Residual norm 1.143579474831e+02 
+      1 KSP Residual norm 3.650792390864e+00 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+    1 SNES Function norm 4.633831514949e+00 
+      0 KSP Residual norm 4.633831514949e+00 
+      1 KSP Residual norm 4.628324195608e-01 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+    2 SNES Function norm 4.629038838695e-01 
+      0 KSP Residual norm 4.629038838695e-01 
+      1 KSP Residual norm 5.383131610907e-02 
+      2 KSP Residual norm 4.162185794318e-03 
+Linear solve converged due to CONVERGED_RTOL iterations 2
+    3 SNES Function norm 4.206590082941e-03 
+      0 KSP Residual norm 4.206590082941e-03 
+      1 KSP Residual norm 3.061876296831e-03 
+      2 KSP Residual norm 7.456069738748e-04 
+      3 KSP Residual norm 8.610892295640e-05 
+      4 KSP Residual norm 1.633830230188e-05 
+Linear solve converged due to CONVERGED_RTOL iterations 4
+    4 SNES Function norm 1.633166843358e-05 
+      0 KSP Residual norm 1.633166843358e-05 
+      1 KSP Residual norm 6.549918095451e-06 
+      2 KSP Residual norm 2.156671317622e-06 
+      3 KSP Residual norm 4.960670652389e-07 
+Linear solve converged due to CONVERGED_RTOL iterations 3
+    5 SNES Function norm 4.962372652049e-07 
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE
+  0 SNES Function norm 4.201812230452e+01 
+    0 KSP Residual norm 4.201812230452e+01 
+    1 KSP Residual norm 6.915845888949e+00 
+Linear solve converged due to CONVERGED_RTOL iterations 1
+  1 SNES Function norm 6.917084227792e+00 
+    0 KSP Residual norm 6.917084227792e+00 
+    1 KSP Residual norm 1.455356747105e+00 
+    2 KSP Residual norm 1.081533755438e-02 
+Linear solve converged due to CONVERGED_RTOL iterations 2
+  2 SNES Function norm 1.173073095183e-02 
+    0 KSP Residual norm 1.173073095183e-02 
+    1 KSP Residual norm 2.757502652101e-03 
+    2 KSP Residual norm 1.870563033475e-04 
+Linear solve converged due to CONVERGED_RTOL iterations 2
+  3 SNES Function norm 1.870567443481e-04 
+    0 KSP Residual norm 1.870567443481e-04 
+    1 KSP Residual norm 4.243877810153e-05 
+    2 KSP Residual norm 2.049995338204e-05 
+    3 KSP Residual norm 4.901543501331e-06 
+    4 KSP Residual norm 1.890810569132e-06 
+    5 KSP Residual norm 4.427023190091e-07 
+Linear solve converged due to CONVERGED_RTOL iterations 5
+  4 SNES Function norm 5.311845621931e-07 
+    0 KSP Residual norm 5.311845621931e-07 
+    1 KSP Residual norm 1.831450169200e-07 
+    2 KSP Residual norm 5.385654216600e-08 
+Linear solve converged due to CONVERGED_RTOL iterations 2
+  5 SNES Function norm 2.967010832695e-07 
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE
+DMMG Object with 6 levels
+Using ghosted Jacobian coloring computation
+  FieldNames:   x-velocity   y-velocity   
+  Processor [0] M 2 N 16 P 16 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 0 8, Z range of indices: 0 4
+  Processor [1] M 2 N 16 P 16 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 8 16, Z range of indices: 0 4
+  Processor [2] M 2 N 16 P 16 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 0 8, Z range of indices: 4 8
+  Processor [3] M 2 N 16 P 16 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 8 16, Z range of indices: 4 8
+  Processor [4] M 2 N 16 P 16 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 0 8, Z range of indices: 8 12
+  Processor [5] M 2 N 16 P 16 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 8 16, Z range of indices: 8 12
+  Processor [6] M 2 N 16 P 16 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 0 8, Z range of indices: 12 16
+  Processor [7] M 2 N 16 P 16 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 8 16, Z range of indices: 12 16
+  Processor [0] M 2 N 32 P 32 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 0 16, Z range of indices: 0 8
+  Processor [1] M 2 N 32 P 32 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 16 32, Z range of indices: 0 8
+  Processor [2] M 2 N 32 P 32 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 0 16, Z range of indices: 8 16
+  Processor [3] M 2 N 32 P 32 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 16 32, Z range of indices: 8 16
+  Processor [4] M 2 N 32 P 32 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 0 16, Z range of indices: 16 24
+  Processor [5] M 2 N 32 P 32 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 16 32, Z range of indices: 16 24
+  Processor [6] M 2 N 32 P 32 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 0 16, Z range of indices: 24 32
+  Processor [7] M 2 N 32 P 32 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 16 32, Z range of indices: 24 32
+  Processor [0] M 2 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 0 32, Z range of indices: 0 16
+  Processor [1] M 2 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 32 64, Z range of indices: 0 16
+  Processor [2] M 2 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 0 32, Z range of indices: 16 32
+  Processor [3] M 2 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 32 64, Z range of indices: 16 32
+  Processor [4] M 2 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 0 32, Z range of indices: 32 48
+  Processor [5] M 2 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 32 64, Z range of indices: 32 48
+  Processor [6] M 2 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 0 32, Z range of indices: 48 64
+  Processor [7] M 2 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 2, Y range of indices: 32 64, Z range of indices: 48 64
+  Processor [0] M 9 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 9, Y range of indices: 0 32, Z range of indices: 0 16
+  Processor [1] M 9 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 9, Y range of indices: 32 64, Z range of indices: 0 16
+  Processor [2] M 9 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 9, Y range of indices: 0 32, Z range of indices: 16 32
+  Processor [3] M 9 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 9, Y range of indices: 32 64, Z range of indices: 16 32
+  Processor [4] M 9 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 9, Y range of indices: 0 32, Z range of indices: 32 48
+  Processor [5] M 9 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 9, Y range of indices: 32 64, Z range of indices: 32 48
+  Processor [6] M 9 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 9, Y range of indices: 0 32, Z range of indices: 48 64
+  Processor [7] M 9 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 9, Y range of indices: 32 64, Z range of indices: 48 64
+  Processor [0] M 65 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 65, Y range of indices: 0 32, Z range of indices: 0 16
+  Processor [1] M 65 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 65, Y range of indices: 32 64, Z range of indices: 0 16
+  Processor [2] M 65 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 65, Y range of indices: 0 32, Z range of indices: 16 32
+  Processor [3] M 65 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 65, Y range of indices: 32 64, Z range of indices: 16 32
+  Processor [4] M 65 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 65, Y range of indices: 0 32, Z range of indices: 32 48
+  Processor [5] M 65 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 65, Y range of indices: 32 64, Z range of indices: 32 48
+  Processor [6] M 65 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 65, Y range of indices: 0 32, Z range of indices: 48 64
+  Processor [7] M 65 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 65, Y range of indices: 32 64, Z range of indices: 48 64
+  Processor [0] M 513 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 513, Y range of indices: 0 32, Z range of indices: 0 16
+  Processor [1] M 513 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 513, Y range of indices: 32 64, Z range of indices: 0 16
+  Processor [2] M 513 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 513, Y range of indices: 0 32, Z range of indices: 16 32
+  Processor [3] M 513 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 513, Y range of indices: 32 64, Z range of indices: 16 32
+  Processor [4] M 513 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 513, Y range of indices: 0 32, Z range of indices: 32 48
+  Processor [5] M 513 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 513, Y range of indices: 32 64, Z range of indices: 32 48
+  Processor [6] M 513 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 513, Y range of indices: 0 32, Z range of indices: 48 64
+  Processor [7] M 513 N 64 P 64 m 1 n 2 p 4 w 2 s 1
+  X range of indices: 0 513, Y range of indices: 32 64, Z range of indices: 48 64
+Using matrix type sbaij
+KSP Object:
+  type: fgmres
+    GMRES: restart=30, using Modified Gram-Schmidt Orthogonalization
+    GMRES: happy breakdown tolerance 1e-30
+  maximum iterations=10000, initial guess is zero
+  tolerances:  relative=0.3, absolute=1e-50, divergence=10000
+  right preconditioning
+  using UNPRECONDITIONED norm type for convergence test
+PC Object:
+  type: mg
+    MG: type is MULTIPLICATIVE, levels=6 cycles=v
+      Cycles per PCApply=1
+  Coarse grid solver -- level 0 presmooths=1 postsmooths=1 -----
+    KSP Object:(mg_coarse_)
+      type: preonly
+      maximum iterations=1, initial guess is zero
+      tolerances:  relative=1e-05, absolute=1e-50, divergence=10000
+      left preconditioning
+      using PRECONDITIONED norm type for convergence test
+    PC Object:(mg_coarse_)
+      type: lu
+        LU: out-of-place factorization
+          matrix ordering: natural
+        LU: tolerance for zero pivot 1e-12
+        LU: factor fill ratio needed 0
+             Factored matrix follows
+            Matrix Object:
+              type=mpiaij, rows=1024, cols=1024
+              package used to perform factorization: mumps
+              total: nonzeros=0, allocated nonzeros=2048
+                MUMPS run parameters:
+                  SYM (matrix type):                  0 
+                  PAR (host participation):           1 
+                  ICNTL(1) (output for error):        0 
+                  ICNTL(2) (output of diagnostic msg):0 
+                  ICNTL(3) (output for global info):  0 
+                  ICNTL(4) (level of printing):       0 
+                  ICNTL(5) (input mat struct):        0 
+                  ICNTL(6) (matrix prescaling):       7 
+                  ICNTL(7) (matrix ordering):         7 
+                  ICNTL(8) (scalling strategy):       77 
+                  ICNTL(9) (A/A^T x=b is solved):     1 
+                  ICNTL(10) (max num of refinements): 0 
+                  ICNTL(11) (error analysis):         0 
+                  ICNTL(12) (efficiency control):                         1 
+                  ICNTL(13) (efficiency control):                         0 
+                  ICNTL(14) (percentage of estimated workspace increase): 30 
+                  ICNTL(18) (input mat struct):                           3 
+                  ICNTL(19) (Shur complement info):                       0 
+                  ICNTL(20) (rhs sparse pattern):                         0 
+                  ICNTL(21) (solution struct):                            1 
+                  ICNTL(22) (in-core/out-of-core facility):               0 
+                  ICNTL(23) (max size of memory can be allocated locally):0 
+                  ICNTL(24) (detection of null pivot rows):               0 
+                  ICNTL(25) (computation of a null space basis):          0 
+                  ICNTL(26) (Schur options for rhs or solution):          0 
+                  ICNTL(27) (experimental parameter):                     -8 
+                  CNTL(1) (relative pivoting threshold):      0.01 
+                  CNTL(2) (stopping criterion of refinement): 1.49012e-08 
+                  CNTL(3) (absolute pivoting threshold):      0 
+                  CNTL(4) (value of static pivoting):         -1 
+                  CNTL(5) (fixation for null pivots):         0 
+      RINFO(1) (local estimated flops for the elimination after analysis): 
+             [0] 1.85912e+06 
+             [1] 1.70108e+06 
+             [2] 3.50749e+06 
+             [3] 3.81529e+06 
+             [4] 1.19603e+06 
+             [5] 1.8902e+06 
+             [6] 1.8902e+06 
+             [7] 1.99565e+06 
+      RINFO(2) (local estimated flops for the assembly after factorization): 
+             [0]  35840 
+             [1]  35840 
+             [2]  50176 
+             [3]  45568 
+             [4]  23040 
+             [5]  37888 
+             [6]  35840 
+             [7]  37888 
+      RINFO(3) (local estimated flops for the elimination after factorization): 
+             [0]  1.85912e+06 
+             [1]  1.70108e+06 
+             [2]  3.50749e+06 
+             [3]  3.81529e+06 
+             [4]  1.19603e+06 
+             [5]  1.8902e+06 
+             [6]  1.8902e+06 
+             [7]  1.99565e+06 
+      INFO(15) (estimated size of (in MB) MUMPS internal data for running numerical factorization): 
+             [0] 11 
+             [1] 11 
+             [2] 11 
+             [3] 11 
+             [4] 11 
+             [5] 11 
+             [6] 11 
+             [7] 11 
+      INFO(16) (size of (in MB) MUMPS internal data used during numerical factorization): 
+             [0] 11 
+             [1] 11 
+             [2] 11 
+             [3] 11 
+             [4] 11 
+             [5] 11 
+             [6] 11 
+             [7] 11 
+      INFO(23) (num of pivots eliminated on this processor after factorization): 
+             [0] 252 
+             [1] 108 
+             [2] 140 
+             [3] 112 
+             [4] 60 
+             [5] 112 
+             [6] 112 
+             [7] 128 
+                  RINFOG(1) (global estimated flops for the elimination after analysis): 1.78551e+07 
+                  RINFOG(2) (global estimated flops for the assembly after factorization): 302080 
+                  RINFOG(3) (global estimated flops for the elimination after factorization): 1.78551e+07 
+                  INFOG(3) (estimated real workspace for factors on all processors after analysis): 172384 
+                  INFOG(4) (estimated integer workspace for factors on all processors after analysis): 10792 
+                  INFOG(5) (estimated maximum front size in the complete tree): 192 
+                  INFOG(6) (number of nodes in the complete tree): 62 
+                  INFOG(7) (ordering option effectively uese after analysis): 2 
+                  INFOG(8) (structural symmetry in percent of the permuted matrix after analysis): 100 
+                  INFOG(9) (total real/complex workspace to store the matrix factors after factorization): 172384 
+                  INFOG(10) (total integer space store the matrix factors after factorization): 10792 
+                  INFOG(11) (order of largest frontal matrix after factorization): 192 
+                  INFOG(12) (number of off-diagonal pivots): 0 
+                  INFOG(13) (number of delayed pivots after factorization): 0 
+                  INFOG(14) (number of memory compress after factorization): 0 
+                  INFOG(15) (number of steps of iterative refinement after solution): 0 
+                  INFOG(16) (estimated size (in MB) of all MUMPS internal data for factorization after analysis: value on the most memory consuming processor): 11 
+                  INFOG(17) (estimated size of all MUMPS internal data for factorization after analysis: sum over all processors): 88 
+                  INFOG(18) (size of all MUMPS internal data allocated during factorization: value on the most memory consuming processor): 11 
+                  INFOG(19) (size of all MUMPS internal data allocated during factorization: sum over all processors): 88 
+                  INFOG(20) (estimated number of entries in the factors): 172384 
+                  INFOG(21) (size in MB of memory effectively used during factorization - value on the most memory consuming processor): 11 
+                  INFOG(22) (size in MB of memory effectively used during factorization - sum over all processors): 88 
+                  INFOG(23) (after analysis: value of ICNTL(6) effectively used): 0 
+                  INFOG(24) (after analysis: value of ICNTL(12) effectively used): 1 
+                  INFOG(25) (after factorization: number of pivots modified by static pivoting): 0 
+      linear system matrix = precond matrix:
+      Matrix Object:
+        type=mpiaij, rows=1024, cols=1024
+        total: nonzeros=36864, allocated nonzeros=36864
+          using I-node (on process 0) routines: found 32 nodes, limit used is 5
+  Down solver (pre-smoother) on level 1 smooths=1 --------------------
+    KSP Object:(mg_levels_1_)
+      type: gmres
+        GMRES: restart=30, using Classical (unmodified) Gram-Schmidt Orthogonalization with no iterative refinement
+        GMRES: happy breakdown tolerance 1e-30
+      maximum iterations=1
+      tolerances:  relative=1e-05, absolute=1e-50, divergence=10000
+      left preconditioning
+      using nonzero initial guess
+      using PRECONDITIONED norm type for convergence test
+    PC Object:(mg_levels_1_)
+      type: asm
+        Additive Schwarz: total subdomain blocks = 8, amount of overlap = 0
+        Additive Schwarz: restriction/interpolation type - BASIC
+        Local solve is same for all blocks, in the following KSP and PC objects:
+      KSP Object:(mg_levels_1_sub_)
+        type: preonly
+        maximum iterations=10000, initial guess is zero
+        tolerances:  relative=1e-05, absolute=1e-50, divergence=10000
+        left preconditioning
+        using PRECONDITIONED norm type for convergence test
+      PC Object:(mg_levels_1_sub_)
+        type: cholesky
+          Cholesky: out-of-place factorization
+            matrix ordering: natural
+          Cholesky: factor fill ratio needed 3.73281
+               Factored matrix follows
+              Matrix Object:
+                type=seqsbaij, rows=512, cols=512
+                package used to perform factorization: petsc
+                total: nonzeros=32132, allocated nonzeros=8033
+                    block size is 2
+        linear system matrix = precond matrix:
+        Matrix Object:
+          type=seqsbaij, rows=512, cols=512
+          total: nonzeros=8608, allocated nonzeros=8608
+              block size is 2
+      linear system matrix = precond matrix:
+      Matrix Object:
+        type=mpisbaij, rows=4096, cols=4096
+        total: nonzeros=77824, allocated nonzeros=77824
+            block size is 2
+  Up solver (post-smoother) same as down solver (pre-smoother)
+  Down solver (pre-smoother) on level 2 smooths=1 --------------------
+    KSP Object:(mg_levels_2_)
+      type: gmres
+        GMRES: restart=30, using Classical (unmodified) Gram-Schmidt Orthogonalization with no iterative refinement
+        GMRES: happy breakdown tolerance 1e-30
+      maximum iterations=1
+      tolerances:  relative=1e-05, absolute=1e-50, divergence=10000
+      left preconditioning
+      using nonzero initial guess
+      using PRECONDITIONED norm type for convergence test
+    PC Object:(mg_levels_2_)
+      type: asm
+        Additive Schwarz: total subdomain blocks = 8, amount of overlap = 0
+        Additive Schwarz: restriction/interpolation type - BASIC
+        Local solve is same for all blocks, in the following KSP and PC objects:
+      KSP Object:(mg_levels_2_sub_)
+        type: preonly
+        maximum iterations=10000, initial guess is zero
+        tolerances:  relative=1e-05, absolute=1e-50, divergence=10000
+        left preconditioning
+        using PRECONDITIONED norm type for convergence test
+      PC Object:(mg_levels_2_sub_)
+        type: icc
+          ICC: 0 levels of fill
+          ICC: factor fill ratio allocated 1, ordering used natural
+          ICC: using Manteuffel shift
+          ICC: factor fill ratio needed 1.00011
+               Factored matrix follows
+              Matrix Object:
+                type=seqsbaij, rows=2048, cols=2048
+                package used to perform factorization: petsc
+                total: nonzeros=36644, allocated nonzeros=9161
+                    block size is 2
+        linear system matrix = precond matrix:
+        Matrix Object:
+          type=seqsbaij, rows=2048, cols=2048
+          total: nonzeros=36640, allocated nonzeros=36640
+              block size is 2
+      linear system matrix = precond matrix:
+      Matrix Object:
+        type=mpisbaij, rows=16384, cols=16384
+        total: nonzeros=311296, allocated nonzeros=311296
+            block size is 2
+  Up solver (post-smoother) same as down solver (pre-smoother)
+  Down solver (pre-smoother) on level 3 smooths=1 --------------------
+    KSP Object:(mg_levels_3_)
+      type: gmres
+        GMRES: restart=30, using Classical (unmodified) Gram-Schmidt Orthogonalization with no iterative refinement
+        GMRES: happy breakdown tolerance 1e-30
+      maximum iterations=1
+      tolerances:  relative=1e-05, absolute=1e-50, divergence=10000
+      left preconditioning
+      using nonzero initial guess
+      using PRECONDITIONED norm type for convergence test
+    PC Object:(mg_levels_3_)
+      type: asm
+        Additive Schwarz: total subdomain blocks = 8, amount of overlap = 0
+        Additive Schwarz: restriction/interpolation type - BASIC
+        Local solve is same for all blocks, in the following KSP and PC objects:
+      KSP Object:(mg_levels_3_sub_)
+        type: preonly
+        maximum iterations=10000, initial guess is zero
+        tolerances:  relative=1e-05, absolute=1e-50, divergence=10000
+        left preconditioning
+        using PRECONDITIONED norm type for convergence test
+      PC Object:(mg_levels_3_sub_)
+        type: icc
+          ICC: 0 levels of fill
+          ICC: factor fill ratio allocated 1, ordering used natural
+          ICC: using Manteuffel shift
+          ICC: factor fill ratio needed 1.00002
+               Factored matrix follows
+              Matrix Object:
+                type=seqsbaij, rows=9216, cols=9216
+                package used to perform factorization: petsc
+                total: nonzeros=225420, allocated nonzeros=56355
+                    block size is 2
+        linear system matrix = precond matrix:
+        Matrix Object:
+          type=seqsbaij, rows=9216, cols=9216
+          total: nonzeros=225416, allocated nonzeros=225416
+              block size is 2
+      linear system matrix = precond matrix:
+      Matrix Object:
+        type=mpisbaij, rows=73728, cols=73728
+        total: nonzeros=1916928, allocated nonzeros=1916928
+            block size is 2
+  Up solver (post-smoother) same as down solver (pre-smoother)
+  Down solver (pre-smoother) on level 4 smooths=1 --------------------
+    KSP Object:(mg_levels_4_)
+      type: gmres
+        GMRES: restart=30, using Classical (unmodified) Gram-Schmidt Orthogonalization with no iterative refinement
+        GMRES: happy breakdown tolerance 1e-30
+      maximum iterations=1
+      tolerances:  relative=1e-05, absolute=1e-50, divergence=10000
+      left preconditioning
+      using nonzero initial guess
+      using PRECONDITIONED norm type for convergence test
+    PC Object:(mg_levels_4_)
+      type: asm
+        Additive Schwarz: total subdomain blocks = 8, amount of overlap = 0
+        Additive Schwarz: restriction/interpolation type - BASIC
+        Local solve is same for all blocks, in the following KSP and PC objects:
+      KSP Object:(mg_levels_4_sub_)
+        type: preonly
+        maximum iterations=10000, initial guess is zero
+        tolerances:  relative=1e-05, absolute=1e-50, divergence=10000
+        left preconditioning
+        using PRECONDITIONED norm type for convergence test
+      PC Object:(mg_levels_4_sub_)
+        type: icc
+          ICC: 0 levels of fill
+          ICC: factor fill ratio allocated 1, ordering used natural
+          ICC: using Manteuffel shift
+          ICC: factor fill ratio needed 1
+               Factored matrix follows
+              Matrix Object:
+                type=seqsbaij, rows=66560, cols=66560
+                package used to perform factorization: petsc
+                total: nonzeros=1735628, allocated nonzeros=433907
+                    block size is 2
+        linear system matrix = precond matrix:
+        Matrix Object:
+          type=seqsbaij, rows=66560, cols=66560
+          total: nonzeros=1735624, allocated nonzeros=1735624
+              block size is 2
+      linear system matrix = precond matrix:
+      Matrix Object:
+        type=mpisbaij, rows=532480, cols=532480
+        total: nonzeros=14761984, allocated nonzeros=14761984
+            block size is 2
+  Up solver (post-smoother) same as down solver (pre-smoother)
+  Down solver (pre-smoother) on level 5 smooths=1 --------------------
+    KSP Object:(mg_levels_5_)
+      type: gmres
+        GMRES: restart=30, using Classical (unmodified) Gram-Schmidt Orthogonalization with no iterative refinement
+        GMRES: happy breakdown tolerance 1e-30
+      maximum iterations=1
+      tolerances:  relative=1e-05, absolute=1e-50, divergence=10000
+      left preconditioning
+      using nonzero initial guess
+      using PRECONDITIONED norm type for convergence test
+    PC Object:(mg_levels_5_)
+      type: asm
+        Additive Schwarz: total subdomain blocks = 8, amount of overlap = 1
+        Additive Schwarz: restriction/interpolation type - BASIC
+        Local solve is same for all blocks, in the following KSP and PC objects:
+      KSP Object:(mg_levels_5_sub_)
+        type: preonly
+        maximum iterations=10000, initial guess is zero
+        tolerances:  relative=1e-05, absolute=1e-50, divergence=10000
+        left preconditioning
+        using PRECONDITIONED norm type for convergence test
+      PC Object:(mg_levels_5_sub_)
+        type: icc
+          ICC: 0 levels of fill
+          ICC: factor fill ratio allocated 1, ordering used natural
+          ICC: using Manteuffel shift
+          ICC: factor fill ratio needed 1
+               Factored matrix follows
+              Matrix Object:
+                type=seqsbaij, rows=627912, cols=627912
+                package used to perform factorization: petsc
+                total: nonzeros=16612716, allocated nonzeros=4153179
+                    block size is 2
+        linear system matrix = precond matrix:
+        Matrix Object:(thi_)
+          type=seqsbaij, rows=627912, cols=627912
+          total: nonzeros=16612712, allocated nonzeros=16612712
+              block size is 2
+      linear system matrix = precond matrix:
+      Matrix Object:(thi_)
+        type=mpisbaij, rows=4202496, cols=4202496
+        total: nonzeros=117522432, allocated nonzeros=117522432
+            block size is 2
+  Up solver (post-smoother) same as down solver (pre-smoother)
+  linear system matrix = precond matrix:
+  Matrix Object:(thi_)
+    type=mpisbaij, rows=4202496, cols=4202496
+    total: nonzeros=117522432, allocated nonzeros=117522432
+        block size is 2
+Solution statistics after solve: Full
+CONVERGED_FNORM_RELATIVE: Number of Newton iterations = 5, total linear iterations = 12
+|X|_2 5.37042e+07   u in [-141.581, 46683.4]   v in [-3603.36, 11976.3]   c in [0.876498, 46823.8] 
+Surface statistics: u in [8.898412e+00, 4.668343e+04] mean 3.342176e+04
+Global eta range   [2.40364e+09, 9.2273e+12], converged range [2.40364e+09, 8.25311e+10]
+Global beta2 range [0, 0], converged range [0, 0]
+
+************************************************************************************************************************
+***             WIDEN YOUR WINDOW TO 120 CHARACTERS.  Use 'enscript -r -fCourier9' to print this document            ***
+************************************************************************************************************************
+
+---------------------------------------------- PETSc Performance Summary: ----------------------------------------------
+
+./ex48 on a x64-mpich named vierzack02 with 8 processors, by jedbrow Wed Feb 17 15:58:07 2010
+Using Petsc Development HG revision: c0dd4720c758c29b7a7896677c3b134db4085c20 HG Date: Sun Feb 14 15:42:51 2010 +0100
+
+                         Max       Max/Min        Avg      Total 
+Time (sec):           1.449e+02      1.00014   1.449e+02
+Objects:              1.481e+03      1.00000   1.481e+03
+Flops:                1.125e+10      1.05588   1.093e+10  8.744e+10
+Flops/sec:            7.768e+07      1.05583   7.545e+07  6.036e+08
+MPI Messages:         1.161e+04      1.03847   1.129e+04  9.029e+04
+MPI Message Lengths:  5.413e+08      1.03748   4.666e+04  4.213e+09
+MPI Reductions:       4.284e+03      1.00000
+
+Flop counting convention: 1 flop = 1 real number operation of type (multiply/divide/add/subtract)
+                            e.g., VecAXPY() for real vectors of length N --> 2N flops
+                            and VecAXPY() for complex vectors of length N --> 8N flops
+
+Summary of Stages:   ----- Time ------  ----- Flops -----  --- Messages ---  -- Message Lengths --  -- Reductions --
+                        Avg     %Total     Avg     %Total   counts   %Total     Avg         %Total   counts   %Total 
+ 0:      Main Stage: 2.7609e+01  19.1%  0.0000e+00   0.0%  1.190e+02   0.1%  3.258e+02        0.7%  5.000e+00   0.1% 
+ 1:      Full solve: 1.1726e+02  80.9%  8.7440e+10 100.0%  9.017e+04  99.9%  4.633e+04       99.3%  3.755e+03  87.7% 
+
+------------------------------------------------------------------------------------------------------------------------
+See the 'Profiling' chapter of the users' manual for details on interpreting output.
+Phase summary info:
+   Count: number of times phase was executed
+   Time and Flops: Max - maximum over all processors
+                   Ratio - ratio of maximum to minimum over all processors
+   Mess: number of messages sent
+   Avg. len: average message length
+   Reduct: number of global reductions
+   Global: entire computation
+   Stage: stages of a computation. Set stages with PetscLogStagePush() and PetscLogStagePop().
+      %T - percent time in this phase         %F - percent flops in this phase
+      %M - percent messages in this phase     %L - percent message lengths in this phase
+      %R - percent reductions in this phase
+   Total Mflop/s: 10e-6 * (sum of flops over all processors)/(max time over all processors)
+------------------------------------------------------------------------------------------------------------------------
+Event                Count      Time (sec)     Flops                             --- Global ---  --- Stage ---   Total
+                   Max Ratio  Max     Ratio   Max  Ratio  Mess   Avg len Reduct  %T %F %M %L %R  %T %F %M %L %R Mflop/s
+------------------------------------------------------------------------------------------------------------------------
+
+--- Event Stage 0: Main Stage
+
+
+--- Event Stage 1: Full solve
+
+VecDot               205 1.0 7.8006e-01 2.3 3.60e+07 1.0 0.0e+00 0.0e+00 2.0e+02  0  0  0  0  5   0  0  0  0  5   369
+VecMDot              456 1.0 1.9882e+00 2.1 3.35e+07 1.0 0.0e+00 0.0e+00 4.6e+02  1  0  0  0 11   1  0  0  0 12   135
+VecNorm             1394 1.0 4.7743e+00 1.9 1.17e+08 1.0 0.0e+00 0.0e+00 1.4e+03  2  1  0  0 33   3  1  0  0 37   196
+VecScale            1035 1.0 2.8566e-01 1.1 4.39e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  1229
+VecCopy              662 1.0 4.1517e-01 1.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecSet              7013 1.0 7.8196e-01 1.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  1  0  0  0  0   1  0  0  0  0     0
+VecAXPY              868 1.0 5.7594e-01 1.2 8.63e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  1  0  0  0   0  1  0  0  0  1199
+VecAYPX              221 1.0 1.2080e-01 1.6 8.38e+06 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0   555
+VecWAXPY              69 1.0 8.1338e-02 1.6 3.12e+06 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0   307
+VecMAXPY             953 1.0 5.5439e-01 1.2 8.16e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  1  0  0  0   0  1  0  0  0  1177
+VecPointwiseMult     105 1.0 3.3135e-03 1.3 4.86e+05 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  1173
+VecScatterBegin     4332 1.0 1.4389e+00 1.1 0.00e+00 0.0 7.1e+04 2.0e+04 0.0e+00  1  0 79 34  0   1  0 79 35  0     0
+VecScatterEnd       2132 1.0 8.5563e+00 2.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  5  0  0  0  0   6  0  0  0  0     0
+VecReduceArith        12 1.0 5.6288e-03 1.3 2.42e+06 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  3432
+VecReduceComm          6 1.0 2.1129e-01290.3 0.00e+00 0.0 0.0e+00 0.0e+00 6.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecNormalize         912 1.0 2.9245e+00 1.3 1.01e+08 1.0 0.0e+00 0.0e+00 9.1e+02  2  1  0  0 21   2  1  0  0 24   275
+MatMult             1040 1.0 1.3492e+01 1.1 4.81e+09 1.1 4.1e+04 1.3e+04 0.0e+00  9 42 46 13  0  11 42 46 13  0  2722
+MatMultAdd           221 1.0 3.7781e-01 1.4 3.14e+07 1.0 3.5e+03 1.5e+02 0.0e+00  0  0  4  0  0   0  0  4  0  0   666
+MatMultTranspose     331 1.0 5.0037e-01 1.5 4.70e+07 1.0 5.2e+03 1.5e+02 0.0e+00  0  0  6  0  0   0  0  6  0  0   752
+MatSolve            1215 1.0 2.0054e+01 1.2 2.63e+09 1.0 7.7e+03 1.9e+02 2.2e+02 12 24  9  0  5  15 24  9  0  6  1049
+MatLUFactorSym         6 1.0 1.0014e-05 1.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatLUFactorNum        55 1.0 1.5894e+00 1.4 0.00e+00 0.0 0.0e+00 0.0e+00 3.0e+01  1  0  0  0  1   1  0  0  0  1     0
+MatCholFctrSym         5 1.0 1.1923e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatCholFctrNum       105 1.0 7.7786e+00 1.1 3.32e+09 1.1 0.0e+00 0.0e+00 0.0e+00  5 29  0  0  0   6 29  0  0  0  3306
+MatICCFactorSym       10 1.0 2.9242e-01 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyBegin     276 1.0 4.7537e+00 2.5 0.00e+00 0.0 1.2e+04 1.4e+05 4.5e+02  3  0 13 40 11   3  0 13 40 12     0
+MatAssemblyEnd       276 1.0 1.9043e+00 1.3 0.00e+00 0.0 1.0e+03 1.2e+04 1.1e+02  1  0  1  0  3   1  0  1  0  3     0
+MatGetRowIJ           69 1.0 1.4472e-04 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatGetSubMatrice     105 1.0 1.0943e+01 1.1 0.00e+00 0.0 1.0e+03 1.0e+06 4.2e+02  7  0  1 25 10   9  0  1 25 11     0
+MatGetOrdering        69 1.0 7.9381e-02 1.4 0.00e+00 0.0 0.0e+00 0.0e+00 1.4e+02  0  0  0  0  3   0  0  0  0  4     0
+MatIncreaseOvrlp       1 1.0 6.7342e-01 1.0 0.00e+00 0.0 6.0e+01 2.7e+04 8.0e+00  0  0  0  0  0   1  0  0  0  0     0
+MatZeroEntries       160 1.0 4.7761e-01 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatView               18 2.2 4.0090e-01 2.2 0.00e+00 0.0 1.3e+02 2.7e+03 8.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SNESSolve              6 1.0 1.1477e+02 1.0 1.13e+10 1.1 8.8e+04 4.8e+04 3.4e+03 79100 97 99 80  98100 97100 91   762
+SNESLineSearch        55 1.0 1.2817e+01 1.0 3.63e+08 1.1 7.7e+03 1.3e+04 2.3e+02  9  3  9  2  5  11  3  9  2  6   217
+SNESFunctionEval      75 1.0 1.3583e+01 1.1 0.00e+00 0.0 6.0e+03 1.2e+04 0.0e+00  9  0  7  2  0  11  0  7  2  0     0
+SNESJacobianEval      55 1.0 3.7445e+01 1.0 1.38e+07 1.0 2.0e+04 8.7e+04 4.3e+02 26  0 22 40 10  32  0 22 41 11     3
+KSPGMRESOrthog       538 1.0 2.8068e+00 1.7 1.27e+08 1.0 0.0e+00 0.0e+00 6.1e+02  1  1  0  0 14   2  1  0  0 16   361
+KSPSetup             320 1.0 1.6354e-01 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+KSPSolve              55 1.0 6.2163e+01 1.0 1.09e+10 1.1 6.0e+04 3.9e+04 2.7e+03 43 97 66 56 63  53 97 66 56 72  1358
+PCSetUp              160 1.0 2.1116e+01 1.0 3.32e+09 1.1 1.1e+03 9.2e+05 6.6e+02 14 29  1 25 15  18 29  1 25 18  1218
+PCSetUpOnBlocks      442 1.0 8.1600e+00 1.1 3.32e+09 1.1 0.0e+00 0.0e+00 1.4e+02  5 29  0  0  3   6 29  0  0  4  3151
+PCApply               96 1.0 4.6069e+01 1.0 9.96e+09 1.1 5.5e+04 2.2e+04 2.0e+03 32 89 61 29 46  39 89 61 29 52  1682
+------------------------------------------------------------------------------------------------------------------------
+
+Memory usage is given in bytes:
+
+Object Type          Creations   Destructions     Memory  Descendants' Mem.
+Reports information only for process 0.
+
+--- Event Stage 0: Main Stage
+
+ Toy Hydrostatic Ice     0              1          588     0
+   Distributed array     0             12      2974464     0
+                 Vec     0            398    250869552     0
+         Vec Scatter     0             72        54176     0
+           Index Set     0             42      4132144     0
+   IS L to G Mapping     0             24      4384080     0
+              Matrix     0             96    462736516     0
+                SNES     0              6         6192     0
+       Krylov Solver     0             42       399600     0
+      Preconditioner     0             42        32160     0
+              Viewer     1              2         1088     0
+
+--- Event Stage 1: Full solve
+
+ Toy Hydrostatic Ice     1              0            0     0
+   Distributed array    12              0            0     0
+                 Vec   529            131     16156776     0
+         Vec Scatter   121             49        42532     0
+           Index Set   601            559     38652288     0
+   IS L to G Mapping    24              0            0     0
+              Matrix    96              0            0     0
+                SNES     6              0            0     0
+       Krylov Solver    42              0            0     0
+      Preconditioner    42              0            0     0
+              Viewer     6              5         2720     0
+========================================================================================================================
+Average time to get PetscTime(): 1.90735e-07
+Average time for MPI_Barrier(): 4.81606e-06
+Average time for zero size MPI_Send(): 4.64916e-06
+#PETSc Option Table entries:
+-M 16
+-P 2
+-da_refine_hierarchy_x 1,1,8,8,8
+-da_refine_hierarchy_y 2,2,1,1,1
+-da_refine_hierarchy_z 2,2,1,1,1
+-dmmg_form_function_ghost 1
+-dmmg_grid_sequence 1
+-dmmg_view
+-ksp_converged_reason
+-ksp_gmres_modifiedgramschmidt
+-ksp_monitor
+-ksp_rtol 1e-5
+-log_summary
+-mg_coarse_pc_factor_mat_solver_package mumps
+-mg_coarse_pc_type lu
+-mg_levels_0_pc_factor_mat_solver_package mumps
+-mg_levels_0_pc_type lu
+-mg_levels_1_pc_asm_overlap 0
+-mg_levels_1_sub_pc_type cholesky
+-mg_levels_2_pc_asm_overlap 0
+-mg_levels_3_pc_asm_overlap 0
+-mg_levels_4_pc_asm_overlap 0
+-mg_levels_pc_type asm
+-o x.80km.m16p2l6.ew.vts
+-pc_gmres_restart 300
+-pc_mg_type multiplicative
+-repeat_fine_solve 0
+-snes_converged_reason
+-snes_ksp_ew
+-snes_ksp_ew_rtolmax 0.5
+-snes_ksp_ew_version 3
+-snes_monitor
+-thi_L 80e3
+-thi_alpha 0.05
+-thi_friction_m 1
+-thi_hom x
+-thi_mat_type sbaij
+-thi_nlevels 6
+#End of PETSc Option Table entries
+Compiled without FORTRAN kernels
+Compiled with full precision matrices (default)
+sizeof(short) 2 sizeof(int) 4 sizeof(long) 8 sizeof(void*) 8 sizeof(PetscScalar) 8
+Configure run at: Sun Feb 14 21:35:50 2010
+Configure options: --download-umfpack --with-debugging=0 --download-spai --with-mpi-dir=/home/jedbrow/usr --with-shared --download-sundials --with-blas-lapack-dir=/usr/pack/atlas-3.7.24-ds/Linux_HAMMER64SSE3 --download-parmetis --download-chaco --download-mumps PETSC_ARCH=x64-mpich-opt --download-superlu_dist --download-spooles --download-superlu --with-single-library=0 --download-hypre --download-ml --download-blacs --download-scalapack
+-----------------------------------------
+Libraries compiled on Sun Feb 14 21:35:50 CET 2010 on vierzack02 
+Machine characteristics: Linux vierzack02 2.6.28.10-generic64-isg-ee-smp-4 #1 SMP Thu Aug 27 08:22:39 CEST 2009 x86_64 GNU/Linux 
+Using PETSc directory: /home/jedbrow/petsc
+Using PETSc arch: x64-mpich-opt
+-----------------------------------------
+Using C compiler: /home/jedbrow/usr/bin/mpicc -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -O   
+Using Fortran compiler: /home/jedbrow/usr/bin/mpif90 -fPIC -Wall -Wno-unused-variable -O    
+-----------------------------------------
+Using include paths: -I/home/jedbrow/petsc/x64-mpich-opt/include -I/home/jedbrow/petsc/include -I/home/jedbrow/petsc/x64-mpich-opt/include -I/home/jedbrow/usr/include  
+------------------------------------------
+Using C linker: /home/jedbrow/usr/bin/mpicc -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -O 
+Using Fortran linker: /home/jedbrow/usr/bin/mpif90 -fPIC -Wall -Wno-unused-variable -O  
+Using libraries: -Wl,-rpath,/home/jedbrow/petsc/x64-mpich-opt/lib -L/home/jedbrow/petsc/x64-mpich-opt/lib -lpetscts -lpetscsnes -lpetscksp -lpetscdm -lpetscmat -lpetscvec -lpetscsys       -lX11 -Wl,-rpath,/home/jedbrow/petsc/x64-mpich-opt/lib -L/home/jedbrow/petsc/x64-mpich-opt/lib -lcmumps -ldmumps -lsmumps -lzmumps -lmumps_common -lpord -lscalapack -lblacs -lsuperlu_dist_2.3 -lparmetis -lmetis -lspooles -lHYPRE -Wl,-rpath,/home/jedbrow/usr/lib -Wl,-rpath,/usr/pack/gcc-4.4.1-sd/amd64-debian-linux4.0/lib -Wl,-rpath,/usr/pack/gcc-4.4.1-sd/amd64-debian-linux4.0/lib/gcc/x86_64-unknown-linux-gnu/4.4.1 -lmpichcxx -lstdc++ -lsuperlu_4.0 -lsundials_cvode -lsundials_nvecserial -lsundials_nvecparallel -lspai -lml -lmpichcxx -lstdc++ -lchaco -lumfpack -lamd -Wl,-rpath,/usr/pack/atlas-3.7.24-ds/Linux_HAMMER64SSE3 -L/usr/pack/atlas-3.7.24-ds/Linux_HAMMER64SSE3 -llapack -lcblas -lf77blas -latlas -Wl,-rpath,/home/jedbrow/usr/lib -L/home/jedbrow/usr/lib -Wl,-rpath,/usr/pack/gcc-4.4.1-sd/amd64-debian-linux4.0/lib -L/usr/pack/gcc-4.4.1-sd/amd64-debian-linux4.0/lib -Wl,-rpath,/usr/pack/gcc-4.4.1-sd/amd64-debian-linux4.0/lib/gcc/x86_64-unknown-linux-gnu/4.4.1 -L/usr/pack/gcc-4.4.1-sd/amd64-debian-linux4.0/lib/gcc/x86_64-unknown-linux-gnu/4.4.1 -ldl -lmpich -lopa -lpthread -lrt -lgcc_s -lmpichf90 -lgfortran -lm -Wl,-rpath,/usr/pack/gcc-4.4.1-sd/amd64-debian-linux4.0/libexec/gcc/x86_64-unknown-linux-gnu/4.4.1 -L/usr/pack/gcc-4.4.1-sd/amd64-debian-linux4.0/libexec/gcc/x86_64-unknown-linux-gnu/4.4.1 -Wl,-rpath,/usr/pack/gcc-4.4.1-sd/amd64-debian-linux4.0/libexec/gcc/x86_64-unknown-linux-gnu -L/usr/pack/gcc-4.4.1-sd/amd64-debian-linux4.0/libexec/gcc/x86_64-unknown-linux-gnu -Wl,-rpath,/usr/pack/gcc-4.4.1-sd/amd64-debian-linux4.0/lib/gcc/x86_64-unknown-linux-gnu -L/usr/pack/gcc-4.4.1-sd/amd64-debian-linux4.0/lib/gcc/x86_64-unknown-linux-gnu -lm -lmpichcxx -lstdc++ -lmpichcxx -lstdc++ -ldl -lmpich -lopa -lpthread -lrt -lgcc_s -ldl  
+------------------------------------------
