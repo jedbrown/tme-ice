@@ -1,0 +1,5 @@
+If you use a very old version of git, you may need to clone the
+repositories in .gitmodules manually.  Then
+
+  ./make.sh figures
+  ./make.sh pdf
