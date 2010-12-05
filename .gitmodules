@@ -1,0 +1,3 @@
+[submodule "jedbib"]
+	path = jedbib
+	url = git://github.com/jedbrown/jedbib.git
