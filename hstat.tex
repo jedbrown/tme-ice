@@ -41,7 +41,7 @@
     Kingdom of Saudi Arabia}
 
   \begin{abstract}
-    The hydrostatic equations for ice sheet flow offer improved fidelity compared to the shallow ice approximation and shelfy stream approximation popular in today's ice sheet models, but it presents a serious bottleneck because it requires the solution of a 3D nonlinear system, as opposed to the 2D system present in SSA.  This system is posed on high-aspect domains with strong anisotropy and variation in coefficients, making it very expensive to solve using the methods currently employed.  This paper presents a multigrid Newton-Krylov solver for the hydrostatic equations that demonstrates textbook multigrid efficiency (an order of magnitude reduction in residual per iteration and solution of the fine-level system in a small multiple of the cost of a residual evaluation).  Scalability on Blue Gene/P is demonstrated and the method is compared to a variety of algebraic methods that are currently in use or have been proposed as viable alternatives.
+    The hydrostatic equations for ice sheet flow offer improved fidelity compared to the shallow ice approximation and shallow stream approximation (SSA) popular in today's ice sheet models, but it presents a serious bottleneck because it requires the solution of a 3D nonlinear system, as opposed to the 2D system present in SSA.  This system is posed on high-aspect domains with strong anisotropy and variation in coefficients, making it very expensive to solve using the methods currently employed.  This paper presents a multigrid Newton-Krylov solver for the hydrostatic equations that demonstrates textbook multigrid efficiency (an order of magnitude reduction in residual per iteration and solution of the fine-level system in a small multiple of the cost of a residual evaluation).  Scalability on Blue Gene/P is demonstrated and the method is compared to a variety of algebraic methods that are currently in use or have been proposed as viable alternatives.
   \end{abstract}
   \begin{keyword}
     hydrostatic, ice sheet, Newton-Krylov, multigrid, preconditioning
@@ -82,7 +82,7 @@ system involving only horizontal components of velocity.  See \cite{schoof2010th
 derivation and asymptotic analysis.
 
 Consider an ice domain $\Omega \subset \R^3$ lying between a Lispschitz continuous bed $b \in C^0(\R^2)$ and surface $s
-\in C^0(\R^2)$, with thickness $H = s-b$ bounded below by a positive constant\footnote{This singular
+\in C^0(\R^2)$, with thickness $H = s-b$ bounded below by a positive constant.\footnote{This singular
   limit is important in the case of grounded margins, but the present work does not pursue it.}  The
 velocity $\bm u = (u,v) \in \bm V = \bm H^1(\Omega)$ satisfies conservation of momentum which,
 omitting inertial and convective terms as is standard for ice sheets, is given by
@@ -123,7 +123,7 @@ To discretize this system with a finite element method, we introduce the test fu
 \end{align}
 for all $\bm \phi \in \VV$ where $\Gamma_{\text{bed}}$ is the slip portion of the bed.
 
-Equation \eqref{eq:weak} was discretized on a topologically structured hexahedral grid using $Q_1$ finite elements and standard $2^3$-point Gauss quadrature.  Length, time, and mass units were chosen so that thickness, velocity, and driving stresses are $\bigO(1)$.  See Section~\ref{ssec:dirichlet} for details on the enforcement of Dirichlet boundary conditions.
+For our numerical studies, equation \eqref{eq:weak} was discretized on a topologically structured hexahedral grid using $Q_1$ finite elements and standard $2^3$-point Gauss quadrature.  Length, time, and mass units were chosen so that thickness, velocity, and driving stresses are $\bigO(1)$.  See Section~\ref{ssec:dirichlet} for details on the enforcement of Dirichlet boundary conditions.
 
 The source code for our implementation is distributed as an example within PETSc~\cite{petsc-web-page} versions 3.1 and later\footnote{Upon unpacking the source, which can be downloaded from \href{http://mcs.anl.gov/petsc}{mcs.anl.gov/petsc}, see \texttt{src/snes/examples/tutorials/ex48.c}}.  Several generalizations of the tests from ISMIP-HOM~\cite{pattyn2008beh} are implemented, run with the option \texttt{-help} for a complete list of options.  Incidentally, our results for ``\SI{5}{\kilo\metre} test $C$'' in that paper (a slipperyness perturbation on a flat bed) agree to three significant figures with the ``Stokes'' results therein.  This is consistent with the asympotic analysis of \cite{schoof2010thin} which shows that slipperyness perturbations are not present in the leading order error terms for the hydrostatic equations (which is purely geometric), cf. \cite[Table~4 and Figure~8]{pattyn2008beh} where the ensemble range is nearly as large as the mean.
 
@@ -299,7 +299,7 @@ We first consider 1-level domain decomposition methods with incomplete factoriza
   \end{tabular}
 \end{table}
 
-The parallel algebraic multigrid packages ML~\cite{ml-guide} and BoomerAMG~\cite{henson2002bpa} provide potentially scalable alternatives.  ML is based on smoothed aggregation, tends to coarsen very rapidly, and provides its restriction and coarse-level matrices to PETSc so that that elaborate smoothers can be used.  ML does not converge for this problem with standard options, but with FGMRES on the outside of the V-cycle and GMRES(1) with $\RASM(1)$ as the smoother, using ICC(0) for the subdomain solve except on level 1 where a direct solve was used, we see 34 V-cycles per Newton.  ML needs only three levels to reach a coarse level with 144 degrees of freedom.  BoomerAMG is a classical multigrid which tends to coarsen slowly on anisotropic problems and does not expose the internal details, so smoother choices are limited.  BoomerAMG needs 7 levels to reach a coarse grid with 663 degrees of freedom, and averages 76 iterations per Newton.  There were other somewhat challenging problems for which BoomerAMG was competitive in terms of iteration count, but the setup costs and required number of levels was always large.
+The parallel algebraic multigrid packages ML~\cite{ml-guide} and BoomerAMG~\cite{henson2002bpa} provide potentially scalable alternatives.  ML is based on smoothed aggregation, tends to coarsen very rapidly, and provides its restriction and coarse-level matrices to PETSc so that that elaborate smoothers can be used.  ML does not converge for this problem with standard options, but with FGMRES on the outside of the V-cycle and GMRES(1) with $\RASM(1)$ as the smoother, using ICC(0) for the subdomain solve except on level 1 where a direct solve was used, we see 34 V-cycles per Newton.  ML needs only three levels to reach a coarse level with 144 degrees of freedom.  BoomerAMG is a classical algebraic multigrid which tends to coarsen slowly on anisotropic problems and does not expose the internal details, so smoother choices are limited.  BoomerAMG needs 7 levels to reach a coarse grid with 663 degrees of freedom, and averages 76 iterations per Newton.  There were other somewhat challenging problems for which BoomerAMG was competitive in terms of iteration count, but the setup costs and required number of levels was always large.
 
 Another approach to solving multi-component problems is to split the components and solve scalar problems for each in hopes that the scalar problems can be more readily handled by available software such as algebraic multigrid.  The split problems can be combined additively, multiplicatively, or symmetric multiplicative.  Unlike most Schwarz methods, additive is not typically implemented to expose concurrency, but it is simpler to implement in a matrix-light way because only the ``self-coupling'' terms need to be made available.  Multiplicative methods need to apply the off-diagonal submatrix and the most efficient way to apply it is usually by assembling it, but the submatrix can also be applied by finite differencing the full residual.  The results, shown in Table~\ref{tab:fieldsplit}, are uninspiring especially when considering that field-split creates additional synchronization points and attains lower throughput since it works with scalar matrices instead of block matrices (see Table~\ref{tab:sbaij}).
 
@@ -323,8 +323,19 @@ A different refinement involves a $10\times 10\times 1$ coarse grid and semi-ref
 \section{Discussion}
 We have presented a grid-sequenced Newton-Krylov multigrid algorithm for solving the hydrostatic equations for ice sheet flow.  It demonstrates ``textbook multigrid efficiency'' under extreme topography and basal conditions, and offers $\bigO(1000)$ speedups relative to Picard linearization and 1-level domain decomposition with incomplete factorization which is currently used to solve these equations~\cite{seacism,issm,johnson2007modeling,desmedt2010using,pattyn2003ntd}.
 
-\nonumber\section{Acknowledgments} This work was supported by Swiss National Science Foundation Grant 200021-113503/1
-and U.S. Department of Energy Office of Advanced Scientific Computing Research grant {\bf ?? SISPHUS ??} and Shaheen Supercomputing Laboratory at KAUST.
+\nonumber\section{Acknowledgments} This work was supported by Swiss National Science Foundation Grant 200021-113503/1, the Office of Advanced Scientific Computing
+Research, Office of Science, U.S. Department of Energy, under Contract
+DE-AC02-06CH11357, and Shaheen Supercomputing Laboratory at KAUST.
+
+% The text below can be removed in the published document
+The submitted manuscript has been created by UChicago Argonne, LLC,
+Operator of Argonne National Laboratory ("Argonne").  Argonne, a
+U.S. Department of Energy Office of Science laboratory, is operated
+under Contract No. DE-AC02-06CH11357.  The U.S. Government retains for
+itself, and others acting on its behalf, a paid-up nonexclusive,
+irrevocable worldwide license in said article to reproduce, prepare
+derivative works, distribute copies to the public, and perform
+publicly and display publicly, by or on behalf of the Government.
 
 \bibliographystyle{model1-num-names}
 \bibliography{jedbib/jedbib}
