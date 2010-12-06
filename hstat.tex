@@ -41,7 +41,7 @@
     Kingdom of Saudi Arabia}
 
   \begin{abstract}
-    The hydrostatic equations for ice sheet flow offer improved fidelity compared to the shallow ice approximation and shelfy stream approximation popular in today's ice sheet models, but it presents a serious bottleneck because it requires the solution of a 3D nonlinear system, as opposed to the 2D system present in SSA.  This system is posed on high-aspect domains with strong anisotropy and variation in coefficients, making it very expensive to solve using the methods currently employed.  This paper presents a multigrid Newton-Krylov solver for the hydrostatic equations that demonstrates textbook multigrid efficiency (an order of magnitude reduction in residual per iteration and solution of the fine-level system in a small multiple of the cost of a residual evaluation).  Scalability on Blue Gene/P is demonstrated and the method is compared to a variety of algebraic methods that are currently in use or have been proposed as viable alternatives.
+    The hydrostatic equations for ice sheet flow offer improved fidelity compared to the shallow ice approximation and shallow stream approximation popular in today's ice sheet models, but it presents a serious bottleneck because it requires the solution of a 3D nonlinear system, as opposed to the 2D system present in SSA.  This system is posed on high-aspect domains with strong anisotropy and variation in coefficients, making it very expensive to solve using the methods currently employed.  This paper presents a multigrid Newton-Krylov solver for the hydrostatic equations that demonstrates textbook multigrid efficiency (an order of magnitude reduction in residual per iteration and solution of the fine-level system in a small multiple of the cost of a residual evaluation).  Scalability on Blue Gene/P is demonstrated and the method is compared to a variety of algebraic methods that are currently in use or have been proposed as viable alternatives.
   \end{abstract}
   \begin{keyword}
     hydrostatic, ice sheet, Newton-Krylov, multigrid, preconditioning
@@ -323,8 +323,7 @@ A different refinement involves a $10\times 10\times 1$ coarse grid and semi-ref
 \section{Discussion}
 We have presented a grid-sequenced Newton-Krylov multigrid algorithm for solving the hydrostatic equations for ice sheet flow.  It demonstrates ``textbook multigrid efficiency'' under extreme topography and basal conditions, and offers $\bigO(1000)$ speedups relative to Picard linearization and 1-level domain decomposition with incomplete factorization which is currently used to solve these equations~\cite{seacism,issm,johnson2007modeling,desmedt2010using,pattyn2003ntd}.
 
-\nonumber\section{Acknowledgments} This work was supported by Swiss National Science Foundation Grant 200021-113503/1
-and U.S. Department of Energy Office of Advanced Scientific Computing Research grant {\bf ?? SISPHUS ??} and Shaheen Supercomputing Laboratory at KAUST.
+\nonumber\section{Acknowledgments} This work was supported by Swiss National Science Foundation Grant 200021-113503/1, U.S. Department of Energy's Ice Sheet Initiative for CL-imate ExtremeS program under Contract DE-AC02-06CH11357, and Shaheen Supercomputing Laboratory at KAUST.
 
 \bibliographystyle{model1-num-names}
 \bibliography{jedbib/jedbib}
