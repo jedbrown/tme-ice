@@ -226,6 +226,16 @@ The Jacobian is always symmetric positive definite and has a natural block size 
   \end{tabular}
 \end{table}
 
+There are two ways to construct matrices on the coarse-levels of multigrid methods.
+The first, which we use in almost all of our numerical examples, is to rediscretize the system on the coarse mesh.
+In our implementation, this involves re-evaluating nonlinearities on each level of the hierarchy, although restricting fine-level coefficients of the linearized problem would also be possible.
+This procedure produces coarse operators that are ``as sparse as possible'' on each of the levels.
+The Galerkin procedure is an alternative which is mandatory for algebraic multigrid.
+Given an interpolation operator $P: \VV_{\text{coarse}} \to \VV_{\text{fine}}$ and assembled fine level matrix $A_{\text{fine}}$, the Galerkin coarse operator is $A_{\text{coarse}} = P^T A_{\text{fine}} P$.
+These operators work very well for some problems, but computing the sparse matrix product in parallel involves a significant amount of communication and irregular memory access, so it is relatively expensive.
+Additionally, second order accurate interpolation operators cause a loss of sparsity in the coarse level operators, an effect known as stencil growth.
+Stencil growth tends to blur regions where the solution has local structure and usually reduces the effectiveness of inexpensive smoothers.
+
 \section{Numerical examples}\label{sec:examples}
 \subsection{Algorithmic Scalability}\label{sec:ascaling}
 We consider three model problems inspired by the periodic domain ISMIP-HOM~\cite{pattyn2008beh} tests.  All use surface $s(x,y) = -x\sin \alpha$ where $\alpha$ is the surface slope (the coordinate system is not rotated) and a bed similar to $b_A(x,y) = s(x,y) - \SI{1000}{\metre} + \SI{500}{\metre} \cdot \sin\hat{x}\sin\hat{y}$ for $(x,y) \in [0,L)^2$ with $\hat{x} = 2\pi x/L,\hat{y}=2\pi y/L$.  Test $X$ uses bed $b_X = b_A$ and stickyness parameter
