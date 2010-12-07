@@ -341,11 +341,36 @@ BoomerAMG used 7 levels and ML had 3 with the same solver parameters as discusse
   %  for ft in additive multiplicative symmetric_multiplicative; do ~/usr/bin/mpiexec -n 4 ./e -M 40 -P 13 -thi_L 80e3 -thi_hom x -thi_alpha 0.03 -thi_nlevels 1 -{snes,ksp}_converged_reason -pc_type fieldsplit -pc_fieldsplit_type $ft -fieldsplit_0_pc_type ml -fieldsplit_0_pc_ml_maxnlevels 3 -fieldsplit_0_mg_levels_ksp_type gmres -fieldsplit_0_mg_levels_pc_type asm -fieldsplit_0_mg_levels_pc_asm_type restrict -fieldsplit_0_mg_levels_1_sub_pc_type cholesky -fieldsplit_1_pc_type ml -fieldsplit_1_pc_ml_maxnlevels 3 -fieldsplit_1_mg_levels_ksp_type gmres -fieldsplit_1_mg_levels_pc_type asm -fieldsplit_1_mg_levels_pc_asm_type restrict -fieldsplit_1_mg_levels_1_sub_pc_type cholesky; done
 \end{table}
 
-A good geometric multigrid for this problem uses 4-levels with a coarse grid of $10\times 10\times 2$ elements which is semi-refined twice by a factor of 2 in the horizontal, then by a factor of 6 in the vertical to reach the target $40\times 40\times 12$ grid.  Block Jacobi either a direct or inexact subdomain solve is used as the smoother on levels.
-A direct solver is always used on the coarsest level and for the subdomain solvers on the next coarsest level (level 1, these problems are very small so the direct solve is cheap).  When a direct solve is used for subdomain problems on levels 2 and 3, an average of 8.9 Krylov iterations are needed per Newton.  Replacing these direct solves with zero-fill incomplete Cholesky raises the iteration count to 9.6.  Subsequently increasing overlap from 0 to 1 on level 1 produces 6.9 for $\RASM(1)$ and 11.9 for $\ASM(1)$.  Using overlap on all levels produces 5.9 iterations for $\RASM(1)$ and 20.2 for $\ASM(1)$.  We cannot explain why symmetric additive Schwarz performs so poorly in this problem, but the other numbers are robust to changes in resolution, spatial domain, and number of processes.
-When using Galerkin coarse operators with this last $\RASM(1)$ method, the average iteration count goes up to 54 (from 5.9), suggesting that Galerkin coarse operators may be responsible for some of the poor robustness exhibited by the algebraic multigrids.
+A good geometric multigrid for this problem uses 4-levels with a coarse grid of $10\times 10\times 2$ elements which is semi-refined twice by a factor of 2 in the horizontal, then by a factor of 6 in the vertical to reach the target $40\times 40\times 12$ grid.
+The smoothers consist of a domain decomposition method and a subdomain solver which may be exact or inexact.
+Direct solves for the subdomain problems on level 1 are very cheap and tend to improve robustness so we always use a direct solve.
+A different refinement involves a $10\times 10\times 1$ coarse grid and semi-refines twice by a factor of 2 in the horizontal, then by a factor of 12 in the vertical to reach the same target grid.
+The coarse levels are smaller in this case so it is more efficient provided the iteratation counts are similar.
+Table~\ref{tab:xmg} explores a variety of multigrid preconditioner configurations with each coarse level.
+A distinct affect is that inexact subdomain solvers cause minimal performance degradation, cf. \ref{tab:1level} where a factor of 5 to 10 degradation is visible.
+Use of Galerkin coarse operators has a catastrophic effect on the iteration count and may help explain the poor robustness exhibited by the algebraic multigrids.
+We cannot explain why symmetric additive Schwarz performs so poorly in this problem, but the other numbers are robust to changes in resolution, spatial domain, and number of processes.
 
-A different refinement involves a $10\times 10\times 1$ coarse grid and semi-refines twice by a factor of 2 in the horizontal, then by a factor of 12 in the vertical to reach the same target grid.  The coarse levels are smaller in this case and the average iteration counts are 10.3, 10.1, and 6.9 for block Jacobi, $\ASM(1)$, and $\RASM(1)$ on level 1 (always block Jacobi on finer levels), with ICC(0) used for all subdomain solves finer than level 1.  When using grid sequencing and this last method, the problem can be solved in 7 Newton iterations on the fine level and an average of 5.4 V-cycles per Newton. If the Eisenstat-Walker method is used to avoid oversolving, it takes 8 Newton iterations with a total of 12 V-cycles.
+\begin{table}
+  \centering\caption{Average GMRES iterations per Newton for different multigrid preconditioners.}\label{tab:xmg}
+  \begin{tabular}{l|ll|ll|r@{.}l}
+    \multirow{2}{*}{Coarse problem} & \multicolumn{2}{c|}{Level 1} & \multicolumn{2}{c|}{Level 2 and 3} & \multicolumn{2}{c}{\multirow{2}{*}{Its}} \\
+                                   & decomp. & subdomain & decomp. & subdomain         \\ \hline
+    $10\times 10\times 2$ Redisc   & BJacobi & Cholesky & BJacobi & Cholesky & 8  & 9 \\
+    $10\times 10\times 2$ Redisc   & BJacobi & Cholesky & BJacobi & ICC(0)   & 9  & 6 \\
+    $10\times 10\times 2$ Redisc   & BJacobi & Cholesky & ASM(1)  & ICC(0)   & 11 & 9 \\
+    $10\times 10\times 2$ Redisc   & BJacobi & Cholesky & RASM(1) & ICC(0)   & 6  & 9 \\
+    $10\times 10\times 2$ Redisc   & ASM(1)  & Cholesky & ASM(1)  & ICC(0)   & 20 & 2 \\
+    $10\times 10\times 2$ Redisc   & RASM(1) & Cholesky & RASM(1) & ICC(0)   & 5  & 9 \\
+    $10\times 10\times 2$ Galerkin & RASM(1) & Cholesky & RASM(1) & ICC(0)   & 54 &   \\
+    $10\times 10\times 1$ Redisc   & BJacobi & Cholesky & BJacobi & ICC(0)   & 10 & 3 \\
+    $10\times 10\times 1$ Redisc   & ASM(1)  & Cholesky & BJacobi & ICC(0)   & 10 & 1 \\
+    $10\times 10\times 1$ Redisc   & RASM(1) & Cholesky & BJacobi & ICC(0)   & 6  & 9 \\
+  \end{tabular}
+\end{table}
+
+Finally, we remark that when using grid sequencing and method in the last row of Table~\ref{tab:xmg}, the problem can be solved in 7 Newton iterations on the fine level and an average of 5.4 V-cycles per Newton.
+If the Eisenstat-Walker method is used to avoid oversolving, it takes 8 Newton iterations with a total of 12 V-cycles.
 
 \section{Discussion}
 We have presented a grid-sequenced Newton-Krylov multigrid algorithm for solving the hydrostatic equations for ice sheet flow.
