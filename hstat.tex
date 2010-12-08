@@ -81,9 +81,8 @@ incompressibility to be enforced implicitly by eliminating pressure and vertical
 system involving only horizontal components of velocity.  See \cite{schoof2010thin} for a rigorous
 derivation and asymptotic analysis.
 
-Consider an ice domain $\Omega \subset \R^3$ lying between a Lispschitz continuous bed $b \in C^0(\R^2)$ and surface $s
-\in C^0(\R^2)$, with thickness $H = s-b$ bounded below by a positive constant.\footnote{This singular
-  limit is important in the case of grounded margins, but the present work does not pursue it.}  The
+Consider an ice domain $\Omega \subset \R^3$ lying between a Lipschitz continuous bed $b(x,y)$ and surface $s(x,y)$ with thickness $H = s-b$ bounded below by a positive constant.\footnote{This singular limit is important in the case of grounded margins, but the present work does not pursue it.}
+The
 velocity $\bm u = (u,v) \in \bm V = \bm H^1(\Omega)$ satisfies conservation of momentum which,
 omitting inertial and convective terms as is standard for ice sheets, is given by
 \begin{align}\label{eq:momentum}
@@ -207,14 +206,14 @@ entry should be similar to the diagonal entry of the Jacobian for nearby nodes. 
 set the residual at Dirichlet nodes to
 \begin{align}\label{eq:dirichlet-scale}
   f_u &= 2 \eta (4 h_yh_z/h_x + h_x h_z/h_y + h_x h_y/h_z) u \\
-  f_v &= 2 \eta (h_yh_z/h_x + 4 h_x h_z/h_y + h_x h_y/h_z) u
+  f_v &= 2 \eta (h_yh_z/h_x + 4 h_x h_z/h_y + h_x h_y/h_z) v
 \end{align}
 where $h_x,h_y,h_z$ are the local element dimensions.  This scaling produces the same diagonal
 entries that would appear if the domain was extended so that constant viscosity momentum equations
 appeared at the formerly Dirichlet nodes.
 
 \subsection{Matrices}
-The most expensive operations are Jacobian assembly and sparse matrix kernels.  The former involves evaluation of transcendental functions and quadrature loops.  While transcendental functions take most of the time for residual evaluation, they are less significant than quadrature loops for assembly.  The quadrature loops were explicitly vectorized using SSE2 intrinsics which led to a 30\% speedup on Core 2 and Opteron architectures using both GNU and Intel compilers.  There was no manual vectorization for the Blue Gene/P results quoted in Section~\ref{sec:pscaling}.
+The most expensive operations are Jacobian assembly and sparse matrix kernels.  The former involves evaluation of fractional powers and quadrature loops.  While fractional powers take most of the time for residual evaluation, they are less significant than quadrature loops for assembly.  The quadrature loops were explicitly vectorized using SSE2 intrinsics which led to a 30\% speedup on Core 2 and Opteron architectures using both GNU and Intel compilers.  There was no manual vectorization for the Blue Gene/P results quoted in Section~\ref{sec:pscaling}.
 
 Assembly costs could be further mitigated by recomputing it less frequently, either in a modified Newton method (degrades nonlinear convergence rate) or by applying the current operator matrix-free by finite differencing the residual or using automatic differentiation in which case only the preconditioner is lagged.  These are runtime options in the present code, but not a clear benefit so have not been pursued in the present work.  If matrix-free application of the true Jacobian is used, several other preconditioning options become available without impacting the nonlinear convergence rate.  One could assemble only the block-tridiagonal column coupling, ignoring horizontal coupling, thus saving the memory for the finest level(s). Additionally, a truly 2D coarse problem can be defined by using the shallow stream equations~\cite{morland1987unconfined,weis1999theory,schoof2006variational} and restriction operators defined by integrating the entire column.  These possibilities are also runtime options, but have not exhibited a level of robustness comparable to the more conventional methods pursued here.
 
@@ -349,7 +348,7 @@ The coarse levels are smaller in this case so it is more efficient provided the 
 Table~\ref{tab:xmg} explores a variety of multigrid preconditioner configurations with each coarse level.
 A distinct affect is that inexact subdomain solvers cause minimal performance degradation, cf. \ref{tab:1level} where a factor of 5 to 10 degradation is visible.
 Use of Galerkin coarse operators has a catastrophic effect on the iteration count and may help explain the poor robustness exhibited by the algebraic multigrids.
-We cannot explain why symmetric additive Schwarz performs so poorly in this problem, but the other numbers are robust to changes in resolution, spatial domain, and number of processes.
+We cannot explain why symmetric additive Schwarz performs so poorly on this problem, but the other numbers are robust to changes in resolution, spatial domain, and number of processes.
 
 \begin{table}
   \centering\caption{Average GMRES iterations per Newton for different multigrid preconditioners.}\label{tab:xmg}
