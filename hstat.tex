@@ -41,7 +41,7 @@
     Kingdom of Saudi Arabia}
 
   \begin{abstract}
-    The hydrostatic equations for ice sheet flow offer improved fidelity compared to the shallow ice approximation and shallow stream approximation (SSA) popular in today's ice sheet models, but it presents a serious bottleneck because it requires the solution of a 3D nonlinear system, as opposed to the 2D system present in SSA.  This system is posed on high-aspect domains with strong anisotropy and variation in coefficients, making it very expensive to solve using the methods currently employed.  This paper presents a Newton-Krylov multigrid solver for the hydrostatic equations that demonstrates textbook multigrid efficiency (an order of magnitude reduction in residual per iteration and solution of the fine-level system in a small multiple of the cost of a residual evaluation).  Scalability on Blue Gene/P is demonstrated and the method is compared to a variety of algebraic methods that are currently in use or have been proposed as viable alternatives.
+    The hydrostatic equations for ice sheet flow offer improved fidelity compared to the shallow ice approximation and shallow stream approximation (SSA) popular in today's ice sheet models. Nevertheless, they present a serious bottleneck because they require the solution of a 3D nonlinear system, as opposed to the 2D system present in SSA.  This 3D system is posed on high-aspect domains with strong anisotropy and variation in coefficients, making it expensive to solve by using current methods.  This paper presents a Newton-Krylov multigrid solver for the hydrostatic equations that demonstrates textbook multigrid efficiency (an order of magnitude reduction in residual per iteration and solution of the fine-level system at a small multiple of the cost of a residual evaluation).  Scalability on Blue Gene/P is demonstrated, and the method is compared to various algebraic methods that are in use or have been proposed as viable approaches.
   \end{abstract}
   \begin{keyword}
     hydrostatic, ice sheet, Newton-Krylov, multigrid, preconditioning
@@ -52,27 +52,27 @@
 \section{Introduction}
 The dynamic response of ice streams and outlet glaciers is poorly represented using the shallowness
 assumptions inherent in the present generation of ice sheet models.  Accurate simulation of this
-response is crucial for prediction of sea level rise and the inability of available models, based on
+response is crucial for prediction of sea level rise; indeed, the inability of available models, based on
 the shallow ice approximation (SIA)~\cite{hutter1983tgm} and shallow stream approximation
 (SSA)~\cite{morland1987unconfined,weis1999theory}, to simulate these processes was cited as a major
-deficiency in the IPCC AR4~\cite{ipcc2007ar4-syr}.
+deficiency in the Fourth Assesment Report of the Intergovernmental Panel on Climate Change~\cite{ipcc2007ar4-syr}.
 
-The hydrostatic equations were introduced by \cite{blatter1995vas} as a model of intermediate complexity between the full non-Newtonian Stokes system and the integrated SIA and SSA models.  A more precise analysis, including the limiting cases of fast and slow sliding, was given in \cite{schoof2010thin}.  Well-posedness was proven in \cite{colinge1999strongly} and approximation properties of finite element methods were analyzed in \cite{glowinski2003approximation,chow2004finite}.  The hydrostatic equations were used for transient simulation in \cite{pattyn2002tgr} and in 3D in \cite{pattyn2003ntd}, as well as subsequent work. Several models of this form were compared in \cite{pattyn2008beh}.
+The hydrostatic equations were introduced in \cite{blatter1995vas} as a model of intermediate complexity between the full non-Newtonian Stokes system and the integrated SIA and SSA models.  A more precise analysis, including the limiting cases of fast and slow sliding, was given in \cite{schoof2010thin}.  Well-posedness was proven in \cite{colinge1999strongly}, and approximation properties of finite-element methods were analyzed in \cite{glowinski2003approximation,chow2004finite}.  The hydrostatic equations were used for transient simulation in \cite{pattyn2002tgr} and in 3D models in \cite{pattyn2003ntd}, as well as subsequent work. Several models of this form were compared in \cite{pattyn2008beh}.
 
-However, the use of hydrostatic equations in current models has been limited due to the cost of solving the 3D nonlinear system for velocity.  This cost comes from both slow convergence on the
-nonlinearities (rheology and slip), and expensive linear solves using standard preconditioners such
-as incomplete factorization and 1-level domain decomposition.  The poor linear solve performance is
+The use of hydrostatic equations in current models has been limited, however by the cost of solving the 3D nonlinear system for velocity.  This cost comes from both slow convergence on the
+nonlinearities (rheology and slip) and expensive linear solves using standard preconditioners such
+as incomplete factorization and one-level domain decomposition.  The poor linear solve performance is
 attributable to the strong anisotropy and heterogeneity imposed by the rheology and geometry.
 
 In the present work, we introduce a Newton-Krylov multigrid solver that demonstrates textbook
-multigrid efficiency, characterized by convergence in a small multiple of the cost of a single
+multigrid efficiency, characterized by convergence in a small multiple of the cost of a single,
 fine-level residual evaluation, and typically involving an order of magnitude reduction in residual
 per multigrid (V or F) cycle.  The scheme converges quadratically on the nonlinearities, is rapidly
-globalized using grid sequencing, is very robust to parameters and geometry, coarsens rapidly in
+globalized by using grid sequencing, is robust to parameters and geometry, coarsens rapidly in
 almost all cases, and exhibits excellent parallel scalability.  Our code is freely available as part
 of the Portable Extensible Toolkit for Scientific computing (PETSc)~\cite{petsc-web-page}.
 
-Section~\ref{sec:equations} presents the equations and discretization, Section~\ref{sec:solver} describes the solver, and Section~\ref{sec:examples} demonstrates performance and scalability with numerical examples.
+Section~\ref{sec:equations} presents the equations and discretization, Section~\ref{sec:solver} describes the solver, and Section~\ref{sec:examples} demonstrates performance and scalability with numerical examples. Section 5 summarizes our conclusions.
 
 \section{Equations and discretization}\label{sec:equations}
 The hydrostatic equations are obtained from the non-Newtonian Stokes equations in the limit where
@@ -83,14 +83,14 @@ derivation and asymptotic analysis.
 
 Consider an ice domain $\Omega \subset \R^3$ lying between a Lipschitz continuous bed $b(x,y)$ and surface $s(x,y)$ with thickness $h = s-b$ bounded below by a positive constant.\footnote{This singular limit is important in the case of grounded margins, but the present work does not pursue it.}
 The
-velocity $\bm u = (u,v) \in \bm V = \bm H^1(\Omega)$ satisfies conservation of momentum which,
+velocity $\bm u = (u,v) \in \bm V = \bm H^1(\Omega)$ satisfies conservation of momentum, which,
 omitting inertial and convective terms as is standard for ice sheets, is given by
 \begin{align}\label{eq:momentum}
   - \nabla\cdot \left[ \eta
   \begin{pmatrix}
     4 u_x + 2 v_y & u_y + v_x & u_z \\
     u_y + v_x & 2 u_x + 4 v_y & v_z
-  \end{pmatrix} \right] + \rho g \nabla s & = 0
+  \end{pmatrix} \right] + \rho g \nabla s & = 0,
 \end{align}
 where
 \begin{align}\label{eq:viscosity}
@@ -104,14 +104,14 @@ is the second invariant.  Ice sheet models typically take $n=3$ as the power law
 \eqref{eq:momentum} is subject to natural boundary conditions at the free surface and either no-slip
 $\bm u = 0$ or power-law slip with friction parameter
 \begin{align*}
-  \beta^2(\gamma_b) = \beta_0^2 (\epsilon_b^2 + \gamma_b)^{\frac{m-1}{2}}
+  \beta^2(\gamma_b) = \beta_0^2 (\epsilon_b^2 + \gamma_b)^{\frac{m-1}{2}},
 \end{align*}
 where $\gamma_b = \frac 1 2 (u^2 + v^2)$, $\epsilon_b$ is regularization, and $m \in (0,1]$ is the
 exponent that produces Navier slip for $m=1$, Weertman~\cite{weertman1957sliding} sliding for
-$m=1/n$, and Coulomb slip as $m \to 0$.  In the present work, we define $\epsilon$ and $\epsilon_b$ using a strain rate of $\SI{1e-5}{\per\year}$ and a slip velocity of $\SI{1}{\metre\per\year}$ respectively.
+$m=1/n$, and Coulomb slip as $m \to 0$.  In the present work, we define $\epsilon$ and $\epsilon_b$ using a strain rate of $\SI{1e-5}{\per\year}$ and a slip velocity of $\SI{1}{\metre\per\year}$, respectively.
 
-To discretize this system with a finite element method, we introduce the test functions $\bm \phi
-\in \VV$ and integrate by parts to produce the weak form: find $\bm u \in \VV$ such that
+To discretize this system with a finite-element method, we introduce the test functions $\bm \phi
+\in \VV$ and integrate by parts to produce the weak form: Find $\bm u \in \VV$ such that
 \begin{align}\label{eq:weak}
   \int_\Omega \nabla\bm\phi \tcolon \eta \bm 1 \tcolon
   \begin{pmatrix}
@@ -120,128 +120,131 @@ To discretize this system with a finite element method, we introduce the test fu
   \end{pmatrix} + \bm\phi \cdot\rho g \nabla s
   + \int_{\Gamma_{\text{bed}}} \bm \phi \cdot \beta^2(\abs{\bm u}^2/2) \bm u = 0
 \end{align}
-for all $\bm \phi \in \VV$ where $\Gamma_{\text{bed}}$ is the slip portion of the bed.
+for all $\bm \phi \in \VV$, where $\Gamma_{\text{bed}}$ is the slip portion of the bed.
 
 For our numerical studies, equation \eqref{eq:weak} was discretized on a topologically structured hexahedral grid using $Q_1$ finite elements and standard $2^3$-point Gauss quadrature.  Length, time, and mass units were chosen so that thickness, velocity, and driving stresses are $\bigO(1)$.  See Section~\ref{ssec:dirichlet} for details on the enforcement of Dirichlet boundary conditions.
 
-The source code for our implementation is distributed as an example within PETSc~\cite{petsc-web-page} versions 3.1 and later\footnote{Upon unpacking the source, which can be downloaded from \href{http://mcs.anl.gov/petsc}{mcs.anl.gov/petsc}, see \texttt{src/snes/examples/tutorials/ex48.c}}.  Several generalizations of the tests from ISMIP-HOM~\cite{pattyn2008beh} are implemented, run with the option \texttt{-help} for a complete list of options.  Incidentally, our results for ``\SI{5}{\kilo\metre} test $C$'' in that paper (a slipperyness perturbation on a flat bed) agree to three significant figures with the ``Stokes'' results therein.  This is consistent with the asympotic analysis of \cite{schoof2010thin} which shows that slipperyness perturbations are not present in the leading order error terms for the hydrostatic equations (which is purely geometric), cf. \cite[Table~4 and Figure~8]{pattyn2008beh} where the ensemble range is nearly as large as the mean.
+The source code for our implementation is distributed as an example in PETSc~\cite{petsc-web-page} versions 3.1 and later.\footnote{Upon unpacking the source, which can be downloaded from \href{http://mcs.anl.gov/petsc}{mcs.anl.gov/petsc}, see \texttt{src/snes/examples/tutorials/ex48.c.}}  Several generalizations of the tests from ISMIP-HOM~\cite{pattyn2008beh} are implemented, run with the option \texttt{-help} for a complete list of options.  Incidentally, our results for ``\SI{5}{\kilo\metre} test $C$'' in that paper (a slipperiness perturbation on a flat bed) agree to three significant figures with the ``Stokes'' results therein.  This is consistent with the asympotic analysis of \cite{schoof2010thin}, which shows that slipperiness perturbations are not present in the leading-order error terms for the hydrostatic equations (which are purely geometric); cf. \cite[Table~4 and Figure~8]{pattyn2008beh}, where the ensemble range is nearly as large as the mean.
 
 \section{Solver and implementation}\label{sec:solver}
 We begin by writing the discretization of \eqref{eq:weak} as an algebraic system $F(U) = 0$ with
-Jacobian $J(U)$.  This nonlinear system is solved with a Newton iteration which requires an
-(approximate) solution $\delta U$ of
+Jacobian $J(U)$.  This nonlinear system is solved with a Newton iteration that requires an
+approximate solution $\delta U$ of
 \begin{align}\label{eq:newton-step}
   J(U)\delta U = -F(U) .
 \end{align}
-Newton methods are quadratically convergent in the terminal phase, but may converge very slowly or
+Newton methods are quadratically convergent in the terminal phase but may converge slowly or
 not at all in early phases.  Many applications of the present solver are in a time-stepping code
-where the initial iterates start within the region of quadratic convergence, thus globalization
-would rarely be a concern, but since a good initial iterate is not available in the present tests,
+where the initial iterates start within the region of quadratic convergence; thus globalization
+would rarely be a concern. But since a good initial iterate is not available in the present tests,
 we use grid sequencing (solving the problem on a sequence of coarser grids) to produce an initial
 iterate on the fine grid.
 Globalization is also a critical issue when solving steady-state problems.
 Grid sequencing requires a geometric hierarchy of meshes with interpolation operators to move the solution to the next finer level.
-Managing this hierarchy is often seen as a programming burden, but exposes more robust algorithms than are available otherwise.
+Managing this hierarchy is often seen as a programming burden, but it exposes more robust algorithms than are available otherwise.
 
-The Newton step \eqref{eq:newton-step} is solved by a Krylov method such as GMRES, for which the iteration count is highly dependent on quality of the preconditioner.  Since $J(U)$ is symmetric positive definite (SPD), methods such as conjugate gradients could be used, however this work always uses GMRES because it allows the use of nonsymmetric preconditioners, and the iteration counts are always kept very low so that storage and restarts are not an issue.  As an SPD system, a wide variety of preconditioners are available, however, viscosity contrasts and strong anisotropy cause most preconditioners to perform poorly.  The rest of this section describes the methods used to produce a scalable algorithm in spite of these difficulties.
+The Newton step \eqref{eq:newton-step} is solved by a Krylov method such as GMRES, for which the iteration count is highly dependent on the quality of the preconditioner.  Since $J(U)$ is symmetric positive definite (SPD), methods such as conjugate gradients could be used. This work always uses GMRES, hwoever, because it allows the use of nonsymmetric preconditioners, and the iteration counts are always kept low so that storage and restarts are not an issue.  As an SPD system, it has a wide variety of preconditioners to choose from; however, viscosity contrasts and strong anisotropy cause most preconditioners to perform poorly.  The rest of this section describes the methods used to produce a scalable algorithm in spite of these difficulties.
 
 \subsection{Anisotropy}
 The ratio of width to thickness for outlet glaciers (the regions of ice sheets with greatest physical interest) ranges from $\bigO(1)$ to over $100$.  The nonlinear constitutive relation \eqref{eq:viscosity} produces three to four orders of magnitude variation in viscosity (usually with fastest variation in the vertical) and the Newton linearization of \eqref{eq:weak} produces additional anisotropy, effectively collapsing the conductivity tensor in the direction of the velocity gradient.
 
 For systems with a priori known anisotropy, semi-coarsening has been successful for attaining
 satisfactory multigrid performance even with weak smoothers like SOR, but semi-coarsening is
-unattractive for two reasons.  Firstly, semi-coarsening in the vertical direction would necessitate
-many levels because it only reduces the problem size by a factor of 2 on each coarsening (instead of
-8 for isotropic coarsening), and the fully-coarsened problem would still be far too large for a
+unattractive for two reasons.  First, semi-coarsening in the vertical direction would necessitate
+many levels because it reduces the problem size only by a factor of 2 on each coarsening (instead of
+8 for isotropic coarsening), and the fully coarsened problem would still be far too large for a
 direct solver, necessitating further coarsening in the horizontal direction.  The presence of many
-levels leads to more synchronization in parallel which is detrimental to scalability and makes
+levels leads to more synchronization in parallel, which is detrimental to scalability and makes
 performance more sensitive to network latency.  Second, viscosity contrasts and anisotropy
-unaligned with the grid arise when the friction parameter $\beta^2$ is not smooth, which is the standard
+unaligned with the grid arise when the friction parameter $\beta^2$ is not smooth, as is the standard
 case when studying the migration of ice stream margins as the bed transitions from frozen (no-slip
 or very high friction) to temperate and very slippery depending on subglacial hydrology.
 
-In order to coarsen isotropically even on high-aspect domains, we order the unknowns so that columns
+To coarsen the system isotropically even on high-aspect domains, we order the unknowns so that columns
 are contiguous with a natural block size of 2
-(i.e. $\{u_{i,j,k},v_{i,j,k},u_{i,j,k+1},v_{i,j,k+1},\dotsc\}$ where $k$ is the index which is
+(i.e., $\{u_{i,j,k},v_{i,j,k},u_{i,j,k+1},v_{i,j,k+1},\dotsc\}$, where $k$ is the index that is
 increasing in the vertical direction) and not decomposed in parallel.  This decomposition is
-reasonable since the number of vertical levels used in simulations is typically between 10 and 100,
-and convenient since it is compatible with decompositions used by other climate model components.
+reasonable since the number of vertical levels used in simulations is typically between 10 and 100;
+it also is convenient since it is compatible with decompositions used by other climate model components.
 
 With this ordering, zero-fill incomplete factorization effectively performs an exact solve of the
 column since all the neglected fill (relative to an exact factorization) is caused by the coupling
 with adjacent columns.  Pure line smoothers were also tried as a smoother on the finest level, but
-robustness was significantly impacted and the memory benefits were deemed insufficient to pursue
+robustness was significantly impacted, and the memory benefits were deemed insufficient to pursue
 further.
 
 In scenarios with little sliding (frozen or sticky bed) and elements that are wide compared to the
 ice thickness, a lubrication approximation known as the ``shallow ice approximation'' is valid,
-allowing the velocity field to be determined locally from surface slope and a column integral.
+allowing the velocity field to be determined locally from the surface slope and a column integral.
 Since incomplete factorization with column ordering provides nearly exact coupling in the vertical,
 it is an effective preconditioner in such scenarios with no coarse level.  Indeed, with a typical
 ice thickness of \SI{1}{\kilo\metre} resting on a frozen bed and elements \SI{5}{\kilo\metre} on
 a side, block Jacobi with zero-fill incomplete Cholesky converges to relative tolerance of $10^{-5}$
 in about 10 Krylov iterations independent of the horizontal extent of the domain (number of elements
 in the horizontal), independent of the number of elements in the vertical, and independent of the
-number of subdomains (provided they do not get too small, there is some degredation when subdomain
+number of subdomains (provided they do not get too small: there is some degredation when subdomain
 size approaches a single column).  However, none of these favorable performance characteristics
-remain when the elements become small relative to the ice thickness or when the bed becomes
-slippery, since the usual $\bigO\big((L/H)^2\big)$ condition number for second order elliptic problems
-preconditioned by 1-level Schwarz methods with subdomains of size $H$ (see \cite{smith1996domain}) becomes apparent.
-Indeed, we have found low-fill incomplete factorization to be nearly unusable as part of a 1-level additive Schwarz method for problems with slippery beds or steep geometry, even at quite low resolution, as investigated in Section~\ref{sec:1level}.
+remains when the elements become small relative to the ice thickness or when the bed becomes
+slippery, since the usual $\bigO\big((L/H)^2\big)$ condition number for second-order elliptic problems
+preconditioned by one-level Schwarz methods with subdomains of size $H$ (see \cite{smith1996domain}) becomes apparent.
+Indeed, we have found low-fill incomplete factorization to be nearly unusable as part of a one-level additive Schwarz method for problems with slippery beds or steep geometry, even at low resolution, as investigated in Section~\ref{sec:1level}.
 
 %%%%%%%%%%%%%%%%%%  It appears that this section is wrong and shifting is not the issue (just a PETSc bug in an older version of PETSc)
-%We have observed a weakness of incomplete Cholesky factorization that makes it nearly unusable as a stand-alone preconditioner for this problem.  The Jacobian, including each subdomain problem in an block Jacobi or additive Schwarz method, is symmetric positive definite, which guarantees that a full Cholesky factorization can proceed with any ordering and will always find positive pivots~\cite{trefethen1997numerical}.  This property does not hold for incomplete factorization as discussed in~\cite{kershaw1978incomplete}.  Indeed, we find that strongly anisotropic problems (whether the anisotropy is due to mesh aspect ratio or strong rheologic nonlinearity) produce Jacobians for which incomplete Cholesky with any standard static pivoting (e.g. natural ordering, reverse Cuthill-McKee, nested dissection) and any reasonably amount of fill (e.g. 0--8 levels) produces negative pivots.  As is standard, these negative values can be ``shifted'' to a positive value so that the algorithm can continue.  Empirically, this shifting causes both a local error that may be cleaned up rapidly by the Krylov method and a nonlocal error that is disruptive to 1-level domain decomposition methods, and increasing overlap or fill has limited benefit or is actually harmful.  This effect is explored in Section~\ref{sec:1level}.
+%We have observed a weakness of incomplete Cholesky factorization that makes it nearly unusable as a stand-alone preconditioner for this problem.  The Jacobian, including each subdomain problem in an block Jacobi or additive Schwarz method, is symmetric positive definite, which guarantees that a full Cholesky factorization can proceed with any ordering and will always find positive pivots~\cite{trefethen1997numerical}.  This property does not hold for incomplete factorization as discussed in~\cite{kershaw1978incomplete}.  Indeed, we find that strongly anisotropic problems (whether the anisotropy is due to mesh aspect ratio or strong rheologic nonlinearity) produce Jacobians for which incomplete Cholesky with any standard static pivoting (e.g. natural ordering, reverse Cuthill-McKee, nested dissection) and any reasonably amount of fill (e.g. 0--8 levels) produces negative pivots.  As is standard, these negative values can be ``shifted'' to a positive value so that the algorithm can continue.  Empirically, this shifting causes both a local error that may be cleaned up rapidly by the Krylov method and a nonlocal error that is disruptive to one-level domain decomposition methods, and increasing overlap or fill has limited benefit or is actually harmful.  This effect is explored in Section~\ref{sec:1level}.
 
 \subsection{Dirichlet boundary conditions}\label{ssec:dirichlet}
 Multigrid is often sensitive to the enforcement of boundary conditions.  Ideally, Dirichlet
 conditions would be completely removed from the solution space, but doing so complicates grid
 management on structured grids, so instead we leave these degrees of freedom in the system but
-decouple them from the other equations.  During residual evaluation in the finite element context,
-this corresponds to evaluating integrals with the Dirichlet condition satisfied exactly, and setting
+decouple them from the other equations.  During residual evaluation in the finite-element context,
+this strategy corresponds to evaluating integrals with the Dirichlet condition satisfied exactly and setting
 the residual on the Dirichlet nodes to be equal to a multiple of the current solution.  With this
 scheme, all rows and columns of the Jacobian corresponding to Dirichlet nodes are zero except for a
-single diagonal entry, thus the system retains symmetry and satisfaction of the Dirichlet conditions
+single diagonal entry. Thus the system retains symmetry, and satisfaction of the Dirichlet conditions
 does not interfere with solving the other equations.  For good multigrid performance, the diagonal
 entry should be similar to the diagonal entry of the Jacobian for nearby nodes.  To ensure this, we
 set the residual at Dirichlet nodes to
 \begin{align}\label{eq:dirichlet-scale}
   f_u &= 2 \eta (4 h_yh_z/h_x + h_x h_z/h_y + h_x h_y/h_z) u \\
-  f_v &= 2 \eta (h_yh_z/h_x + 4 h_x h_z/h_y + h_x h_y/h_z) v
+  f_v &= 2 \eta (h_yh_z/h_x + 4 h_x h_z/h_y + h_x h_y/h_z) v,
 \end{align}
 where $h_x,h_y,h_z$ are the local element dimensions.  This scaling produces the same diagonal
 entries that would appear if the domain was extended so that constant viscosity momentum equations
 appeared at the formerly Dirichlet nodes.
 
 \subsection{Matrices}
-The most expensive operations are Jacobian assembly and sparse matrix kernels.  The former involves evaluation of fractional powers and quadrature loops.  While fractional powers take most of the time for residual evaluation, they are less significant than quadrature loops for assembly.  The quadrature loops were explicitly vectorized using SSE2 intrinsics which led to a 30\% speedup on Core 2 and Opteron architectures using both GNU and Intel compilers.  There was no manual vectorization for the Blue Gene/P results quoted in Section~\ref{sec:pscaling}.
+The most expensive operations are Jacobian assembly and sparse matrix kernels.  The former involves evaluation of fractional powers and quadrature loops.  While fractional powers take most of the time for residual evaluation, they are less significant than quadrature loops for assembly.  The quadrature loops were explicitly vectorized by using SSE2 intrinsics which led to a 30\% speedup on Core 2 and Opteron architectures using both GNU and Intel compilers.  There was no manual vectorization for the Blue Gene/P results quoted in Section~\ref{sec:pscaling}.
 
-Assembly costs could be further mitigated by recomputing it less frequently, either in a modified Newton method (degrades nonlinear convergence rate) or by applying the current operator matrix-free by finite differencing the residual or using automatic differentiation in which case only the preconditioner is lagged.  These are runtime options in the present code, but not a clear benefit so have not been pursued in the present work.  If matrix-free application of the true Jacobian is used, several other preconditioning options become available without impacting the nonlinear convergence rate.  One could assemble only the block-tridiagonal column coupling, ignoring horizontal coupling, thus saving the memory for the finest level(s). Additionally, a truly 2D coarse problem can be defined by using the shallow stream equations~\cite{morland1987unconfined,weis1999theory,schoof2006variational} and restriction operators defined by integrating the entire column.  These possibilities are also runtime options, but have not exhibited a level of robustness comparable to the more conventional methods pursued here.
+Assembly costs could be further mitigated by recomputing it less frequently, either by using a modified Newton method (degrades nonlinear convergence rate) or by applying the current operator matrix-free by finite differencing the residual or using automatic differentiation in which case only the preconditioner is lagged.  These are runtime options in the present code; but since they not offer a clear benefit they have not been pursued in the present work.  If matrix-free application of the true Jacobian is used, several other preconditioning options become available without impacting the nonlinear convergence rate.  One could assemble only the block-tridiagonal column coupling, ignoring horizontal coupling, thus saving the memory for the finest level(s). Additionally, a truly 2D coarse problem can be defined by using the shallow stream equations~\cite{morland1987unconfined,weis1999theory,schoof2006variational} and restriction operators defined by integrating the entire column.  These possibilities are also runtime options, but have not exhibited a level of robustness comparable to that of the more conventional methods pursued here.
 
-The Jacobian is always symmetric positive definite and has a natural block size of 2, so we use a symmetric block format (PETSc's SBAIJ).  This format stores one column index per $2\times 2$ block in the upper triangular part of the matrix and therefore uses about half the storage of the nonsymmetric BAIJ format which in turn uses 25\% less memory than a scalar format (AIJ). Multiplication for symmetric storage requires twice as much parallel communication as nonsymmetric storage, albeit with the same number of messages. In return, the diagonal part of a parallel decomposition does twice as much work per matrix entry and thus achieves higher throughput as shown in Table~\ref{tab:sbaij}.
+The Jacobian is always symmetric positive definite and has a natural block size of 2, so we use a symmetric block format (PETSc's SBAIJ).  This format stores one column index per $2\times 2$ block in the upper triangular part of the matrix and therefore uses about half the storage of the nonsymmetric BAIJ format, which in turn uses 25\% less memory than a scalar format (AIJ). Multiplication for symmetric storage requires twice as much parallel communication as nonsymmetric storage, albeit with the same number of messages. In return, the diagonal part of a parallel decomposition does twice as much work per matrix entry and thus achieves higher throughput, as shown in Table~\ref{tab:sbaij}.
 
 \begin{table}
   \centering\caption{Throughput (Mflop/s) for different matrix formats on Core 2 Duo (P8700) and Opteron 2356 (two sockets). \texttt{MatSolve} is a forward- and back-solve with incomplete Cholesky factors.  The AIJ format is using ``inodes'' which unrolls across consecutive rows with identical nonzero pattern (pairs in this case).}\label{tab:sbaij}
   \begin{tabular}{l|c|c|c|c|c|c}
-    \multirow{2}{*}{\backslashbox{kernel}{format}} & \multicolumn{3}{c|}{Core 2, 1 thread} & \multicolumn{3}{c}{Opteron, 4 processes} \\
+    \multirow{2}{*}{\backslashbox{Kernel}{Format}} & \multicolumn{3}{c|}{Core 2, 1 thread} & \multicolumn{3}{c}{Opteron, 4 processes} \\
                       & AIJ & BAIJ & SBAIJ & AIJ  & BAIJ & SBAIJ \\ \hline
     \texttt{MatMult}  & 812 & 985  & 1507  & 2226 & 2918 & 3119  \\
     \texttt{MatSolve} & 718 & 957  & 955   & 1573 & 2869 & 2858  \\
   \end{tabular}
 \end{table}
 
-There are two ways to construct matrices on the coarse-levels of multigrid methods.
-The first, which we use in almost all of our numerical examples, is to rediscretize the system on the coarse mesh.
+There are two ways to construct matrices on the coarse levels of multigrid methods.
+The first, which we use in almost all our numerical examples, is to rediscretize the system on the coarse mesh.
 In our implementation, this involves re-evaluating nonlinearities on each level of the hierarchy, although restricting fine-level coefficients of the linearized problem would also be possible.
-This procedure produces coarse operators that are ``as sparse as possible'' on each of the levels.
-The Galerkin procedure is an alternative which is mandatory for algebraic multigrid.
-Given an interpolation operator $P: \VV_{\text{coarse}} \to \VV_{\text{fine}}$ and assembled fine level matrix $A_{\text{fine}}$, the Galerkin coarse operator is $A_{\text{coarse}} = P^T A_{\text{fine}} P$.
-These operators work very well for some problems, but computing the sparse matrix product in parallel involves a significant amount of communication and irregular memory access, so it is relatively expensive.
-Additionally, second order accurate interpolation operators cause a loss of sparsity in the coarse level operators, an effect known as stencil growth.
+This procedure produces coarse operators that are as sparse as possible on each of the levels.
+The Galerkin procedure is an alternative that is mandatory for algebraic multigrid.
+Given an interpolation operator $P: \VV_{\text{coarse}} \to \VV_{\text{fine}}$ and assembled fine-level matrix $A_{\text{fine}}$, the Galerkin coarse operator is $A_{\text{coarse}} = P^T A_{\text{fine}} P$.
+These operators work well for some problems, but computing the sparse matrix product in parallel involves significant communication and irregular memory access, so it is relatively expensive.
+Additionally, second-order-accurate interpolation operators cause a loss of sparsity in the coarse-level operators, an effect known as stencil growth.
 Stencil growth tends to blur regions where the solution has local structure and usually reduces the effectiveness of inexpensive smoothers.
 
 \section{Numerical examples}\label{sec:examples}
+
+We present several numerical examples that demonstrate the algorithmic and parallel scalability of the Newton-Krylov multigrid approach.
+
 \subsection{Algorithmic Scalability}\label{sec:ascaling}
-We consider three model problems inspired by the periodic domain ISMIP-HOM~\cite{pattyn2008beh} tests.  All use surface $s(x,y) = -x\sin \alpha$ where $\alpha$ is the surface slope (the coordinate system is not rotated) and a bed similar to $b_A(x,y) = s(x,y) - \SI{1000}{\metre} + \SI{500}{\metre} \cdot \sin\hat{x}\sin\hat{y}$ for $(x,y) \in [0,L)^2$ with $\hat{x} = 2\pi x/L,\hat{y}=2\pi y/L$.  Test $X$ uses bed $b_X = b_A$ and stickyness parameter
+We consider three model problems inspired by the periodic domain ISMIP-HOM~\cite{pattyn2008beh} tests.  All use surface $s(x,y) = -x\sin \alpha$, where $\alpha$ is the surface slope (the coordinate system is not rotated) and a bed similar to $b_A(x,y) = s(x,y) - \SI{1000}{\metre} + \SI{500}{\metre} \cdot \sin\hat{x}\sin\hat{y}$ for $(x,y) \in [0,L)^2$ with $\hat{x} = 2\pi x/L,\hat{y}=2\pi y/L$.  Test $X$ uses bed $b_X = b_A$ and stickiness parameter
 \begin{align*}
   \beta_X^2(x,y) =
   \begin{cases}
@@ -249,17 +252,17 @@ We consider three model problems inspired by the periodic domain ISMIP-HOM~\cite
     0, & \text{otherwise}
   \end{cases}
 \end{align*}
-which is free slip except for a sticky circle at the center of the domain which is not aligned with the grid.  This problem exhibits shear localization at the edges of the sticky region and is most extreme at high aspect ratio.  We choose $L = \SI{80}{\kilo\metre}$ and $\alpha = 0.05^\circ$\footnote{This problem may be run with the options \texttt{-thi\_hom X -thi\_L 80e3 -thi\_alpha 0.05}, the other cases can be selected with similar options.} which produces velocities from \SIrange{0.9}{47}{\kilo\metre\per\year}.  A visual representation of the nonlinear solve process is shown in Figure~\ref{fig:xgridseq}.  This was run on 8 processors starting from a coarse grid of $16\times 16\times 1$, refining twice in the horizontal by factors of 2 in both $x$ and $y$, then three times in the vertical by factors of 8 each to reach a fine mesh of $64\times 64\times 513$ which has elements of nominal dimension $1250\times 1250\times 1.95$ meters.  In this example and the next one, Luis Chac\'on's variant of the Eisenstat-Walker~\cite{eisenstat1996cft} method was used to automatically adjust linear solve tolerances as the nonlinear solve converges.  Solving the linear systems to higher tolerance would have little impact on the number of nonlinear iterations and would be visible in the form of more $\times$ marks below the solid lines.  That most $\times$ marks lie on the solid line for nonlinear residual is an indication that effort is well balanced between linear and nonlinear solves.
+which is free slip except for a sticky circle at the center of the domain, which is not aligned with the grid.  This problem exhibits shear localization at the edges of the sticky region and is most extreme at high aspect ratio.  We choose $L = \SI{80}{\kilo\metre}$ and $\alpha = 0.05^\circ$\footnote{This problem may be run with the options \texttt{-thi\_hom X -thi\_L 80e3 -thi\_alpha 0.05}, the other cases can be selected with similar options.}, which produce velocities from \SIrange{0.9}{47}{\kilo\metre\per\year}.  A visual representation of the nonlinear solve process is shown in Figure~\ref{fig:xgridseq}.  This was run on 8 processors starting from a coarse grid of $16\times 16\times 1$, refining twice in the horizontal by factors of 2 in both $x$ and $y$, then three times in the vertical by factors of 8 each to reach a fine mesh of $64\times 64\times 513$, which has elements of nominal dimension $1250\times 1250\times 1.95$ meters.  In this example and the next one, Luis Chac\'on's variant of the Eisenstat-Walker~\cite{eisenstat1996cft} method was used to automatically adjust linear solve tolerances as the nonlinear solve converges.  Solving the linear systems to higher tolerance would have little impact on the number of nonlinear iterations and would be visible in the form of more $\times$ marks below the solid lines.  That most $\times$ marks lie on the solid line for nonlinear residual is an indication that effort is well balanced between linear and nonlinear solves.
 
-Note that approximately 10 linear V-cycles on the fine level are required to reduce the residual by 10 orders of magnitude.  We remark that Picard iteration takes at least 50 iterations to reach this tolerance (sometimes many more, cf. \cite{desmedt2010using} in which hundreds or thousands of iterations were needed for an easier problem).  Additionally, each linear solve for this fine-level problem requires hundreds or thousands of iterations with a 1-level additive Schwarz method, see Section~\ref{sec:1level} which considers a smaller problem.
+Note that approximately 10 linear V-cycles on the fine level are required to reduce the residual by 10 orders of magnitude.  We remark that Picard iteration takes at least 50 iterations to reach this tolerance (sometimes many more; cf. \cite{desmedt2010using}, in which hundreds or thousands of iterations were needed for an easier problem).  Additionally, each linear solve for this fine-level problem requires hundreds or thousands of iterations with a one-level additive Schwarz method; see Section~\ref{sec:1level}, which considers a smaller problem.
 
 \begin{figure}
-  \centering\caption{Grid-sequenced Newton-Krylov solution of test $X$.  The solid lines denote nonlinear iterations and the dotted lines with $\times$ denote linear residuals.}\label{fig:xgridseq}
   \includegraphics{figures/x-80km-m16p2l6-ew}
   % petscplot -m paper -t snes --solve-spec '1:' x.80km.m16p2l6.ew.log -o ../figures/x-80km-m16p2l6-ew.pdf
+  \centering\caption{Grid-sequenced Newton-Krylov solution of test $X$.  The solid lines denote nonlinear iterations, and the dotted lines with $\times$ denote linear residuals.}\label{fig:xgridseq}
 \end{figure}
 
-Test $Y$ places a \SI{200}{\metre} tower with vertical walls on the top of each hump and uses an uncorrelated, but smoothely varying stickyness resembling a dimpled sombrero,
+Test $Y$ places a \SI{200}{\metre} tower with vertical walls on the top of each hump and uses an uncorrelated but smoothly varying stickiness resembling a dimpled sombrero:
 \begin{align*}
   b_Y(x,y) &=
   \begin{cases}
@@ -268,53 +271,53 @@ Test $Y$ places a \SI{200}{\metre} tower with vertical walls on the top of each 
   \end{cases} \\
   \beta_Y^2(x,y) &= \SI{1000}{\pascal\year\per\metre} \cdot (1 + \sin(\sqrt{16r})/\sqrt{10^{-2} + 16r}\cos\frac{3\hat x}{2}\cos\frac{3\hat y}{2}.
 \end{align*}
-This tests the quality of the coarse grids even when large geometric errors are committed.  Note that the hydrostatic equations cannot be considered valid in this regime since the topography is too abrupt.  However, such topography is present in reality so we may still desire an efficient solver.  Figure~\ref{fig:testy} depicts the solve for this problem in a \SI{10}{\kilo\metre} square domain.  Due to the successively better resolution of the ``cliff'', performance deteriorates on each level as can be seen by the closer spacing of linear solve marks $(\times)$.  However, it is entirely acceptable up to level 3 where the elements are approximately \SI{12}{\metre} thick and stretched to reach over a \SI{200}{\metre} cliff in \SI{125}{\metre} horizontal.  On the finest level, they are \SI{6}{\metre} thick and stretch over the cliff in \SI{62}{\metre} horizontal, a slope of \SI{73}{\degree}.  The approximation properties of such elements is quite poor and, considering that the continuum equations are completely invalid here, we believe this resolved topography is significantly rougher than will needed in applications.
+This tests the quality of the coarse grids even when large geometric errors are committed.  Note that the hydrostatic equations cannot be considered valid in this regime since the topography is too abrupt.  Such topography is present in reality, however, so we may still desire an efficient solver.  Figure~\ref{fig:testy} depicts the solve for this problem in a \SI{10}{\kilo\metre} square domain. Because of the successively better resolution of the ``cliff,'' performance deteriorates on each level, as can be seen by the closer spacing of linear solve marks $(\times)$.  It is entirely acceptable up to level 3, however, where the elements are approximately \SI{12}{\metre} thick and stretch to reach over a \SI{200}{\metre} cliff in \SI{125}{\metre} horizontal.  On the finest level, they are \SI{6}{\metre} thick and stretch over the cliff in \SI{62}{\metre} horizontal, a slope of \SI{73}{\degree}.  The approximation properties of such elements is poor and, considering that the continuum equations are invalid here, we believe this resolved topography is significantly rougher than will needed in applications.
 
 \begin{figure}
-  \centering\caption{Grid sequenced Newton-Krylov convergence for test $Y$.}\label{fig:testy}
   \includegraphics{figures/y-10km-m10p6l5-ew}
   % petscplot -m paper -t snes --solve-spec '1:' y.10km.m10p6l5.ew.log -o ../figures/y-10km-m10p6l5-ew.pdf
+  \centering\caption{Grid sequenced Newton-Krylov convergence for test $Y$.}\label{fig:testy}
 \end{figure}
 
-Finally, test $Z$ sets $b_Z = b_A$, $\beta_Z^2 = \beta_X^2$, and nonlinear sliding with exponent $m=0.3$, and is a regime where the hydrostatic equations are valid, provided the wavelength $L$ is not too small.  We use this case to explore linear solve performance in Figure~\ref{fig:linear}.
+Test $Z$ sets $b_Z = b_A$, $\beta_Z^2 = \beta_X^2$, and nonlinear sliding with exponent $m=0.3$. It is a regime where the hydrostatic equations are valid, provided the wavelength $L$ is not too small.  We use this case to explore linear solve performance in Figure~\ref{fig:linear}.
 
 \begin{figure}
-  \centering\caption{Average number of Krylov iterations per nonlinear iteration.  Each nonlinear system was solved to a relative tolerance of $10^{-2}$.}\label{fig:linear}
   \includegraphics{figures/linear4}
   % ~/petscplot/petscplot -m paper --width-pt 380 -t algorithmic z.m6p4l5.newton.icc.log : z.m6p4l5.picard.asm8.icc1.log : z.m6p4l6.picard.icc.log : z.m6p4l6.mult.n8.o0.r2.log --legend-labels 'Newton, ICC(0), serial:Picard ASM(1)/ICC(1), 8 subdomains:Picard ICC(0) serial:Newton, V-cycle, 8 subdomains' -o ../figures/linear4.pdf
+  \centering\caption{Average number of Krylov iterations per nonlinear iteration.  Each nonlinear system was solved to a relative tolerance of $10^{-2}$.}\label{fig:linear}
 \end{figure}
 
 \subsection{Parallel Scalability on Blue Gene/P}\label{sec:pscaling}
-We investigate strong scaling using test $Z$ at \SI{80}{\kilo\metre} with basal friction exponent $m= 0.3$ on Shaheen, a Blue Gene/P at the KAUST Supercomputing Laboratory.  Two problem sizes are solved, with coarse meshes of $16\times 16\times 3$ and $32\times 32\times 3$ respectively.  Both use 5 levels of isotropic refinement to reach target meshes of $256\times 256\times 48$ and $512\times 512\times 48$, the latter with nominal element sizes of $156\times 156\times 21$ meters.  The coarse problems are solved redundantly in each case, and also using the $XX^T$ direct solver of~\cite{tufo2001fast} (TFS) which exhibits significantly better scalability as shown in Figure~\ref{fig:shaheen-strong} on a fixed global problem size (strong scalability).
+We investigate strong scaling using test $Z$ at \SI{80}{\kilo\metre} with basal friction exponent $m= 0.3$ on Shaheen, a Blue Gene/P at the KAUST Supercomputing Laboratory.  Two problem sizes are solved, with coarse meshes of $16\times 16\times 3$ and $32\times 32\times 3$, respectively.  Both use five levels of isotropic refinement to reach target meshes of $256\times 256\times 48$ and $512\times 512\times 48$, the latter with nominal element sizes of $156\times 156\times 21$ meters.  The coarse problems are solved redundantly in each case and also using the $XX^T$ direct solver of~\cite{tufo2001fast} (TFS), which exhibits significantly better scalability, as shown in Figure~\ref{fig:shaheen-strong} on a fixed global problem size (strong scalability).
 % Would be good to have a curve with cheaper coarse problems/solvers, it sounds like Aron will be able to run those on Wednesday.
 
 \begin{figure}
-  \centering\caption{Strong scaling on Shaheen.
-    The straight lines on the strong scaling plot have slope $-1$ which is optimal.
-    Grid sequencing is used, but only the nonlinear solve on the finest level is shown since strong scalability is most important when many time steps are needed.}\label{fig:shaheen-strong}
   \includegraphics{figures/shaheen-strong}
+  \centering\caption{Strong scaling on Shaheen.
+    The straight lines on the strong scaling plot have slope $-1$, which is optimal.
+    Grid sequencing is used, but only the nonlinear solve on the finest level is shown since strong scalability is most important when many time steps are needed.}\label{fig:shaheen-strong}
 \end{figure}
 
 Figure~\ref{fig:shaheen-weak} shows weak scalability.
-The size of the coarse grid was held constant and additional levels were added as the number of processes was increased, such that the subdomain sizes remain approximately constant.
+The size of the coarse grid was held constant, and additional levels were added as the number of processes was increased, such that the subdomain sizes remain approximately constant.
 
 \begin{figure}
-  \centering\caption{Weak scaling on Shaheen with a breakdown of time spent in different phases of the solution process.
-    Times are for the full grid-sequenced problem instead of just the finest level solve.}\label{fig:shaheen-weak}
   \includegraphics{figures/shaheen-weak}
   % Note: this particular run is flawed due to a mistake choosing the level 1 solver, need to fix that before submission.
   % Note: weak scaling for nonlinear problems is tricky unless the nonlinearity and linear stiffness are equally strong at all resolutions.  I don't know a good way to handle it.
+  \centering\caption{Weak scaling on Shaheen with a breakdown of time spent in different phases of the solution process.
+    Times are for the full grid-sequenced problem instead of just the finest level solve.}\label{fig:shaheen-weak}
 \end{figure}
 
 \subsection{Algebraic methods}\label{sec:1level}
-Building a geometric hierarchy with rediscretization on coarse levels adds software complexity that many developers of numerical models do not want to deal with.  In this section, we summarize the performance characteristics of several popular algebraic methods.  We consider test $X$, $L = \SI{80}{\kilo\metre}, \alpha=0.03$, with $40\times 40\times 12$ elements distributed over four processes, and compare several 1-level domain decomposition methods, two algebraic multigrids, and field-split approaches to our multigrid method.  This problem is challenging for the standard Newton iteration which requires 37 iterations and should be accompanied by grid sequencing for efficiency. However, it takes the problem through a range of nonlinearities and thus the number of Krylov iterations to solve with a relative tolerance of $10^{-5}$, presented below, is a good test of the linear solver.
+Building a geometric hierarchy with rediscretization on coarse levels adds software complexity that many developers of numerical models do not want to deal with.  In this section, we summarize the performance characteristics of several popular algebraic methods.  We consider test $X$, $L = \SI{80}{\kilo\metre}, \alpha=0.03$, with $40\times 40\times 12$ elements distributed over four processes. We compare our multigrid method with several one-level domain decomposition methods, two algebraic multigrids, and field-split approaches. This problem is challenging for the standard Newton iteration which requires 37 iterations and should be accompanied by grid sequencing for efficiency. It takes the problem through a range of nonlinearities, however. Thus the number of Krylov iterations to solve with a relative tolerance of $10^{-5}$, presented below, is a good test of the linear solver.
 
-We first consider 1-level domain decomposition methods with incomplete factorization, which are currently used to solve the hydrostatic equations by \cite{seacism,issm} among others.  To keep iteration counts representative, we use full GMRES (no restart) with modified Gram-Schmidt orthogonalization (note that neither is practical for production use).  Conventional symmetric additive Schwarz is denoted $\ASM(k)$ where $k$ is the overlap and restricted additive Schwarz~\cite{cai1999restricted} is denoted $\RASM(k)$.  The average number of GMRES iterations per Newton is shown in Table~\ref{tab:1level}.  Note that increasing overlap has no benefit when incomplete subdomain solvers are used.
+We first consider one-level domain decomposition methods with incomplete factorization, which are currently used to solve the hydrostatic equations by \cite{seacism,issm} among others.  To keep iteration counts representative, we use full GMRES (no restart) with modified Gram-Schmidt orthogonalization (note that neither is practical for production use).  Conventional symmetric additive Schwarz is denoted $\ASM(k)$, where $k$ is the overlap, restricted additive Schwarz~\cite{cai1999restricted} is denoted $\RASM(k)$.  The average number of GMRES iterations per Newton is shown in Table~\ref{tab:1level}.  Note that increasing overlap has no benefit when incomplete subdomain solvers are used.
 
 \begin{table}
-  \centering\caption{Average number of GMRES iterations per Newton for 1-level domain decomposition with different overlap and fill.  Negative pivots appeared frequently in all cases where incomplete factorization was used.}\label{tab:1level}
+  \centering\caption{Average number of GMRES iterations per Newton for one-level domain decomposition with different overlap and fill.  Negative pivots appeared frequently in all cases where incomplete factorization was used.}\label{tab:1level}
   \begin{tabular}{l|c|c|c|c}
-    \backslashbox{decomp.}{subdomain} & ICC(0) & ICC(1) & ICC(4) & Cholesky \\ \hline
+    \backslashbox{Decomposition}{Subdomain} & ICC(0) & ICC(1) & ICC(4) & Cholesky \\ \hline
     Block Jacobi & 367 & 315 & 220 & 97 \\
     $ASM(1)$     & 508 & 441 & 296 & 59 \\
     $RASM(1)$    & 368 & 306 & 190 & 52 \\
@@ -323,15 +326,15 @@ We first consider 1-level domain decomposition methods with incomplete factoriza
   \end{tabular}
 \end{table}
 
-The parallel algebraic multigrid packages ML~\cite{ml-guide} and BoomerAMG~\cite{henson2002bpa} provide potentially scalable alternatives.  ML is based on smoothed aggregation, tends to coarsen very rapidly, and provides its restriction and coarse-level matrices to PETSc so that that elaborate smoothers can be used.  ML does not converge for this problem with standard options, but with FGMRES on the outside of the V-cycle and GMRES(1) with $\RASM(1)$ as the smoother, using ICC(0) for the subdomain solve except on level 1 where a direct solve was used, we see 34 V-cycles per Newton.  ML needs only three levels to reach a coarse level with 144 degrees of freedom.  BoomerAMG is a classical algebraic multigrid which tends to coarsen slowly on anisotropic problems and does not expose the internal details, so smoother choices are limited.  BoomerAMG needs 7 levels to reach a coarse grid with 663 degrees of freedom, and averages 76 iterations per Newton.  There were other somewhat challenging problems for which BoomerAMG was competitive in terms of iteration count, but the setup costs and required number of levels was always large.
+The parallel algebraic multigrid packages ML~\cite{ml-guide} and BoomerAMG~\cite{henson2002bpa} provide potentially scalable alternatives.  ML is based on smoothed aggregation, tends to coarsen very rapidly, and provides its restriction and coarse-level matrices to PETSc so that that elaborate smoothers can be used.  ML does not converge for this problem with standard options; but with FGMRES on the outside of the V-cycle and GMRES(1) with $\RASM(1)$ as the smoother, using ICC(0) for the subdomain solve except on level 1, where a direct solve was used, we see 34 V-cycles per Newton.  ML needs only three levels to reach a coarse level with 144 degrees of freedom.  BoomerAMG is a classical algebraic multigrid, which tends to coarsen slowly on anisotropic problems and does not expose the internal details, so smoother choices are limited.  BoomerAMG needs seven levels to reach a coarse grid with 663 degrees of freedom and averages 76 iterations per Newton.  There were other, somewhat challenging problems for which BoomerAMG was competitive in terms of iteration count, but the setup costs and required number of levels were always large.
 
-Another approach to solving multi-component problems is to split the components and solve scalar problems for each in hopes that the scalar problems can be more readily handled by available software such as algebraic multigrid.  The split problems can be combined additively, multiplicatively, or symmetric multiplicative.  Unlike most Schwarz methods, additive is not typically implemented to expose concurrency, but it is simpler to implement in a matrix-light way because only the ``self-coupling'' terms need to be made available.  Multiplicative methods need to apply the off-diagonal submatrix and the most efficient way to apply it is usually by assembling it, but the submatrix can also be applied by finite differencing the full residual.  The results, shown in Table~\ref{tab:fieldsplit}, are uninspiring especially when considering that field-split creates additional synchronization points and attains lower throughput since it works with scalar matrices instead of block matrices (see Table~\ref{tab:sbaij}).
+Another approach to solving multicomponent problems is to split the components and solve scalar problems for each in hopes that the scalar problems can be more readily handled by available software such as algebraic multigrid.  The split problems can be combined additively, multiplicatively, or symmetric multiplicatively.  Unlike most Schwarz methods, additive methods are not typically implemented to expose concurrency, but it is simpler to implement in a matrix-light way because only the ``self-coupling'' terms need to be made available.  Multiplicative methods need to apply the off-diagonal submatrix, and the most efficient way to do so is usually by assembling it; but the submatrix can also be applied by finite differencing the full residual.  The results, shown in Table~\ref{tab:fieldsplit}, are uninspiring, especially when considering that field-split creates additional synchronization points and attains lower throughput since it works with scalar matrices instead of block matrices (see Table~\ref{tab:sbaij}).
 
 \begin{table}
   \centering\caption{Average number of GMRES iterations per Newton for field-split preconditioners with different ways of combining the splits and different solvers within the splits.
 BoomerAMG used 7 levels and ML had 3 with the same solver parameters as discussed in the text for the coupled approach.}\label{tab:fieldsplit}
   \begin{tabular}{l|ccc}
-    Solver in splits    & Additive & Multiplicative & Sym. multiplicative \\ \hline
+    Solver in Splits    & Additive & Multiplicative & Sym. Multiplicative \\ \hline
     Cholesky            & 19       & 9.9            & 9.3                 \\
     ML                  & 41       & 34             & 30                  \\
     BoomerAMG           & 89       & 83             & 78                  \\
@@ -340,21 +343,21 @@ BoomerAMG used 7 levels and ML had 3 with the same solver parameters as discusse
   %  for ft in additive multiplicative symmetric_multiplicative; do ~/usr/bin/mpiexec -n 4 ./e -M 40 -P 13 -thi_L 80e3 -thi_hom x -thi_alpha 0.03 -thi_nlevels 1 -{snes,ksp}_converged_reason -pc_type fieldsplit -pc_fieldsplit_type $ft -fieldsplit_0_pc_type ml -fieldsplit_0_pc_ml_maxnlevels 3 -fieldsplit_0_mg_levels_ksp_type gmres -fieldsplit_0_mg_levels_pc_type asm -fieldsplit_0_mg_levels_pc_asm_type restrict -fieldsplit_0_mg_levels_1_sub_pc_type cholesky -fieldsplit_1_pc_type ml -fieldsplit_1_pc_ml_maxnlevels 3 -fieldsplit_1_mg_levels_ksp_type gmres -fieldsplit_1_mg_levels_pc_type asm -fieldsplit_1_mg_levels_pc_asm_type restrict -fieldsplit_1_mg_levels_1_sub_pc_type cholesky; done
 \end{table}
 
-A good geometric multigrid for this problem uses 4-levels with a coarse grid of $10\times 10\times 2$ elements which is semi-refined twice by a factor of 2 in the horizontal, then by a factor of 6 in the vertical to reach the target $40\times 40\times 12$ grid.
-The smoothers consist of a domain decomposition method and a subdomain solver which may be exact or inexact.
-Direct solves for the subdomain problems on level 1 are very cheap and tend to improve robustness so we always use a direct solve.
+A good geometric multigrid for this problem uses four-levels with a coarse grid of $10\times 10\times 2$ elements, which is semi-refined twice by a factor of 2 in the horizontal, then by a factor of 6 in the vertical to reach the target $40\times 40\times 12$ grid.
+The smoothers consist of a domain decomposition method and a subdomain solver that may be exact or inexact.
+Direct solves for the subdomain problems on level 1 are inexpensive and tend to improve robustness so we always use a direct solve.
 A different refinement involves a $10\times 10\times 1$ coarse grid and semi-refines twice by a factor of 2 in the horizontal, then by a factor of 12 in the vertical to reach the same target grid.
-The coarse levels are smaller in this case so it is more efficient provided the iteratation counts are similar.
+The coarse levels are smaller in this case so the refinement is more efficient provided the iteratation counts are similar.
 Table~\ref{tab:xmg} explores a variety of multigrid preconditioner configurations with each coarse level.
-A distinct affect is that inexact subdomain solvers cause minimal performance degradation, cf. \ref{tab:1level} where a factor of 5 to 10 degradation is visible.
+A distinct effect is that inexact subdomain solvers cause minimal performance degradation; cf. Section \ref{tab:1level} where a factor of 5 to 10 degradation is visible.
 Use of Galerkin coarse operators has a catastrophic effect on the iteration count and may help explain the poor robustness exhibited by the algebraic multigrids.
 We cannot explain why symmetric additive Schwarz performs so poorly on this problem, but the other numbers are robust to changes in resolution, spatial domain, and number of processes.
 
 \begin{table}
   \centering\caption{Average GMRES iterations per Newton for different multigrid preconditioners.}\label{tab:xmg}
   \begin{tabular}{l|ll|ll|r@{.}l}
-    \multirow{2}{*}{Coarse problem} & \multicolumn{2}{c|}{Level 1} & \multicolumn{2}{c|}{Level 2 and 3} & \multicolumn{2}{c}{\multirow{2}{*}{Its}} \\
-                                   & decomp. & subdomain & decomp. & subdomain         \\ \hline
+    \multirow{2}{*}{Coarse Problem} & \multicolumn{2}{c|}{Level 1} & \multicolumn{2}{c|}{Level 2 and 3} & \multicolumn{2}{c}{\multirow{2}{*}{Its}} \\
+                                   & Decomp. & Subdomain & Decomp. & Subdomain         \\ \hline
     $10\times 10\times 2$ Redisc   & BJacobi & Cholesky & BJacobi & Cholesky & 8  & 9 \\
     $10\times 10\times 2$ Redisc   & BJacobi & Cholesky & BJacobi & ICC(0)   & 9  & 6 \\
     $10\times 10\times 2$ Redisc   & BJacobi & Cholesky & ASM(1)  & ICC(0)   & 11 & 9 \\
@@ -368,19 +371,24 @@ We cannot explain why symmetric additive Schwarz performs so poorly on this prob
   \end{tabular}
 \end{table}
 
-Finally, we remark that when using grid sequencing and the method in the last row of Table~\ref{tab:xmg}, the problem can be solved in 7 Newton iterations on the fine level and an average of 5.4 V-cycles per Newton.
-If the Eisenstat-Walker method is used to avoid oversolving, it takes 8 Newton iterations with a total of 12 V-cycles.
+We remark that when using grid sequencing and the method in the last row of Table~\ref{tab:xmg}, the problem can be solved in seven Newton iterations on the fine level and an average of 5.4 V-cycles per Newton.
+If the Eisenstat-Walker method is used to avoid oversolving, the problem takes eight Newton iterations with a total of 12 V-cycles.
 
-\section{Discussion}
+\section{Conclusion}
 We have presented a grid-sequenced Newton-Krylov multigrid algorithm for solving the hydrostatic equations for ice sheet flow.
-This geometric multigrid method demonstrates ``textbook multigrid efficiency'' for extreme topography and basal conditions, and offers $\bigO(1000)$ speedups relative to Picard linearization and 1-level domain decomposition with incomplete factorization which is currently used to solve these equations~\cite{seacism,issm,johnson2007modeling,desmedt2010using,pattyn2003ntd}.
+This geometric multigrid method demonstrates textbook multigrid efficiency for extreme topography and basal conditions and offers $\bigO(1000)$ speedups relative to Picard linearization and one-level domain decomposition with incomplete factorization, the methods currently used to solve these equations~\cite{seacism,issm,johnson2007modeling,desmedt2010using,pattyn2003ntd}.
 Algebraic multigrid and field-split preconditioners were not found to be competitive in terms of robustness or efficiency.
 
-\nonumber\section{Acknowledgments} This work was supported by Swiss National Science Foundation Grant 200021-113503/1, U.S. Department of Energy's Ice Sheet Initiative for CL-imate ExtremeS program under Contract DE-AC02-06CH11357, and Shaheen Supercomputing Laboratory at KAUST.
+\section*{Acknowledgments} This work was supported by Swiss National Science Foundation Grant 200021-113503/1, U.S. Department of Energy's Office of Science Ice Sheet Initiative for CL-imate ExtremeS program under Contract DE-AC02-06CH11357, and Shaheen Supercomputing Laboratory at KAUST.
+
+\section*{References}
+
+\bibliographystyle{model1-num-names}
+\bibliography{jedbib/jedbib}
 
 % The text below can be removed in the published document
 The submitted manuscript has been created by UChicago Argonne, LLC,
-Operator of Argonne National Laboratory ("Argonne").  Argonne, a
+Operator of Argonne National Laboratory (``Argonne'').  Argonne, a
 U.S. Department of Energy Office of Science laboratory, is operated
 under Contract No. DE-AC02-06CH11357.  The U.S. Government retains for
 itself, and others acting on its behalf, a paid-up nonexclusive,
@@ -388,6 +396,4 @@ irrevocable worldwide license in said article to reproduce, prepare
 derivative works, distribute copies to the public, and perform
 publicly and display publicly, by or on behalf of the Government.
 
-\bibliographystyle{model1-num-names}
-\bibliography{jedbib/jedbib}
 \end{document}
