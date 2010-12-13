@@ -4,18 +4,20 @@ petscplot="python2.7 petscplot/petscplot --mode paper"
 
 generate_figures() {
     mkdir -p figures
-    ${petscplot} -t strong --events SNESSolve --stages 3 \
-        shaheen/fast_strong_*_16_4_*.out : shaheen/fast_strong_*_32_4_*.out : shaheen/strong_tfs_*.out \
-        --legend-labels '$256\times 256\times 48$ Redundant:$512\times 512\times 48$ Redundant:$512\times 512\times 48$ TFS' \
+    ${petscplot} -t strong -m paper --events SNESSolve --stages 3 \
+        shaheen/a/fast_strong_*_16_*.out : shaheen/a/fast_strong_*_32_4_*.out : shaheen/b/strong_tfs_* : shaheen/b/strong_hypre_vn_*_64_4_* : shaheen/b/strong_hypre_vn_*_64_2_* \
+        --legend-labels 'Redundant 16:Redundant 32:TFS 32:BAMG iso 64:BAMG aniso 64+' --legend-loc 'lower left' \
+        --title '' --xmin 4 \
         -o figures/shaheen-strong.pdf
 
-    $petscplot -t weak --events SNESFunctionEval:SNESJacobianEval:PCApply --stages 1 shaheen/weak_[345]*.out --title '' \
-        --legend-labels '$32\times 32\times 3$ coarse level, Redundant' \
+    $petscplot -t weak -m paper --events SNESFunctionEval:SNESJacobianEval:PCSetUp:PCApply --stages 1 \
+        shaheen/b/weak_hypre_1_53571.out shaheen/b/weak_hypre_4_53572.out shaheen/b/weak_hypre_32_53574.out shaheen/b/weak_hypre_256_try3_53754.out \
+        --title '' --legend-loc 'upper right' \
         -o figures/shaheen-weak.pdf
 
-    $petscplot -t snes --solve-spec '1:' output/x.80km.m16p2l6.ew.log -o figures/x-80km-m16p2l6-ew.pdf
+    $petscplot -t snes -m paper --solve-spec '1:' output/x.80km.m16p2l6.ew.log -o figures/x-80km-m16p2l6-ew.pdf
 
-    $petscplot -t snes --solve-spec '1:' output/y.10km.m10p6l5.ew.log -o figures/y-10km-m10p6l5-ew.pdf
+    $petscplot -t snes -m paper --solve-spec '1:' output/y.10km.m10p6l5.ew.log -o figures/y-10km-m10p6l5-ew.pdf
 
     $petscplot  -t algorithmic --width-pt 380 \
         output/z.m6p4l5.newton.icc.log : output/z.m6p4l5.picard.asm8.icc1.log : output/z.m6p4l6.picard.icc.log : output/z.m6p4l6.mult.n8.o0.r2.log \
