@@ -9,7 +9,7 @@
 \newcommand{\EE}{\mathcal E}
 \newcommand{\KK}{\mathsf K}
 \newcommand{\PP}{\mathsf P}
-\newcommand{\VV}{\bm V}
+\newcommand{\VV}{\bm V} 
 \newcommand{\R}{\mathbb R}
 \newcommand{\ASM}{\mathrm{ASM}}
 \newcommand{\RASM}{\mathrm{RASM}}
@@ -35,10 +35,7 @@
 
   \address[vaw]{Versuchsanstalt f\"ur Wasserbau, Hydrologie und Glaziologie (VAW), ETH Z\"urich, 8092     Z\"urich, Switzerland}
   \address[mcs]{Mathematics and Computer Science Division, Argonne National Laboratory, Argonne, IL     60439}
-  \address[kaust]{KAUST-IBM Center for Deep Computing Research, Bldg \#1, Office 01-123,
-    4700 King Abdullah University of Science and Technology,
-    Thuwal Makkah 23955-6900,
-    Kingdom of Saudi Arabia}
+  \address[kaust]{Supercomputing Laboratory, King Abdullah University of Science and Technology, Thuwal, Makkah, Saudi Arabia}
 
   \begin{abstract}
     The hydrostatic equations for ice sheet flow offer improved fidelity compared to the shallow ice approximation and shallow stream approximation (SSA) popular in today's ice sheet models. Nevertheless, they present a serious bottleneck because they require the solution of a 3D nonlinear system, as opposed to the 2D system present in SSA.  This 3D system is posed on high-aspect domains with strong anisotropy and variation in coefficients, making it expensive to solve by using current methods.  This paper presents a Newton-Krylov multigrid solver for the hydrostatic equations that demonstrates textbook multigrid efficiency (an order of magnitude reduction in residual per iteration and solution of the fine-level system at a small multiple of the cost of a residual evaluation).  Scalability on Blue Gene/P is demonstrated, and the method is compared to various algebraic methods that are in use or have been proposed as viable approaches.
