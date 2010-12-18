@@ -9,7 +9,7 @@
 \newcommand{\EE}{\mathcal E}
 \newcommand{\KK}{\mathsf K}
 \newcommand{\PP}{\mathsf P}
-\newcommand{\VV}{\bm V}
+\newcommand{\VV}{\bm V} 
 \newcommand{\R}{\mathbb R}
 \newcommand{\ASM}{\mathrm{ASM}}
 \newcommand{\RASM}{\mathrm{RASM}}
@@ -35,10 +35,7 @@
 
   \address[vaw]{Versuchsanstalt f\"ur Wasserbau, Hydrologie und Glaziologie (VAW), ETH Z\"urich, 8092     Z\"urich, Switzerland}
   \address[mcs]{Mathematics and Computer Science Division, Argonne National Laboratory, Argonne, IL     60439}
-  \address[kaust]{KAUST-IBM Center for Deep Computing Research, Bldg \#1, Office 01-123,
-    4700 King Abdullah University of Science and Technology,
-    Thuwal Makkah 23955-6900,
-    Kingdom of Saudi Arabia}
+  \address[kaust]{Supercomputing Laboratory, King Abdullah University of Science and Technology, Thuwal, Makkah, Saudi Arabia}
 
   \begin{abstract}
     The hydrostatic equations for ice sheet flow offer improved fidelity compared to the shallow ice approximation and shallow stream approximation (SSA) popular in today's ice sheet models. Nevertheless, they present a serious bottleneck because they require the solution of a 3D nonlinear system, as opposed to the 2D system present in SSA.  This 3D system is posed on high-aspect domains with strong anisotropy and variation in coefficients, making it expensive to solve by using current methods.  This paper presents a Newton-Krylov multigrid solver for the hydrostatic equations that demonstrates textbook multigrid efficiency (an order of magnitude reduction in residual per iteration and solution of the fine-level system at a small multiple of the cost of a residual evaluation).  Scalability on Blue Gene/P is demonstrated, and the method is compared to various algebraic methods that are in use or have been proposed as viable approaches.
@@ -143,7 +140,7 @@ Globalization is also a critical issue when solving steady-state problems.
 Grid sequencing requires a geometric hierarchy of meshes with interpolation operators to move the solution to the next finer level.
 Managing this hierarchy is often seen as a programming burden, but it exposes more robust algorithms than are available otherwise.
 
-The Newton step \eqref{eq:newton-step} is solved by a Krylov method such as GMRES, for which the iteration count is highly dependent on the quality of the preconditioner.  Since $J(U)$ is symmetric positive definite (SPD), methods such as conjugate gradients could be used. This work always uses GMRES, hwoever, because it allows the use of nonsymmetric preconditioners, and the iteration counts are always kept low so that storage and restarts are not an issue.  As an SPD system, it has a wide variety of preconditioners to choose from; however, viscosity contrasts and strong anisotropy cause most preconditioners to perform poorly.  The rest of this section describes the methods used to produce a scalable algorithm in spite of these difficulties.
+The Newton step \eqref{eq:newton-step} is solved by a Krylov method such as GMRES, for which the iteration count is highly dependent on the quality of the preconditioner.  Since $J(U)$ is symmetric positive definite (SPD), methods such as conjugate gradients could be used. This work always uses GMRES, however, because it allows the use of nonsymmetric preconditioners, and the iteration counts are always kept low so that storage and restarts are not an issue.  As an SPD system, it has a wide variety of preconditioners to choose from; however, viscosity contrasts and strong anisotropy cause most preconditioners to perform poorly.  The rest of this section describes the methods used to produce a scalable algorithm in spite of these difficulties.
 
 \subsection{Anisotropy}
 The ratio of width to thickness for outlet glaciers (the regions of ice sheets with greatest physical interest) ranges from $\bigO(1)$ to over $100$.  The nonlinear constitutive relation \eqref{eq:viscosity} produces three to four orders of magnitude variation in viscosity (usually with fastest variation in the vertical) and the Newton linearization of \eqref{eq:weak} produces additional anisotropy, effectively collapsing the conductivity tensor in the direction of the velocity gradient.
