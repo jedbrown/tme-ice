@@ -222,7 +222,7 @@ The Jacobian is always symmetric positive definite and has a natural block size 
 \begin{table}
   \centering\caption{Throughput (Mflop/s) for different matrix formats on Core 2 Duo (P8700) and Opteron 2356 (two sockets). \texttt{MatSolve} is a forward- and back-solve with incomplete Cholesky factors.  The AIJ format is using ``inodes'' which unrolls across consecutive rows with identical nonzero pattern (pairs in this case).}\label{tab:sbaij}
   \begin{tabular}{l|c|c|c|c|c|c}
-    \multirow{2}{*}{\backslashbox{Kernel}{Format}} & \multicolumn{3}{c|}{Core 2, 1 thread} & \multicolumn{3}{c}{Opteron, 4 processes} \\
+    \multirow{2}{*}{\backslashbox{Kernel}{Format}} & \multicolumn{3}{c|}{Core 2, 1 process} & \multicolumn{3}{c}{Opteron, 4 processes} \\
                       & AIJ & BAIJ & SBAIJ & AIJ  & BAIJ & SBAIJ \\ \hline
     \texttt{MatMult}  & 812 & 985  & 1507  & 2226 & 2918 & 3119  \\
     \texttt{MatSolve} & 718 & 957  & 955   & 1573 & 2869 & 2858  \\
@@ -335,7 +335,7 @@ The parallel algebraic multigrid packages ML~\cite{ml-guide} and BoomerAMG~\cite
 Another approach to solving multicomponent problems is to split the components and solve scalar problems for each in hopes that the scalar problems can be more readily handled by available software such as algebraic multigrid.  The split problems can be combined additively, multiplicatively, or symmetric multiplicatively.  Unlike most Schwarz methods, additive methods are not typically implemented to expose concurrency, but it is simpler to implement in a matrix-light way because only the ``self-coupling'' terms need to be made available.  Multiplicative methods need to apply the off-diagonal submatrix, and the most efficient way to do so is usually by assembling it; but the submatrix can also be applied by finite differencing the full residual.  The results, shown in Table~\ref{tab:fieldsplit}, are uninspiring, especially when considering that field-split creates additional synchronization points and attains lower throughput since it works with scalar matrices instead of block matrices (see Table~\ref{tab:sbaij}).
 
 \begin{table}
-  \centering\caption{Average number of GMRES iterations per Newton for field-split preconditioners with different ways of combining the splits and different solvers within the splits.
+  \centering\caption{Average number of GMRES iterations per Newton iteration for field-split preconditioners with different ways of combining the splits and different solvers within the splits.
 BoomerAMG used 7 levels and ML had 3 with the same solver parameters as discussed in the text for the coupled approach.}\label{tab:fieldsplit}
   \begin{tabular}{l|ccc}
     Solver in Splits    & Additive & Multiplicative & Sym. Multiplicative \\ \hline
@@ -380,7 +380,7 @@ If the Eisenstat-Walker method is used to avoid oversolving, the problem takes e
 
 \section{Conclusion}
 We have presented a grid-sequenced Newton-Krylov multigrid algorithm for solving the hydrostatic equations for ice sheet flow.
-This geometric multigrid method demonstrates textbook multigrid efficiency for extreme topography and basal conditions and offers $\bigO(1000)$ speedups relative to Picard linearization and one-level domain decomposition with incomplete factorization, the methods currently used to solve these equations~\cite{seacism,issm,johnson2007modeling,desmedt2010using,pattyn2003ntd}.
+This geometric multigrid method demonstrates textbook multigrid efficiency for extreme topography and basal conditions and offers thousandfold speedups relative to Picard linearization and one-level domain decomposition with incomplete factorization, the methods currently used to solve these equations~\cite{seacism,issm,johnson2007modeling,desmedt2010using,pattyn2003ntd}.
 Algebraic multigrid and field-split preconditioners were not found to be competitive in terms of robustness or efficiency.
 
 \section*{Acknowledgments} This work was supported by Swiss National Science Foundation Grant 200021-113503/1, U.S. Department of Energy's Office of Science Ice Sheet Initiative for CL-imate ExtremeS program under Contract DE-AC02-06CH11357, and Shaheen Supercomputing Laboratory at KAUST.
