@@ -91,9 +91,9 @@ omitting inertial and convective terms as is standard for ice sheets, is given b
 \end{align}
 where
 \begin{align}\label{eq:viscosity}
-  \eta(\gamma) = \frac B 2 (\epsilon^2 + \gamma)^{\frac{1-n}{2n}}
+  \eta(\gamma) = \frac B 2 \left(\epsilon^2/2 + \gamma\right)^{\frac{1-n}{2n}}
 \end{align}
-is the nonlinear effective viscosity with regularization $\epsilon$ and
+is the nonlinear effective viscosity with regularizing strain rate $\epsilon$ and
 \begin{align*}
   \gamma = u_x^2 + v_y^2 + u_xv_y + \frac 1 4 (u_y+v_x)^2 + \frac 1 4 u_z^2 + \frac 1 4 v_z^2
 \end{align*}
@@ -101,9 +101,9 @@ is the second invariant.  Ice sheet models typically take $n=3$ as the power law
 \eqref{eq:momentum} is subject to natural boundary conditions at the free surface and either no-slip
 $\bm u = 0$ or power-law slip with friction parameter
 \begin{align*}
-  \beta^2(\gamma_b) = \beta_0^2 (\epsilon_b^2 + \gamma_b)^{\frac{m-1}{2}},
+  \beta^2(\gamma_b) = \beta_0^2 \left(\epsilon_b^2/2 + \gamma_b\right)^{\frac{m-1}{2}},
 \end{align*}
-where $\gamma_b = \frac 1 2 (u^2 + v^2)$, $\epsilon_b$ is regularization, and $m \in (0,1]$ is the
+where $\gamma_b = \frac 1 2 (u^2 + v^2)$, $\epsilon_b$ is regularizing velocity, and $m \in (0,1]$ is the
 exponent that produces Navier slip for $m=1$, Weertman~\cite{weertman1957sliding} sliding for
 $m=1/n$, and Coulomb slip as $m \to 0$.  In the present work, we define $\epsilon$ and $\epsilon_b$ using a strain rate of $\SI{1e-5}{\per\year}$ and a slip velocity of $\SI{1}{\metre\per\year}$, respectively.
 
@@ -170,9 +170,7 @@ with adjacent columns.  Pure line smoothers were also tried as a smoother on the
 robustness was significantly impacted, and the memory benefits were deemed insufficient to pursue
 further.
 
-In scenarios with little sliding (frozen or sticky bed) and elements that are wide compared to the
-ice thickness, a lubrication approximation known as the ``shallow ice approximation'' is valid,
-allowing the velocity field to be determined locally from the surface slope and a column integral.
+In scenarios with little sliding (frozen or sticky bed) and elements that are wide compared to the ice thickness, the ``shallow ice approximation'' is valid, allowing the velocity field to be determined locally from the surface slope and a column integral.
 Since incomplete factorization with column ordering provides nearly exact coupling in the vertical,
 it is an effective preconditioner in such scenarios with no coarse level.  Indeed, with a typical
 ice thickness of \SI{1}{\kilo\metre} resting on a frozen bed and elements \SI{5}{\kilo\metre} on
@@ -201,10 +199,12 @@ single diagonal entry. Thus the system retains symmetry, and satisfaction of the
 does not interfere with solving the other equations.  For good multigrid performance, the diagonal
 entry should be similar to the diagonal entry of the Jacobian for nearby nodes.  To ensure this, we
 set the residual at Dirichlet nodes to
-\begin{align}\label{eq:dirichlet-scale}
-  f_u &= 2 \eta (4 h_yh_z/h_x + h_x h_z/h_y + h_x h_y/h_z) u \\
-  f_v &= 2 \eta (h_yh_z/h_x + 4 h_x h_z/h_y + h_x h_y/h_z) v,
-\end{align}
+\begin{equation}\label{eq:dirichlet-scale}
+  \begin{split}
+    f_u &= 2 \eta h_xh_yh_z (4/h_x^2 + 1/h_y^2 + 1/h_z^2) u \\
+    f_v &= 2 \eta h_xh_yh_z (1/h_x^2 + 4/h_y^2 + 1/h_z^2) v,
+  \end{split}
+\end{equation}
 where $h_x,h_y,h_z$ are the local element dimensions.  This scaling produces the same diagonal
 entries that would appear if the domain was extended so that constant viscosity momentum equations
 appeared at the formerly Dirichlet nodes.
@@ -272,7 +272,7 @@ We remark that Picard iteration takes at least 50 iterations to reach this toler
   \centering\caption{Grid-sequenced Newton-Krylov solution of test $X$.  The solid lines denote nonlinear iterations, and the dotted lines with $\times$ denote linear residuals.}\label{fig:xgridseq}
 \end{figure}
 
-Test $Y$ places a \SI{200}{\metre} tower with vertical walls on the top of each hump and uses an uncorrelated but smoothly varying stickiness resembling a dimpled sombrero:
+Test $Y$ places a \SI{200}{\metre} tower with vertical walls on the top of each bedrock bump and uses an uncorrelated but smoothly varying stickiness resembling a dimpled sombrero:
 \begin{align*}
   b_Y(x,y) &=
   \begin{cases}
@@ -322,10 +322,10 @@ The size of the coarse grid was held constant, and additional levels were added 
 \subsection{Algebraic methods}\label{sec:1level}
 Building a geometric hierarchy with rediscretization on coarse levels adds software complexity that many developers of numerical models do not want to deal with.  In this section, we summarize the performance characteristics of several popular algebraic methods.  We consider test $X$, $L = \SI{80}{\kilo\metre}, \alpha=0.03$, with $40\times 40\times 12$ elements distributed over four processes. We compare our multigrid method with several one-level domain decomposition methods, two algebraic multigrids, and field-split approaches. This problem is challenging for the standard Newton iteration which requires 37 iterations and should be accompanied by grid sequencing for efficiency. It takes the problem through a range of nonlinearities, however. Thus the number of Krylov iterations to solve with a relative tolerance of $10^{-5}$, presented below, is a good test of the linear solver.
 
-We first consider one-level domain decomposition methods with incomplete factorization, which are currently used to solve the hydrostatic equations by \cite{seacism,issm} among others.  To keep iteration counts representative, we use full GMRES (no restart) with modified Gram-Schmidt orthogonalization (note that neither is practical for production use).  Conventional symmetric additive Schwarz is denoted $\ASM(k)$, where $k$ is the overlap, restricted additive Schwarz~\cite{cai1999restricted} is denoted $\RASM(k)$.  The average number of GMRES iterations per Newton is shown in Table~\ref{tab:1level}.  Note that increasing overlap has no benefit when incomplete subdomain solvers are used.
+We first consider one-level domain decomposition methods with incomplete factorization, which are currently used to solve the hydrostatic equations by \cite{seacism,issm} among others.  To keep iteration counts representative, we use full GMRES (no restart) with modified Gram-Schmidt orthogonalization (note that neither is practical for production use).  Conventional symmetric additive Schwarz is denoted $\ASM(k)$, where $k$ is the overlap, restricted additive Schwarz~\cite{cai1999restricted} is denoted $\RASM(k)$.  The average number of GMRES iterations per Newton iteration is shown in Table~\ref{tab:1level}.  Note that increasing overlap has no benefit when incomplete subdomain solvers are used.
 
 \begin{table}
-  \centering\caption{Average number of GMRES iterations per Newton for one-level domain decomposition with different overlap and fill.  Negative pivots appeared frequently in all cases where incomplete factorization was used.}\label{tab:1level}
+  \centering\caption{Average number of GMRES iterations per Newton iteration for one-level domain decomposition with different overlap and fill.  Negative pivots appeared frequently in all cases where incomplete factorization was used.}\label{tab:1level}
   \begin{tabular}{l|c|c|c|c}
     \backslashbox{Decomposition}{Subdomain} & ICC(0) & ICC(1) & ICC(4) & Cholesky \\ \hline
     Block Jacobi & 367 & 315 & 220 & 97 \\
@@ -336,7 +336,7 @@ We first consider one-level domain decomposition methods with incomplete factori
   \end{tabular}
 \end{table}
 
-The parallel algebraic multigrid packages ML~\cite{ml-guide} and BoomerAMG~\cite{henson2002bpa} provide potentially scalable alternatives.  ML is based on smoothed aggregation, tends to coarsen very rapidly, and provides its restriction and coarse-level matrices to PETSc so that that elaborate smoothers can be used.  ML does not converge for this problem with standard options; but with FGMRES on the outside of the V-cycle and GMRES(1) with $\RASM(1)$ as the smoother, using ICC(0) for the subdomain solve except on level 1, where a direct solve was used, we see 34 V-cycles per Newton.  ML needs only three levels to reach a coarse level with 144 degrees of freedom.  BoomerAMG is a classical algebraic multigrid, which tends to coarsen slowly on anisotropic problems and does not expose the internal details, so smoother choices are limited.  BoomerAMG needs seven levels to reach a coarse grid with 663 degrees of freedom and averages 76 iterations per Newton.  There were other, somewhat challenging problems for which BoomerAMG was competitive in terms of iteration count, but the setup costs and required number of levels were always large.
+The parallel algebraic multigrid packages ML~\cite{ml-guide} and BoomerAMG~\cite{henson2002bpa} provide potentially scalable alternatives.  ML is based on smoothed aggregation, tends to coarsen very rapidly, and provides its restriction and coarse-level matrices to PETSc so that that elaborate smoothers can be used.  ML does not converge for this problem with standard options; but with FGMRES on the outside of the V-cycle and GMRES(1) with $\RASM(1)$ as the smoother, using ICC(0) for the subdomain solve except on level 1, where a direct solve was used, we see 34 V-cycles per Newton iteration.  ML needs only three levels to reach a coarse level with 144 degrees of freedom.  BoomerAMG is a classical algebraic multigrid, which tends to coarsen slowly on anisotropic problems and does not expose the internal details, so smoother choices are limited.  BoomerAMG needs seven levels to reach a coarse grid with 663 degrees of freedom and averages 76 iterations per Newton iteration.  There were other, somewhat challenging problems for which BoomerAMG was competitive in terms of iteration count, but the setup costs and required number of levels were always large.
 
 Another approach to solving multicomponent problems is to split the components and solve scalar problems for each in hopes that the scalar problems can be more readily handled by available software such as algebraic multigrid.  The split problems can be combined additively, multiplicatively, or symmetric multiplicatively.  Unlike most Schwarz methods, additive methods are not typically implemented to expose concurrency, but it is simpler to implement in a matrix-light way because only the ``self-coupling'' terms need to be made available.  Multiplicative methods need to apply the off-diagonal submatrix, and the most efficient way to do so is usually by assembling it; but the submatrix can also be applied by finite differencing the full residual.  The results, shown in Table~\ref{tab:fieldsplit}, are uninspiring, especially when considering that field-split creates additional synchronization points and attains lower throughput since it works with scalar matrices instead of block matrices (see Table~\ref{tab:sbaij}).
 
@@ -381,7 +381,7 @@ We cannot explain why symmetric additive Schwarz performs so poorly on this prob
   \end{tabular}
 \end{table}
 
-We remark that when using grid sequencing and the method in the last row of Table~\ref{tab:xmg}, the problem can be solved in seven Newton iterations on the fine level and an average of 5.4 V-cycles per Newton.
+We remark that when using grid sequencing and the method in the last row of Table~\ref{tab:xmg}, the problem can be solved in seven Newton iterations on the fine level and an average of 5.4 V-cycles per Newton iteration.
 If the Eisenstat-Walker method is used to avoid oversolving, the problem takes eight Newton iterations with a total of 12 V-cycles.
 
 \section{Conclusion}
