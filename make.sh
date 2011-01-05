@@ -35,6 +35,11 @@ case "$1" in
         pdflatex hstat
         pdflatex hstat
         ;;
+    submodules)
+        # Warning: only intended to work for Jed's layout
+        cp -rlTf ~/petscplot ./petscplot
+        cp -rlTf ~/jedbib ./jedbib
+        ;;
     *)
-        echo "usage: $0 {figures|pdf}"
+        echo "usage: $0 {figures|pdf|submodules}"
 esac
