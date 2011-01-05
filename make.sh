@@ -12,7 +12,7 @@ generate_figures() {
 
     $petscplot -t weak -m paper --events SNESFunctionEval:SNESJacobianEval:PCSetUp:PCApply --stages 1 \
         shaheen/b/weak_hypre_1_53571.out shaheen/b/weak_hypre_4_53572.out shaheen/b/weak_hypre_32_53574.out shaheen/b/weak_hypre_256_try3_53754.out \
-        --title '' --legend-loc 'upper right' \
+        --title '' --legend-loc 'upper right' --legend-labels 'Function Eval:Jacobian Eval:PC Setup:PC Apply'\
         -o figures/shaheen-weak.pdf
 
     $petscplot -t snes -m paper --solve-spec '1:' output/x.80km.m16p2l6.ew.log -o figures/x-80km-m16p2l6-ew.pdf
