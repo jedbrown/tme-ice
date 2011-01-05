@@ -434,7 +434,16 @@ We have presented a grid-sequenced Newton-Krylov multigrid algorithm for solving
 This geometric multigrid method demonstrates textbook multigrid efficiency for extreme topography and basal conditions and offers thousandfold speedups relative to the methods currently in use.
 Algebraic multigrid and field-split preconditioners were not found to be competitive in terms of robustness or efficiency.
 
-\section*{Acknowledgments} This work was supported by Swiss National Science Foundation Grant 200021-113503/1, U.S. Department of Energy's Office of Science Ice Sheet Initiative for CL-imate ExtremeS program under Contract DE-AC02-06CH11357, and Shaheen Supercomputing Laboratory at KAUST.
+The present velocity solver can be immediately incorporated in a semi-implicit ice sheet evolution model, but the resulting scheme is only conditionally stable (time steps must satisfy a CFL condition).
+Fully implicit time integration offers an alternative that has no such constraint and is thus suitable for simulations over full ice ages and longer, but requires the solution of more difficult algebraic equations.
+A prototype using the present velocity discretization has been developed, but scalable linear solvers for velocity-surface coupled problems is the subject of future investigation.
+
+The hydrostatic equations are well-suited to investigation of ice streams and outlet glaciers with gentle slope and arbitrary stickyness perturbations.
+For example, 3D ice stream thermodynamics (see \cite{raymond2000energy} for analytic and \cite{truffer2003isbrae} for numerical investigation with along-flow symmetry) could be reliably investigated using velocity defined by the hydrostatic equations.
+Although more complete than models involving only a vertically integrated elliptic solve \citep[e.g.][]{bueler2009shallow,goldberg2009grounding,goldberg2010variational}, the hydrostatic equations are not suitable for steep outlet glaciers like Jakoshavn Isbr{\ae} or Pine Island Glacier where solution of Stokes problems appears to be unavoidable.
+
+\section*{Acknowledgments}
+This work was supported by Swiss National Science Foundation Grant 200021-113503/1, U.S. Department of Energy's Office of Science Ice Sheet Initiative for CL-imate ExtremeS program under Contract DE-AC02-06CH11357, and Shaheen Supercomputing Laboratory at KAUST.
 
 \bibliographystyle{agu}
 \bibliography{jedbib/jedbib}
