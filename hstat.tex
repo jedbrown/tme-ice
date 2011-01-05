@@ -47,6 +47,14 @@
 \newcommand{\tcolon}{{ : }}
 \newcommand{\ip}[2]{{\left\langle #1, #2 \right\rangle}}
 
+\usepackage{xspace}
+\makeatletter
+\DeclareRobustCommand\onedot{\futurelet\@let@token\@onedot}
+\def\@onedot{\ifx\@let@token.\else.\null\fi\xspace}
+\def\eg{{e.g}\onedot} \def\Eg{{E.g}\onedot}
+\def\ie{{i.e}\onedot} \def\Ie{{I.e}\onedot}
+\def\cf{{c.f}\onedot} \def\Cf{{C.f}\onedot}
+
 \DeclareMathOperator{\sspan}{span}
 \DeclareSIUnit\year{a}
 \sisetup{retain-unity-mantissa = false}
@@ -155,7 +163,7 @@ The source code for our implementation is distributed as an example in PETSc~\ci
 %\footnote{
 Upon unpacking the source, which can be downloaded from \href{http://mcs.anl.gov/petsc}{\url{mcs.anl.gov/petsc}}, see \texttt{src/snes/examples/tutorials/ex48.c.}
 %}
-Several generalizations of the tests from ISMIP-HOM~\citep{pattyn2008beh} are implemented, run with the option \texttt{-help} for a complete list of options.  Incidentally, our results for ``\SI{5}{\kilo\metre} test $C$'' in that paper (a slipperiness perturbation on a flat bed) agree to three significant figures with the ``Stokes'' results therein.  This is consistent with the asympotic analysis of \cite{schoof2010thin}, which shows that slipperiness perturbations are not present in the leading-order error terms for the hydrostatic equations (which are purely geometric); cf. \cite[Table~4 and Figure~8]{pattyn2008beh}, where the ensemble range is nearly as large as the mean.
+Several generalizations of the tests from ISMIP-HOM~\citep{pattyn2008beh} are implemented, run with the option \texttt{-help} for a complete list of options.  Incidentally, our results for ``\SI{5}{\kilo\metre} test $C$'' in that paper (a slipperiness perturbation on a flat bed) agree to three significant figures with the ``Stokes'' results therein.  This is consistent with the asympotic analysis of \cite{schoof2010thin}, which shows that slipperiness perturbations are not present in the leading-order error terms for the hydrostatic equations (which are purely geometric); \cf \cite[Table~4 and Figure~8]{pattyn2008beh}, where the ensemble range is nearly as large as the mean.
 
 \section{Solver and Implementation}\label{sec:solver}
 We begin by writing the discretization of \eqref{eq:weak} as an algebraic system $F(U) = 0$ with
@@ -193,7 +201,7 @@ or very high friction) to temperate and very slippery depending on subglacial hy
 
 To coarsen the system isotropically even on high-aspect domains, we order the unknowns so that columns
 are contiguous with a natural block size of 2
-(i.e., $\{u_{i,j,k},v_{i,j,k},u_{i,j,k+1},v_{i,j,k+1},\dotsc\}$, where $k$ is the index that is
+(\ie $\{u_{i,j,k},v_{i,j,k},u_{i,j,k+1},v_{i,j,k+1},\dotsc\}$ where $k$ is the index that is
 increasing in the vertical direction) and not decomposed in parallel.  This decomposition is
 reasonable since the number of vertical levels used in simulations is typically between 10 and 100;
 it also is convenient since it is compatible with decompositions used by other climate model components.
@@ -298,7 +306,7 @@ In this example and the next one, Luis Chac\'on's variant of the Eisenstat-Walke
 \end{figure}
 
 Note that approximately 10 linear V-cycles on the fine level are required to reduce the residual by 10 orders of magnitude.
-We remark that Picard iteration takes at least 50 iterations to reach this tolerance (cf. \cite{desmedt2010using} in which hundreds or thousands of iterations were needed for an easier problem).  Additionally, each linear solve for this fine-level problem requires hundreds or thousands of iterations with a one-level additive Schwarz method; see Section~\ref{sec:1level}, which considers a smaller problem.
+We remark that Picard iteration takes at least 50 iterations to reach this tolerance (cf\onedot \cite{desmedt2010using} in which hundreds or thousands of iterations were needed for an easier problem).  Additionally, each linear solve for this fine-level problem requires hundreds or thousands of iterations with a one-level additive Schwarz method; see Section~\ref{sec:1level}, which considers a smaller problem.
 
 \begin{figure}
   \includegraphics{figures/x-80km-m16p2l6-ew}
@@ -440,7 +448,7 @@ A prototype using the present velocity discretization has been developed, but sc
 
 The hydrostatic equations are well-suited to investigation of ice streams and outlet glaciers with gentle slope and arbitrary stickyness perturbations.
 For example, 3D ice stream thermodynamics (see \cite{raymond2000energy} for analytic and \cite{truffer2003isbrae} for numerical investigation with along-flow symmetry) could be reliably investigated using velocity defined by the hydrostatic equations.
-Although more complete than models involving only a vertically integrated elliptic solve \citep[e.g.][]{bueler2009shallow,goldberg2009grounding,goldberg2010variational}, the hydrostatic equations are not suitable for steep outlet glaciers like Jakoshavn Isbr{\ae} or Pine Island Glacier where solution of Stokes problems appears to be unavoidable.
+Although more complete than models involving only a vertically integrated elliptic solve \citep[\eg][]{bueler2009shallow,goldberg2009grounding,goldberg2010variational}, the hydrostatic equations are not suitable for steep outlet glaciers like Jakoshavn Isbr{\ae} or Pine Island Glacier where solution of Stokes problems appears to be unavoidable.
 
 \section*{Acknowledgments}
 This work was supported by Swiss National Science Foundation Grant 200021-113503/1, U.S. Department of Energy's Office of Science Ice Sheet Initiative for CL-imate ExtremeS program under Contract DE-AC02-06CH11357, and the Shaheen Supercomputing Laboratory at KAUST.
