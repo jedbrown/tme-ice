@@ -161,9 +161,9 @@ Several generalizations of the tests from ISMIP-HOM~\citep{pattyn2008beh} are im
 We begin by writing the discretization of \eqref{eq:weak} as an algebraic system $F(U) = 0$ with
 Jacobian $J(U)$.  This nonlinear system is solved with a Newton iteration that requires an
 approximate solution $\delta U$ of
-\begin{align}\label{eq:newton-step}
+\begin{equation}\label{eq:newton-step}
   J(U)\delta U = -F(U) .
-\end{align}
+\end{equation}
 Newton methods are quadratically convergent in the terminal phase but may converge slowly or
 not at all in early phases.  Many applications of the present solver are in a time-stepping code
 where the initial iterates start within the region of quadratic convergence; thus globalization
@@ -370,10 +370,10 @@ We first consider one-level domain decomposition methods with incomplete factori
   \begin{tabular}{l|c|c|c|c}
     \backslashbox{Decomposition}{Subdomain} & ICC(0) & ICC(1) & ICC(4) & Cholesky \\ \hline
     Block Jacobi & 367 & 315 & 220 & 97 \\
-    $ASM(1)$     & 508 & 441 & 296 & 59 \\
-    $RASM(1)$    & 368 & 306 & 190 & 52 \\
-    $ASM(2)$     & 521 & 445 & 316 & 44 \\
-    $RASM(2)$    & 365 & 305 & 189 & 38 \\
+    $\ASM(1)$     & 508 & 441 & 296 & 59 \\
+    $\RASM(1)$    & 368 & 306 & 190 & 52 \\
+    $\ASM(2)$     & 521 & 445 & 316 & 44 \\
+    $\RASM(2)$    & 365 & 305 & 189 & 38 \\
   \end{tabular}
 \end{table}
 
