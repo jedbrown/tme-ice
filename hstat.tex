@@ -374,7 +374,7 @@ Building a geometric hierarchy with rediscretization on coarse levels adds softw
 We first consider one-level domain decomposition methods with incomplete factorization, which are currently used to solve the hydrostatic equations by \citep{seacism,issm} among others.  To keep iteration counts representative, we use full GMRES (no restart) with modified Gram-Schmidt orthogonalization (note that neither is practical for production use).  Conventional symmetric additive Schwarz is denoted $\ASM(k)$, where $k$ is the overlap, restricted additive Schwarz~\citep{cai1999restricted} is denoted $\RASM(k)$.  The average number of GMRES iterations per Newton iteration is shown in Table~\ref{tab:1level}.  Note that increasing overlap has no benefit when incomplete subdomain solvers are used.
 
 \begin{table}
-  \centering\caption{Average number of GMRES iterations per Newton iteration for one-level domain decomposition with different overlap and fill.  Negative pivots appeared frequently in all cases where incomplete factorization was used.}\label{tab:1level}
+  \centering\caption{Average number of GMRES iterations per Newton iteration for one-level domain decomposition with different overlap and fill.}\label{tab:1level}
   \begin{tabular}{l|c|c|c|c}
     \backslashbox{Decomposition}{Subdomain} & ICC(0) & ICC(1) & ICC(4) & Cholesky \\ \hline
     Block Jacobi & 367 & 315 & 220 & 97 \\
