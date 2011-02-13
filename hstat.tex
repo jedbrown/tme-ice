@@ -89,9 +89,15 @@ the shallow ice approximation (SIA)~\citep{hutter1983tgm} and shallow stream app
 (SSA)~\citep{morland1987unconfined,weis1999theory}, to simulate these processes was cited as a major
 deficiency in the Fourth Assesment Report of the Intergovernmental Panel on Climate Change~\citep{ipcc2007ar4-syr}.
 
-The hydrostatic equations were introduced in \cite{blatter1995vas} as a model of intermediate complexity between the full non-Newtonian Stokes system and the integrated SIA and SSA models.  A more precise analysis, including the limiting cases of fast and slow sliding, was given in \cite{schoof2010thin}.  Well-posedness was proven in \cite{colinge1999strongly}, and approximation properties of finite-element methods were analyzed in \cite{glowinski2003approximation,chow2004finite}.  The hydrostatic equations were used for transient simulation in \cite{pattyn2002tgr} and in 3D models in \cite{pattyn2003ntd}, as well as subsequent work. Several models of this form were compared in \cite{pattyn2008beh}.
+The hydrostatic equations were introduced by \cite{blatter1995vas} as a model of intermediate complexity between the full non-Newtonian Stokes system and the integrated SIA and SSA models.
+A more precise analysis, including the limiting cases of fast and slow sliding, was given in \cite{schoof2010thin}.
+Well-posedness was proven in \cite{colinge1999strongly}, and approximation properties of finite-element methods were analyzed in \cite{glowinski2003approximation,chow2004finite}.
+\cite{hindmarsh2004numerical} conducted a perturbation analysis in one horizontal dimension to study validity of different continuum models including SIA, hydrostatic, and Stokes.
+\cite{pattyn2008beh} contains a model intercomparison using several implementations of the hydrostatic equations for periodic benchmark problems with large amplitude basal topography and stickyness variability.
+The hydrostatic equations were used for transient simulation in \cite{pattyn2002tgr} and in 3D models in \cite{pattyn2003ntd}, as well as subsequent work.
+These equations have been known by a variety of names in the literature including ``Blatter'', ``Pattyn'', ``Blatter-Pattyn'', ``LMLa''~\citep{hindmarsh2004numerical}, and ``first order''~\citep{greve2009dynamics}.
 
-The use of hydrostatic equations in current models has been limited, however by the cost of solving the 3D nonlinear system for velocity.  This cost comes from both slow convergence on the
+The use of hydrostatic equations in current models has been limited, however, by the cost of solving the 3D nonlinear system for velocity.  This cost comes from both slow convergence on the
 nonlinearities (rheology and slip) and expensive linear solves using standard preconditioners such
 as incomplete factorization and one-level domain decomposition.  The poor linear solve performance is
 attributable to the strong anisotropy and heterogeneity imposed by the rheology and geometry.
@@ -115,10 +121,10 @@ derivation and asymptotic analysis.
 
 Consider an ice domain $\Omega \subset \R^3$ lying between a Lipschitz continuous bed $b(x,y)$ and surface $s(x,y)$ with thickness $h = s-b$ bounded below by a positive constant.
 %footnote{
-(This singular limit is important in the case of grounded margins, but the present work does not pursue it.)
+(The singular limit $h\to 0$ is important in the case of grounded margins, but the present work does not pursue it.)
 %}
 The
-velocity $\bm u = (u,v) \in \bm V = \bm H^1(\Omega)$ satisfies conservation of momentum, which,
+velocity $\bm u = (u,v) \in \bm V = \bm W^{1,1+1/n}(\Omega)$ satisfies conservation of momentum, which,
 omitting inertial and convective terms as is standard for ice sheets, is given by
 \begin{align}\label{eq:momentum}
   - \nabla\cdot \left[ \eta
@@ -163,7 +169,8 @@ The source code for our implementation is distributed as an example in PETSc~\ci
 %\footnote{
 Upon unpacking the source, which can be downloaded from \href{http://mcs.anl.gov/petsc}{\url{mcs.anl.gov/petsc}}, see \texttt{src/snes/examples/tutorials/ex48.c.}
 %}
-Several generalizations of the tests from ISMIP-HOM~\citep{pattyn2008beh} are implemented, run with the option \texttt{-help} for a complete list of options.  Incidentally, our results for ``\SI{5}{\kilo\metre} test $C$'' in that paper (a slipperiness perturbation on a flat bed) agree to three significant figures with the ``Stokes'' results therein.  This is consistent with the asympotic analysis of \cite{schoof2010thin}, which shows that slipperiness perturbations are not present in the leading-order error terms for the hydrostatic equations (which are purely geometric); \cf \cite[Table~4 and Figure~8]{pattyn2008beh}, where the ensemble range is nearly as large as the mean.
+Several generalizations of the tests from ISMIP-HOM~\citep{pattyn2008beh} are implemented, run with the option \texttt{-help} for a complete list of options.  Incidentally, our results for ``\SI{5}{\kilo\metre} test $C$'' in that paper (variable slipperiness on a flat bed) agree to three significant figures with the ``Stokes'' results therein.
+This is consistent with the asympotic analysis of \cite{schoof2010thin}, which shows that slipperiness perturbations are not present in the leading-order error terms for the hydrostatic equations (which are purely geometric); \cf \cite[Table~4 and Figure~8]{pattyn2008beh}, where the ensemble range is nearly as large as the mean.
 
 \section{Solver and Implementation}\label{sec:solver}
 We begin by writing the discretization of \eqref{eq:weak} as an algebraic system $F(U) = 0$ with
@@ -212,17 +219,22 @@ with adjacent columns.  Pure line smoothers were also tried as a smoother on the
 robustness was significantly impacted, and the memory benefits were deemed insufficient to pursue
 further.
 
-In scenarios with little sliding (frozen or sticky bed) and elements that are wide compared to the ice thickness, the ``shallow ice approximation'' is valid, allowing the velocity field to be determined locally from the surface slope and a column integral.
-Since incomplete factorization with column ordering provides nearly exact coupling in the vertical,
-it is an effective preconditioner in such scenarios with no coarse level.  Indeed, with a typical
-ice thickness of \SI{1}{\kilo\metre} resting on a frozen bed and elements \SI{5}{\kilo\metre} on
+In scenarios with little sliding and gentle geometry compared to the ice thickness, the ``shallow ice approximation'' (SIA) is valid, allowing the velocity field to be determined locally from the surface slope and a column integral.
+If horizontal derivatives were discarded from the linearized hydrostatic equations, the corresponding matrix would have only uncoupled tridiagonal systems for each column and the solution of these systems would be equivalent to linearized SIA.
+These tridiagonal systems become singular as basal friction $\beta^2 \to 0$, and furthermore, SIA is physically inconsistent if $\beta^2$ is discontinuous even when bounded below by a sufficiently large constant due to discontinuous velocities \citep{fowler2001modelling}.
+% Fowler: ``There is a malaise afoot which consists of believing that if a numerical solution `looks' all right, it is. A discontinuous velocity is simply nonsense.''
+The matrix contribution from discrete horizontal derivatives relative to vertical derivatives is of order $h_z^2/h_x^2$ and thus small when the horizontal grid spacing is large, therefore the hydrostatic matrix becomes similar to the block tridiagonal system representing SIA.
+When the bed is very slippery, there are medium to long wavelength modes with vanishing energy in the norm induced by the (nearly singular) hydrostatic equations, but non-vanishing energy in the norm induced by the hydrostatic equations, and these modes are problematic if the tridiagonal SIA system is used to precondition hydrostatic because it will take many iterations for the Krylov solver to locate all of these modes not controlled by the preconditioner.
+
+Incomplete factorization with column ordering provides nearly exact coupling in the vertical, effectively containing the tridiagonal SIA plus some coupling with nearby columns, and is an effective stand-alone preconditioner when the bed is sticky and horizontal grid spacing is large, despite lack of a coarse level.
+Indeed, with a typical ice thickness of \SI{1}{\kilo\metre} resting on a frozen bed and elements \SI{5}{\kilo\metre} on
 a side, block Jacobi with zero-fill incomplete Cholesky converges to relative tolerance of $10^{-5}$
 in about 10 Krylov iterations independent of the horizontal extent of the domain (number of elements
 in the horizontal), independent of the number of elements in the vertical, and independent of the
 number of subdomains (provided they do not get too small: there is some degredation when subdomain
 size approaches a single column).  However, none of these favorable performance characteristics
-remains when the elements become small relative to the ice thickness or when the bed becomes
-slippery, since the usual $\bigO\big((L/H)^2\big)$ condition number for second-order elliptic problems
+remain when the elements become small relative to the ice thickness or when the bed becomes
+slippery since the usual $\bigO\big((L/H)^2\big)$ condition number for second-order elliptic problems
 preconditioned by one-level Schwarz methods with subdomains of size $H$ \citep[see][]{smith1996domain} becomes apparent.
 Indeed, we have found low-fill incomplete factorization to be nearly unusable as part of a one-level additive Schwarz method for problems with slippery beds or steep geometry, even at low resolution, as investigated in Section~\ref{sec:1level}.
 
@@ -446,9 +458,18 @@ The present velocity solver can be immediately incorporated in a semi-implicit i
 Fully implicit time integration offers an alternative that has no such constraint and is thus suitable for simulations over full ice ages and longer, but requires the solution of more difficult algebraic equations.
 A prototype using the present velocity discretization has been developed, but scalable linear solvers for velocity-surface coupled problems is the subject of future investigation.
 
-The hydrostatic equations are well-suited to investigation of ice streams and outlet glaciers with gentle slope and arbitrary stickyness perturbations.
+The hydrostatic equations are well-suited to investigation of ice streams and outlet glaciers with gentle slope and arbitrary stickyness distribution.
 For example, 3D ice stream thermodynamics (see \cite{raymond2000energy} for analytic and \cite{truffer2003isbrae} for numerical investigation with along-flow symmetry) could be reliably investigated using velocity defined by the hydrostatic equations.
-Although more complete than models involving only a vertically integrated elliptic solve \citep[\eg][]{bueler2009shallow,goldberg2009grounding,goldberg2010variational}, the hydrostatic equations are not suitable for steep outlet glaciers like Jakoshavn Isbr{\ae} or Pine Island Glacier where solution of Stokes problems appears to be unavoidable.
+The methods in this paper can efficiently solve the discrete hydrostatic equations in regimes with basal topography and stickyness distribution as extreme as anywhere of interest on earth, far in excess of where the continuum hydrostatic approximation is valid as an approximation to the Stokes equations according to asymptotic analysis~\citep{schoof2010thin} and numerical comparison~\citep{hindmarsh2004numerical,pattyn2008beh}.
+Despite being more complete than models involving only a vertically integrated elliptic solve \citep[\eg][]{bueler2009shallow,goldberg2009grounding,goldberg2010variational}, the hydrostatic equations are not suitable for steep outlet glaciers like Jakoshavn Isbr{\ae} or Pine Island Glacier where solution of Stokes problems appears to be unavoidable.
+
+A scalable solver has not yet been proposed for these vertically integrated elliptic problems so the present model is faster than existing implementations at sufficiently high resolution, thus we estimate relative costs with the assumption that a similarly optimal solver exists for the integrated system.
+In the \cite{bueler2009shallow} model, the depth dependent velocity components have been factored out of the vertically-integrated nonlinear problem, thus the nonlinear elliptic solve can be completed without revisiting the 3D velocity field.
+This is only possible if the constitutive relation can be factored and the formal order of accuracy is lower than the ``hybrid'' model of \cite{goldberg2010variational} which requires reevaluating effective viscosity in 3D and integrating to produce depth-averaged viscosity.
+Evaluating effective viscosity accounts for most of the cost of residual evaluation for the hydrostatic equations so we suppose that it's cost is roughly equivalent to the nonlinear evaluation required in a Picard iteration for the hybrid model.
+Our solver produces high-accuracy solutions in about 30 times the cost of a residual evaluation, less if a good initial guess was available as when time stepping.
+\cite{goldberg2010variational} uses a Picard iteration to solve the nonlinear system, requiring 50 iterations per nonlinear solve, therefore the hybrid solver is only likely to have similar cost to our hydrostatic solver when the linear solves require negligible time.
+If the hybrid equations were instead solved by Newton iteration and the linear solves required similar or less time than evaluating viscosity, then the hybrid equations might be solved as much as 5 times faster than hydrostatic.
 
 \section*{Acknowledgments}
 This work was supported by Swiss National Science Foundation Grant 200021-113503/1, U.S. Department of Energy's Office of Science Ice Sheet Initiative for CL-imate ExtremeS program under Contract DE-AC02-06CH11357, and the Shaheen Supercomputing Laboratory at KAUST.
