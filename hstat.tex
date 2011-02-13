@@ -89,7 +89,7 @@ the shallow ice approximation (SIA)~\citep{hutter1983tgm} and shallow stream app
 (SSA)~\citep{morland1987unconfined,weis1999theory}, to simulate these processes was cited as a major
 deficiency in the Fourth Assesment Report of the Intergovernmental Panel on Climate Change~\citep{ipcc2007ar4-syr}.
 
-The hydrostatic equations were introduced by \cite{blatter1995vas} as a model of intermediate complexity between the full non-Newtonian Stokes system and the integrated SIA and SSA models.
+The hydrostatic equations were introduced by \cite{blatter1995vas} as a model of intermediate complexity between the full non-Newtonian Stokes system and the vertically-integrated SIA and SSA models.
 A more precise analysis, including the limiting cases of fast and slow sliding, was given in \cite{schoof2010thin}.
 Well-posedness was proven in \cite{colinge1999strongly}, and approximation properties of finite-element methods were analyzed in \cite{glowinski2003approximation,chow2004finite}.
 \cite{hindmarsh2004numerical} conducted a perturbation analysis in one horizontal dimension to study validity of different continuum models including SIA, hydrostatic, and Stokes.
@@ -221,10 +221,11 @@ further.
 
 In scenarios with little sliding and gentle geometry compared to the ice thickness, the ``shallow ice approximation'' (SIA) is valid, allowing the velocity field to be determined locally from the surface slope and a column integral.
 If horizontal derivatives were discarded from the linearized hydrostatic equations, the corresponding matrix would have only uncoupled tridiagonal systems for each column and the solution of these systems would be equivalent to linearized SIA.
-These tridiagonal systems become singular as basal friction $\beta^2 \to 0$, and furthermore, SIA is physically inconsistent if $\beta^2$ is discontinuous even when bounded below by a sufficiently large constant due to discontinuous velocities \citep{fowler2001modelling}.
+These tridiagonal systems become singular as basal friction $\beta^2 \to 0$, and furthermore, SIA is physically inconsistent if $\beta^2$ is discontinuous even when it is bounded below by a sufficiently large constant due to discontinuous velocities \citep{fowler2001modelling}.
 % Fowler: ``There is a malaise afoot which consists of believing that if a numerical solution `looks' all right, it is. A discontinuous velocity is simply nonsense.''
-The matrix contribution from discrete horizontal derivatives relative to vertical derivatives is of order $h_z^2/h_x^2$ and thus small when the horizontal grid spacing is large, therefore the hydrostatic matrix becomes similar to the block tridiagonal system representing SIA.
-When the bed is very slippery, there are medium to long wavelength modes with vanishing energy in the norm induced by the (nearly singular) hydrostatic equations, but non-vanishing energy in the norm induced by the hydrostatic equations, and these modes are problematic if the tridiagonal SIA system is used to precondition hydrostatic because it will take many iterations for the Krylov solver to locate all of these modes not controlled by the preconditioner.
+The contribution to the hydrostatic matrix from discrete horizontal derivatives is small (order $h_z^2/h_x^2$) relative to that from vertical derivatives when the element aspect ratio ($h_z/h_x$) is small, and therefore high energy modes of the hydrostatic matrix, corresponding to velocity variation primarily in the vertical, become well approximated by the block tridiagonal system representing SIA.
+When the bed is very slippery, there are medium to long wavelength modes with vanishing energy in the norm induced by the (nearly singular) SIA equations, but non-vanishing energy in the norm induced by the hydrostatic equations.
+These modes are problematic if the tridiagonal SIA system is used to precondition hydrostatic because it will take many iterations for the Krylov solver to locate all of these modes not controlled by the preconditioner.
 
 Incomplete factorization with column ordering provides nearly exact coupling in the vertical, effectively containing the tridiagonal SIA plus some coupling with nearby columns, and is an effective stand-alone preconditioner when the bed is sticky and horizontal grid spacing is large, despite lack of a coarse level.
 Indeed, with a typical ice thickness of \SI{1}{\kilo\metre} resting on a frozen bed and elements \SI{5}{\kilo\metre} on
@@ -458,18 +459,26 @@ The present velocity solver can be immediately incorporated in a semi-implicit i
 Fully implicit time integration offers an alternative that has no such constraint and is thus suitable for simulations over full ice ages and longer, but requires the solution of more difficult algebraic equations.
 A prototype using the present velocity discretization has been developed, but scalable linear solvers for velocity-surface coupled problems is the subject of future investigation.
 
-The hydrostatic equations are well-suited to investigation of ice streams and outlet glaciers with gentle slope and arbitrary stickyness distribution.
-For example, 3D ice stream thermodynamics (see \cite{raymond2000energy} for analytic and \cite{truffer2003isbrae} for numerical investigation with along-flow symmetry) could be reliably investigated using velocity defined by the hydrostatic equations.
-The methods in this paper can efficiently solve the discrete hydrostatic equations in regimes with basal topography and stickyness distribution as extreme as anywhere of interest on earth, far in excess of where the continuum hydrostatic approximation is valid as an approximation to the Stokes equations according to asymptotic analysis~\citep{schoof2010thin} and numerical comparison~\citep{hindmarsh2004numerical,pattyn2008beh}.
-Despite being more complete than models involving only a vertically integrated elliptic solve \citep[\eg][]{bueler2009shallow,goldberg2009grounding,goldberg2010variational}, the hydrostatic equations are not suitable for steep outlet glaciers like Jakoshavn Isbr{\ae} or Pine Island Glacier where solution of Stokes problems appears to be unavoidable.
-
-A scalable solver has not yet been proposed for these vertically integrated elliptic problems so the present model is faster than existing implementations at sufficiently high resolution, thus we estimate relative costs with the assumption that a similarly optimal solver exists for the integrated system.
-In the \cite{bueler2009shallow} model, the depth dependent velocity components have been factored out of the vertically-integrated nonlinear problem, thus the nonlinear elliptic solve can be completed without revisiting the 3D velocity field.
-This is only possible if the constitutive relation can be factored and the formal order of accuracy is lower than the ``hybrid'' model of \cite{goldberg2010variational} which requires reevaluating effective viscosity in 3D and integrating to produce depth-averaged viscosity.
-Evaluating effective viscosity accounts for most of the cost of residual evaluation for the hydrostatic equations so we suppose that it's cost is roughly equivalent to the nonlinear evaluation required in a Picard iteration for the hybrid model.
+Several models involving only a vertically-integrated elliptic solve have been proposed as less costly alternatives to solving the hydrostatic equations~\citep[\eg][]{bueler2009shallow,goldberg2009grounding,goldberg2010variational}.
+A scalable solver has not yet been proposed for these vertically-integrated elliptic problems so the present model is faster than existing implementations at sufficiently high resolution.
+To make a useful comparison, we estimate relative costs with the assumption that a similarly optimal solver exists for the vertically-integrated system, in which case the cost difference should be a constant factor independent of problem size and number of processors.
+The ``hybrid'' model of \cite{goldberg2010variational} requires evaluating effective viscosity in 3D and integrating to produce depth-averaged viscosity which appears in the vertically-integrated equations.
+Evaluating effective viscosity accounts for most of the cost of residual evaluation for the hydrostatic equations.
+Therefore the cost of such an evaluation is comparable to the cost of the nonlinear viscosity evaluation required in a Picard iteration for the hybrid model of \cite{goldberg2010variational}.
 Our solver produces high-accuracy solutions in about 30 times the cost of a residual evaluation, less if a good initial guess was available as when time stepping.
 \cite{goldberg2010variational} uses a Picard iteration to solve the nonlinear system, requiring 50 iterations per nonlinear solve, therefore the hybrid solver is only likely to have similar cost to our hydrostatic solver when the linear solves require negligible time.
-If the hybrid equations were instead solved by Newton iteration and the linear solves required similar or less time than evaluating viscosity, then the hybrid equations might be solved as much as 5 times faster than hydrostatic.
+If the hybrid equations were instead solved by Newton iteration and the linear solves required similar or less time than evaluating viscosity, then the hybrid equations might be solved as much as 5 times faster than the hydrostatic equations.
+\cite{bueler2009shallow} factors depth dependent velocity and temperature contributions out of the vertically-integrated nonlinear problem.
+The process only applies if the constitutive relation can be factored and the resulting continuum equations have a lower formal order of accuracy with respect to shallowness and stickyness distribution than the model of \cite{goldberg2010variational}.
+In exchange, the nonlinear elliptic solve can be completed without revisiting the 3D velocity field so the model cost has weaker dependence on the number of nonlinear iterations and thus potential to be a few times faster than the model of \cite{goldberg2010variational}.
+Vertically-integrated models do not involve linear algebra operating on the 3D velocity field so they require significantly less memory than the hydrostatic equations when all operators are assembled.
+
+The hydrostatic equations are well-suited to investigation of ice streams and outlet glaciers with gentle slope and arbitrary stickyness distribution.
+For example, 3D ice stream thermodynamics (see \cite{raymond2000energy} for analytic and \cite{truffer2003isbrae} for numerical investigation with along-flow symmetry) could be reliably investigated using velocity defined by the hydrostatic equations.
+The methods in this paper can efficiently solve the discrete hydrostatic equations in regimes with extreme basal topography and stickyness distributions.
+The solution method is efficient even in regimes which are far in excess of where the continuum hydrostatic approximation is valid as an approximation to the Stokes equations.
+The latter issue of continuum validity has been partially addressed using asymptotic analysis~\citep{schoof2010thin} and numerical comparison~\citep{hindmarsh2004numerical,pattyn2008beh}.
+Despite being more complete than models involving only a vertically-integrated elliptic solve, the hydrostatic equations are not suitable for steep outlet glaciers like Jakoshavn Isbr{\ae} or Pine Island Glacier where solution of Stokes problems appears to be unavoidable.
 
 \section*{Acknowledgments}
 This work was supported by Swiss National Science Foundation Grant 200021-113503/1, U.S. Department of Energy's Office of Science Ice Sheet Initiative for CL-imate ExtremeS program under Contract DE-AC02-06CH11357, and the Shaheen Supercomputing Laboratory at KAUST.
