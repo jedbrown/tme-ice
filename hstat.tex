@@ -356,9 +356,9 @@ Test $Z$ sets $b_Z = b_A$, $\beta_Z^2 = \beta_X^2$, and nonlinear sliding with e
 Two types of parallel scalability are considered.
 Strong scalability is the ability to solve a fixed problem size faster by using more processors.
 It is represented by a log-log plot of time versus number of processors where a slope of $-1$ is optimal.
-Weak scalability is the ability to solve larger problems by using more processors such that the problem size per processor stays fixed.
+Weak scalability is the ability to solve larger problems in constant time by using more processors with the problem size per processor remaining fixed.
 It is represented by a plot of time versus number of processors where a slope of $0$ is optimal.
-Strong scalability is especially important in transient simulations with many time steps while weak scalability is more important for attaining high resolution in steady-state simulations or transient simulations with fewer time steps.
+Strong scalability is important in transient simulations with many time steps while weak scalability is more important for attaining high resolution in steady-state simulations or transient simulations with fewer time steps.
 Optimal strong and weak scalability together would imply that a problem with $N$ elements could be solved in $\bigO(N/P)$ time on $P$ processors.
 
 We investigate strong scaling using test $Z$ at \SI{80}{\kilo\metre} with basal friction exponent $m= 0.3$ on Shaheen, a Blue Gene/P at the KAUST Supercomputing Laboratory.
