@@ -35,6 +35,9 @@ case "$1" in
         pdflatex hstat
         pdflatex hstat
         ;;
+    cover)
+        pdflatex cover
+        ;;
     submodules)
         # Warning: only intended to work for Jed's layout
         cp -rlTf ~/petscplot ./petscplot
