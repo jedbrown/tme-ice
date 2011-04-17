@@ -433,7 +433,7 @@ Use of Galerkin coarse operators has a catastrophic effect on the iteration coun
 We cannot explain why symmetric additive Schwarz performs so poorly on this problem, but the other numbers are robust to changes in resolution, spatial domain, and number of processes.
 
 \begin{table}
-  \centering\caption{Average GMRES iterations per Newton for different multigrid preconditioners.}\label{tab:xmg}
+  \centering\caption{Average number of GMRES iterations per Newton for different multigrid preconditioners.}\label{tab:xmg}
   \begin{tabular}{l|ll|ll|r@{.}l}
     \multirow{2}{*}{Coarse Problem} & \multicolumn{2}{c|}{Level 1} & \multicolumn{2}{c|}{Level 2 and 3} & \multicolumn{2}{c}{\multirow{2}{*}{Its}} \\
                                    & Decomp. & Subdomain & Decomp. & Subdomain         \\ \hline
