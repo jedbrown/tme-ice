@@ -313,8 +313,8 @@ A visual representation of the nonlinear solve process is shown in Figure~\ref{f
 In this example and the next one, Luis Chac\'on's variant of the Eisenstat-Walker~\citep{eisenstat1996cft} method was used to automatically adjust linear solve tolerances as the nonlinear solve converges.  Solving the linear systems to higher tolerance would have little impact on the number of nonlinear iterations and would be visible in the form of more $\times$ marks below the solid lines.  That most $\times$ marks lie on the solid line for nonlinear residual is an indication that effort is well balanced between linear and nonlinear solves.
 
 \begin{figure}
-  \includegraphics[width=0.8\textwidth]{x-shear}
-  \centering\caption{A solution cutout for test $X$ at $L=\SI{10}{\kilo\metre}$ with $m=1/10$ nearly plastic basal yield model.
+  \centering\includegraphics[width=0.8\textwidth]{x-shear}
+  \caption{A solution cutout for test $X$ at $L=\SI{10}{\kilo\metre}$ with $m=1/10$ nearly plastic basal yield model.
     The cut on the left shows along-flow velocity as the ice hits the sticky region, the cut on the right shows across-flow shear structure.}\label{fig:xshear}
 \end{figure}
 
@@ -322,9 +322,9 @@ Note that approximately 10 linear V-cycles on the fine level are required to red
 We remark that Picard iteration takes at least 50 iterations to reach this tolerance (cf\onedot \cite{desmedt2010using} in which hundreds or thousands of iterations were needed for an easier problem).  Additionally, each linear solve for this fine-level problem requires hundreds or thousands of iterations with a one-level additive Schwarz method; see Section~\ref{sec:1level}, which considers a smaller problem.
 
 \begin{figure}
-  \includegraphics{x-80km-m16p2l6-ew}
+  \centering\includegraphics{x-80km-m16p2l6-ew}
   % petscplot -m paper -t snes --solve-spec '1:' x.80km.m16p2l6.ew.log -o ../figures/x-80km-m16p2l6-ew.pdf
-  \centering\caption{Grid-sequenced Newton-Krylov solution of test $X$.  The solid lines denote nonlinear iterations, and the dotted lines with $\times$ denote linear residuals.}\label{fig:xgridseq}
+  \caption{Grid-sequenced Newton-Krylov solution of test $X$.  The solid lines denote nonlinear iterations, and the dotted lines with $\times$ denote linear residuals.}\label{fig:xgridseq}
 \end{figure}
 
 Test $Y$ places a \SI{200}{\metre} tower with vertical walls on the top of each bedrock bump and uses an uncorrelated but smoothly varying stickiness resembling a dimpled sombrero:
@@ -339,17 +339,17 @@ Test $Y$ places a \SI{200}{\metre} tower with vertical walls on the top of each 
 This tests the quality of the coarse grids even when large geometric errors are committed.  Note that the hydrostatic equations cannot be considered valid in this regime since the topography is too abrupt.  Such topography is present in reality, however, so we may still desire an efficient solver.  Figure~\ref{fig:testy} depicts the solve for this problem in a \SI{10}{\kilo\metre} square domain. Because of the successively better resolution of the ``cliff,'' performance deteriorates on each level, as can be seen by the closer spacing of linear solve marks $(\times)$.  It is entirely acceptable up to level 3, however, where the elements are approximately \SI{12}{\metre} thick and stretch to reach over a \SI{200}{\metre} vertical cliff in \SI{125}{\metre} horizontal, a slope of \SI{58}{\degree}.  On the finest level, they are \SI{6}{\metre} thick and stretch over the cliff in \SI{62}{\metre} horizontal, a slope of \SI{73}{\degree}.  The approximation properties of such elements are poor and, considering that the continuum equations are invalid here, we believe this resolved topography is significantly rougher than will needed in applications.
 
 \begin{figure}
-  \includegraphics{y-10km-m10p6l5-ew}
+  \centering\includegraphics{y-10km-m10p6l5-ew}
   % petscplot -m paper -t snes --solve-spec '1:' y.10km.m10p6l5.ew.log -o ../figures/y-10km-m10p6l5-ew.pdf
-  \centering\caption{Grid sequenced Newton-Krylov convergence for test $Y$.}\label{fig:testy}
+  \caption{Grid sequenced Newton-Krylov convergence for test $Y$.}\label{fig:testy}
 \end{figure}
 
 Test $Z$ sets $b_Z = b_A$, $\beta_Z^2 = \beta_X^2$, and nonlinear sliding with exponent $m=0.3$. It is a regime where the hydrostatic equations are valid, provided the wavelength $L$ is not too small.  We use this case to explore linear solve performance in Figure~\ref{fig:linear}.
 
 \begin{figure}
-  \includegraphics{linear4}
+  \centering\includegraphics{linear4}
   % ~/petscplot/petscplot -m paper --width-pt 380 -t algorithmic z.m6p4l5.newton.icc.log : z.m6p4l5.picard.asm8.icc1.log : z.m6p4l6.picard.icc.log : z.m6p4l6.mult.n8.o0.r2.log --legend-labels 'Newton, ICC(0), serial:Picard ASM(1)/ICC(1), 8 subdomains:Picard ICC(0) serial:Newton, V-cycle, 8 subdomains' -o ../figures/linear4.pdf
-  \centering\caption{Average number of Krylov iterations per nonlinear iteration.  Each nonlinear system was solved to a relative tolerance of $10^{-2}$.}\label{fig:linear}
+  \caption{Average number of Krylov iterations per nonlinear iteration.  Each nonlinear system was solved to a relative tolerance of $10^{-2}$.}\label{fig:linear}
 \end{figure}
 
 \subsection{Parallel Scalability on Blue Gene/P}\label{sec:pscaling}
@@ -370,8 +370,8 @@ The largest two coarse problems are only solved approximately using a V-cycle of
 These coarse problems have been designed so that BoomerAMG is effective, see Section~\ref{sec:1level} for BoomerAMG applied to fine-level problems.
 
 \begin{figure}
-  \includegraphics{shaheen-strong}
-  \centering\caption{Strong scaling on Shaheen for different size coarse levels problems and different coarse level solvers (see text for details).
+  \centering\includegraphics{shaheen-strong}
+  \caption{Strong scaling on Shaheen for different size coarse levels problems and different coarse level solvers (see text for details).
     The straight lines on the strong scaling plot have slope $-1$ which is optimal.
     Grid sequencing is used, but only the nonlinear solve on the finest level is shown since strong scalability is most important when many time steps are needed.}\label{fig:shaheen-strong}
 \end{figure}
@@ -382,9 +382,9 @@ As the resolution increases, the nonlinearity strength and linear stiffness also
 This effect is also apparent in the Level 3 convergence of Figure~\ref{fig:xgridseq}.
 
 \begin{figure}
-  \includegraphics{shaheen-weak}
+  \centering\includegraphics{shaheen-weak}
   % Note: weak scaling for nonlinear problems is tricky unless the nonlinearity and linear stiffness are equally strong at all resolutions.  I don't know a good way to handle it.
-  \centering\caption{Weak scaling on Shaheen with a breakdown of time spent in different phases of the solution process.
+  \caption{Weak scaling on Shaheen with a breakdown of time spent in different phases of the solution process.
     Times are for the full grid-sequenced problem instead of just the finest level solve.}\label{fig:shaheen-weak}
 \end{figure}
 
