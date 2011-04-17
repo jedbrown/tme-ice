@@ -258,18 +258,24 @@ appeared at the formerly Dirichlet nodes.
 \subsection{Matrices}
 The most expensive operations are Jacobian assembly and sparse matrix kernels.  The former involves evaluation of fractional powers and quadrature loops.  While fractional powers take most of the time for residual evaluation, they are less significant than quadrature loops for assembly.  The quadrature loops were explicitly vectorized by using SSE2 intrinsics which led to a 30\% speedup on Core 2 and Opteron architectures using both GNU and Intel compilers.  There was no manual vectorization for the Blue Gene/P results quoted in Section~\ref{sec:pscaling}.
 
-Assembly costs could be further mitigated by recomputing it less frequently, either by using a modified Newton method (degrades nonlinear convergence rate) or by applying the current operator matrix-free by finite differencing the residual or using automatic differentiation in which case only the preconditioner is lagged.  These are runtime options in the present code; but since they not offer a clear benefit they have not been pursued in the present work.  If matrix-free application of the true Jacobian is used, several other preconditioning options become available without impacting the nonlinear convergence rate.  One could assemble only the block-tridiagonal column coupling, ignoring horizontal coupling, thus saving the memory for the finest level(s). Additionally, a truly 2D coarse problem can be defined by using the shallow stream equations~\citep{morland1987unconfined,weis1999theory,schoof2006variational} and restriction operators defined by integrating the entire column.  These possibilities are also runtime options, but have not exhibited a level of robustness comparable to that of the more conventional methods pursued here.
+Assembly costs could be further mitigated by recomputing the matrix less frequently, either by using a modified Newton method (degrades nonlinear convergence rate) or by applying the current operator matrix-free by finite differencing the residual or using automatic differentiation in which case only the preconditioner is lagged.
+These are runtime options in the present code; but since they did not offer a clear benefit they have not been pursued in the present work.
+If matrix-free application of the true Jacobian is used, several other preconditioning options become available without impacting the nonlinear convergence rate.
+One could assemble only the block-tridiagonal column coupling, ignoring horizontal coupling, thus saving the memory for the finest level(s).
+Additionally, a truly 2D coarse problem can be defined by using the shallow stream equations~\citep{morland1987unconfined,weis1999theory,schoof2006variational} and restriction operators defined by integrating the entire column.
+These possibilities are also runtime options, but have not exhibited a level of robustness comparable to that of the more conventional methods pursued here.
 
 The Jacobian is always symmetric positive definite and has a natural block size of 2, so we use a symmetric block format (PETSc's SBAIJ).  This format stores one column index per $2\times 2$ block in the upper triangular part of the matrix and therefore uses about half the storage of the nonsymmetric BAIJ format, which in turn uses 25\% less memory than a scalar format (AIJ). Multiplication for symmetric storage requires twice as much parallel communication as nonsymmetric storage, albeit with the same number of messages. In return, the diagonal part of a parallel decomposition does twice as much work per matrix entry and thus achieves higher throughput, as shown in Table~\ref{tab:sbaij}.
 
 \begin{table}
-  \centering\caption{Throughput (Mflop/s) for different matrix formats on Core 2 Duo (P8700) and Opteron 2356 (two sockets). \texttt{MatSolve} is a forward- and back-solve with incomplete Cholesky factors.  The AIJ format is using ``inodes'' which unrolls across consecutive rows with identical nonzero pattern (pairs in this case).}\label{tab:sbaij}
+  \centering
   \begin{tabular}{l|c|c|c|c|c|c}
     \multirow{2}{*}{\backslashbox{Kernel}{Format}} & \multicolumn{3}{c|}{Core 2, 1 process} & \multicolumn{3}{c}{Opteron, 4 processes} \\
                       & AIJ & BAIJ & SBAIJ & AIJ  & BAIJ & SBAIJ \\ \hline
     \texttt{MatMult}  & 812 & 985  & 1507  & 2226 & 2918 & 3119  \\
     \texttt{MatSolve} & 718 & 957  & 955   & 1573 & 2869 & 2858  \\
   \end{tabular}
+  \caption{Throughput (Mflop/s) for different matrix formats on Core 2 Duo (P8700) and Opteron 2356 (two sockets). \texttt{MatSolve} is a forward- and back-solve with incomplete Cholesky factors.  The AIJ format is using ``inodes'' which unrolls across consecutive rows with identical nonzero pattern (pairs in this case).}\label{tab:sbaij}
 \end{table}
 
 There are two ways to construct matrices on the coarse levels of multigrid methods.
