@@ -185,13 +185,13 @@ Managing this hierarchy is often seen as a programming burden, but it exposes mo
 
 The Newton step \eqref{eq:newton-step} is solved by a Krylov method such as GMRES, for which the iteration count is highly dependent on the quality of the preconditioner.  Since $J(U)$ is symmetric positive definite (SPD), methods such as conjugate gradients could be used. This work always uses GMRES, however, because it allows the use of nonsymmetric preconditioners, and the iteration counts are always kept low so that storage and restarts are not an issue.  As an SPD system, it has a wide variety of preconditioners to choose from; however, viscosity contrasts and strong anisotropy cause most preconditioners to perform poorly.  The rest of this section describes the methods used to produce a scalable algorithm in spite of these difficulties.
 
-\subsection{Anisotropy}
+\subsection{Anisotropic Meshes}
 The ratio of width to thickness for outlet glaciers (the regions of ice sheets with greatest physical interest) ranges from order 1 to over $100$.  The nonlinear constitutive relation \eqref{eq:viscosity} produces three to four orders of magnitude variation in viscosity (usually with fastest variation in the vertical) and the Newton linearization of \eqref{eq:weak} produces additional anisotropy, effectively collapsing the conductivity tensor in the direction of the velocity gradient.
 
 For systems with a priori known anisotropy, semi-coarsening has been successful for attaining
 satisfactory multigrid performance even with weak smoothers like SOR, but semi-coarsening is
 unattractive for two reasons.  First, semi-coarsening in the vertical direction would necessitate
-many levels because it reduces the problem size only by a factor of 2 on each coarsening (instead of
+many levels because it reduces the problem size by only a factor of 2 on each coarsening (instead of
 8 for isotropic coarsening), and the fully coarsened problem would still be far too large for a
 direct solver, necessitating further coarsening in the horizontal direction.  The presence of many
 levels leads to more synchronization in parallel, which is detrimental to scalability and makes
@@ -256,10 +256,11 @@ entries that would appear if the domain was extended so that constant viscosity 
 appeared at the formerly Dirichlet nodes.
 
 \subsection{Matrices}
-The most expensive operations are Jacobian assembly and sparse matrix kernels.  The former involves evaluation of fractional powers and quadrature loops.  While fractional powers take most of the time for residual evaluation, they are less significant than quadrature loops for assembly.  The quadrature loops were explicitly vectorized by using SSE2 intrinsics which led to a 30\% speedup on Core 2 and Opteron architectures using both GNU and Intel compilers.  There was no manual vectorization for the Blue Gene/P results quoted in Section~\ref{sec:pscaling}.
+The most expensive operations are Jacobian assembly and sparse matrix kernels such as matrix-vector multiplication and solves with incomplete triangular factors.
+The former involves evaluation of fractional powers and finite element quadrature loops.  While fractional powers take most of the time for residual evaluation, they are less significant than quadrature loops for assembly.  The quadrature loops were explicitly vectorized by using SSE2 intrinsics which led to a 30\% speedup on Core 2 and Opteron architectures using both GNU and Intel compilers.  There was no manual vectorization for the Blue Gene/P results quoted in Section~\ref{sec:pscaling}.
 
 Assembly costs could be further mitigated by recomputing the matrix less frequently, either by using a modified Newton method (degrades nonlinear convergence rate) or by applying the current operator matrix-free by finite differencing the residual or using automatic differentiation in which case only the preconditioner is lagged.
-These are runtime options in the present code; but since they did not offer a clear benefit they have not been pursued in the present work.
+These are runtime options in the present code; but since they do not offer a clear benefit they have not been pursued in the present work.
 If matrix-free application of the true Jacobian is used, several other preconditioning options become available without impacting the nonlinear convergence rate.
 One could assemble only the block-tridiagonal column coupling, ignoring horizontal coupling, thus saving the memory for the finest level(s).
 Additionally, a truly 2D coarse problem can be defined by using the shallow stream equations~\citep{morland1987unconfined,weis1999theory,schoof2006variational} and restriction operators defined by integrating the entire column.
