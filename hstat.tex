@@ -310,17 +310,20 @@ We choose $L = \SI{80}{\kilo\metre}$ and $\alpha = 0.05^\circ$ which produce vel
 This problem may be run with the options \texttt{-thi\_hom X -thi\_L 80e3 -thi\_alpha 0.05}, the other cases can be selected with similar options.
 }
 To demonstrate algorithmic scalability as the problem size is increased, this test was run on 8 processors starting from a coarse grid of $16\times 16\times 1$, refining twice in the horizontal by factors of 2 in both $x$ and $y$, then three times in the vertical by factors of 8 each to reach a fine mesh of $64\times 64\times 513$, which has elements of nominal dimension $1250\times 1250\times 1.95$ meters.
-A visual representation of the nonlinear solve process is shown in Figure~\ref{fig:xgridseq}.
-In this example and the next one, Luis Chac\'on's variant of the Eisenstat-Walker~\citep{eisenstat1996cft} method was used to automatically adjust linear solve tolerances as the nonlinear solve converges.  Solving the linear systems to higher tolerance would have little impact on the number of nonlinear iterations and would be visible in the form of more $\times$ marks below the solid lines.  That most $\times$ marks lie on the solid line for nonlinear residual is an indication that effort is well balanced between linear and nonlinear solves.
 
 \begin{figure}
   \centering\includegraphics[width=0.8\textwidth]{x-shear}
-  \caption{A solution cutout for test $X$ at $L=\SI{10}{\kilo\metre}$ with $m=1/10$ nearly plastic basal yield model.
+  \caption{A cutout colored by velocity magnitude for flow over the bumpy bed of test $X$ at $L=\SI{10}{\kilo\metre}$ with $m=1/10$ nearly plastic basal yield model.
     The cut on the left shows along-flow velocity as the ice hits the sticky region, the cut on the right shows across-flow shear structure.}\label{fig:xshear}
 \end{figure}
 
+A visual representation of the nonlinear solve process is shown in Figure~\ref{fig:xgridseq}.
+In this example and the next one, Luis Chac\'on's variant of the Eisenstat-Walker~\citep{eisenstat1996cft} method was used to automatically adjust linear solve tolerances as the nonlinear solve converges.  Solving the linear systems to higher tolerance would have little impact on the number of nonlinear iterations and would be visible in the form of more $\times$ marks below the solid lines.  That most $\times$ marks lie on the solid line for nonlinear residual is an indication that effort is well balanced between linear and nonlinear solves.
 Note that approximately 10 linear V-cycles on the fine level are required to reduce the residual by 10 orders of magnitude.
-We remark that Picard iteration takes at least 50 iterations to reach this tolerance (cf\onedot \cite{desmedt2010using} in which hundreds or thousands of iterations were needed for an easier problem).  Additionally, each linear solve for this fine-level problem requires hundreds or thousands of iterations with a one-level additive Schwarz method; see Section~\ref{sec:1level}, which considers a smaller problem.
+We remark that Picard iteration takes at least 50 iterations to reach this tolerance (cf\onedot \cite{desmedt2010using} in which hundreds or thousands of iterations were needed for an easier problem).
+When used in a time-stepping code, the solution at the last time step is available so typically only the terminal convergence rate is important which further favors Newton methods.
+For example, an initial guess might have a residual $10^3$ higher than the required tolerance which takes 15 Picard iterations to solve, but only one Newton iteration.
+Additionally, each linear solve for this fine-level problem requires hundreds or thousands of iterations with a one-level additive Schwarz method; see Section~\ref{sec:1level}, which considers a smaller problem.
 
 \begin{figure}
   \centering\includegraphics{x-80km-m16p2l6-ew}
@@ -381,6 +384,8 @@ Figure~\ref{fig:shaheen-weak} shows weak scalability.
 The size of the coarse grid was held constant, and additional levels were added as the number of processes was increased, such that the subdomain sizes remain approximately constant.
 As the resolution increases, the nonlinearity strength and linear stiffness also changes, explaining the relatively expensive solve with four processes.
 This effect is also apparent in the Level 3 convergence of Figure~\ref{fig:xgridseq}.
+Four phases of the solution process dominate the runtime and are identified in Figure~\ref{fig:shaheen-weak}.
+Multigrid setup costs account for less time than nonlinear residual evaluation for the larger problem sizes.
 
 \begin{figure}
   \centering\includegraphics{shaheen-weak}
