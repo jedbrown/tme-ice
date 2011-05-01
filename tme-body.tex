@@ -190,14 +190,17 @@ These possibilities are also runtime options, but have not exhibited a level of 
 The Jacobian is always symmetric positive definite and has a natural block size of 2, so we use a symmetric block format (PETSc's SBAIJ).  This format stores one column index per $2\times 2$ block in the upper triangular part of the matrix and therefore uses about half the storage of the nonsymmetric BAIJ format, which in turn uses 25\% less memory than a scalar format (AIJ). Multiplication for symmetric storage requires twice as much parallel communication as nonsymmetric storage, albeit with the same number of messages. In return, the diagonal part of a parallel decomposition does twice as much work per matrix entry and thus achieves higher throughput, as shown in Table~\ref{tab:sbaij}.
 
 \begin{table}
-  \centering
-  \begin{tabular}{l|c|c|c|c|c|c}
-    \multirow{2}{*}{\backslashbox{Kernel}{Format}} & \multicolumn{3}{c|}{Core 2, 1 process} & \multicolumn{3}{c}{Opteron, 4 processes} \\
-                      & AIJ & BAIJ & SBAIJ & AIJ  & BAIJ & SBAIJ \\ \hline
+  \centering\caption{Throughput (Mflop/s) for different matrix formats on Core 2 Duo (P8700) and Opteron 2356 (two sockets). \texttt{MatSolve} is a forward- and back-solve with incomplete Cholesky factors.  The AIJ format is using ``inodes'' which unrolls across consecutive rows with identical nonzero pattern (pairs in this case).}\label{tab:sbaij}
+  \begin{tabular}{l rrr rrr}
+    \toprule
+     & \multicolumn{3}{c}{Core 2, 1 process} & \multicolumn{3}{c}{Opteron, 4 processes} \\
+     \cmidrule(r){2-4} \cmidrule(l){5-7}
+    Kernel                  & AIJ & BAIJ & SBAIJ & AIJ  & BAIJ & SBAIJ \\
+    \midrule
     \texttt{MatMult}  & 812 & 985  & 1507  & 2226 & 2918 & 3119  \\
     \texttt{MatSolve} & 718 & 957  & 955   & 1573 & 2869 & 2858  \\
+    \bottomrule
   \end{tabular}
-  \caption{Throughput (Mflop/s) for different matrix formats on Core 2 Duo (P8700) and Opteron 2356 (two sockets). \texttt{MatSolve} is a forward- and back-solve with incomplete Cholesky factors.  The AIJ format is using ``inodes'' which unrolls across consecutive rows with identical nonzero pattern (pairs in this case).}\label{tab:sbaij}
 \end{table}
 
 There are two ways to construct matrices on the coarse levels of multigrid methods.
@@ -322,13 +325,18 @@ We first consider one-level domain decomposition methods with incomplete factori
 
 \begin{table}
   \centering\caption{Average number of GMRES iterations per Newton iteration for one-level domain decomposition with different overlap and fill.}\label{tab:1level}
-  \begin{tabular}{l|c|c|c|c}
-    \backslashbox{Decomposition}{Subdomain} & ICC(0) & ICC(1) & ICC(4) & Cholesky \\ \hline
+  \begin{tabular}{lcccc}
+    \toprule
+    & \multicolumn{4}{c}{Subdomain solver} \\
+    \cmidrule{2-5}
+    Decomposition & ICC(0) & ICC(1) & ICC(4) & Cholesky \\
+    \midrule
     Block Jacobi & 367 & 315 & 220 & 97 \\
     $\ASM(1)$     & 508 & 441 & 296 & 59 \\
     $\RASM(1)$    & 368 & 306 & 190 & 52 \\
     $\ASM(2)$     & 521 & 445 & 316 & 44 \\
     $\RASM(2)$    & 365 & 305 & 189 & 38 \\
+    \bottomrule
   \end{tabular}
 \end{table}
 
@@ -339,12 +347,17 @@ Another approach to solving multicomponent problems is to split the components a
 \begin{table}
   \centering\caption{Average number of GMRES iterations per Newton iteration for field-split preconditioners with different ways of combining the splits and different solvers within the splits.
 BoomerAMG used 7 levels and ML had 3 with the same solver parameters as discussed in the text for the coupled approach.}\label{tab:fieldsplit}
-  \begin{tabular}{l|ccc}
-    Solver in Splits    & Additive & Multiplicative & Sym. Multiplicative \\ \hline
+  \begin{tabular}{lccc}
+    \toprule
+    \multirow{3}{*}{Solver in Splits} & \multicolumn{3}{c}{Method of combining splits} \\
+    \cmidrule{2-4}
+     & Additive & Multiplicative & Sym. Multiplicative \\
+    \midrule
     Cholesky            & 19       & 9.9            & 9.3                 \\
     ML                  & 41       & 34             & 30                  \\
     BoomerAMG           & 89       & 83             & 78                  \\
-    $\RASM(1)$+Cholesky & 186      & 173            & 84
+    $\RASM(1)$+Cholesky & 186      & 173            & 84                  \\
+    \bottomrule
   \end{tabular}
   %  for ft in additive multiplicative symmetric_multiplicative; do ~/usr/bin/mpiexec -n 4 ./e -M 40 -P 13 -thi_L 80e3 -thi_hom x -thi_alpha 0.03 -thi_nlevels 1 -{snes,ksp}_converged_reason -pc_type fieldsplit -pc_fieldsplit_type $ft -fieldsplit_0_pc_type ml -fieldsplit_0_pc_ml_maxnlevels 3 -fieldsplit_0_mg_levels_ksp_type gmres -fieldsplit_0_mg_levels_pc_type asm -fieldsplit_0_mg_levels_pc_asm_type restrict -fieldsplit_0_mg_levels_1_sub_pc_type cholesky -fieldsplit_1_pc_type ml -fieldsplit_1_pc_ml_maxnlevels 3 -fieldsplit_1_mg_levels_ksp_type gmres -fieldsplit_1_mg_levels_pc_type asm -fieldsplit_1_mg_levels_pc_asm_type restrict -fieldsplit_1_mg_levels_1_sub_pc_type cholesky; done
 \end{table}
@@ -361,9 +374,12 @@ We cannot explain why symmetric additive Schwarz performs so poorly on this prob
 
 \begin{table}
   \centering\caption{Average number of GMRES iterations per Newton for different multigrid preconditioners.}\label{tab:xmg}
-  \begin{tabular}{l|ll|ll|r@{.}l}
-    \multirow{2}{*}{Coarse Problem} & \multicolumn{2}{c|}{Level 1} & \multicolumn{2}{c|}{Level 2 and 3} & \multicolumn{2}{c}{\multirow{2}{*}{Its}} \\
-                                   & Decomp. & Subdomain & Decomp. & Subdomain         \\ \hline
+  \begin{tabular}{l ll ll r@{.}l}
+    \toprule
+    \multirow{3}{*}{Coarse Problem} & \multicolumn{2}{c}{Level 1} & \multicolumn{2}{c}{Level 2 and 3} & \multicolumn{2}{c}{\multirow{3}{*}{Its}} \\
+    \cmidrule(r){2-3} \cmidrule(l){4-5}
+                                   & Decomp. & Subdomain & Decomp. & Subdomain         \\
+    \midrule
     $10\times 10\times 2$ Redisc   & BJacobi & Cholesky & BJacobi & Cholesky & 8  & 9 \\
     $10\times 10\times 2$ Redisc   & BJacobi & Cholesky & BJacobi & ICC(0)   & 9  & 6 \\
     $10\times 10\times 2$ Redisc   & BJacobi & Cholesky & ASM(1)  & ICC(0)   & 11 & 9 \\
@@ -374,6 +390,7 @@ We cannot explain why symmetric additive Schwarz performs so poorly on this prob
     $10\times 10\times 1$ Redisc   & BJacobi & Cholesky & BJacobi & ICC(0)   & 10 & 3 \\
     $10\times 10\times 1$ Redisc   & ASM(1)  & Cholesky & BJacobi & ICC(0)   & 10 & 1 \\
     $10\times 10\times 1$ Redisc   & RASM(1) & Cholesky & BJacobi & ICC(0)   & 6  & 9 \\
+    \bottomrule
   \end{tabular}
 \end{table}
 
@@ -415,7 +432,7 @@ The latter issue of continuum validity has been partially addressed using asympt
 Despite being more complete than models involving only a vertically-integrated elliptic solve, the hydrostatic equations are not suitable for steep outlet glaciers like Jakoshavn Isbr{\ae} or Pine Island Glacier where solution of Stokes problems appears to be unavoidable.
 
 \medskip
-\begin{quotation}\it
+\begin{quote}\it
   Comprehensive log files and the scripts used to produce the figures in this paper are publicly available.
   They are currently hosted along with the source for this document at \url{https://github.com/jedbrown/tme-ice}.
-\end{quotation}
+\end{quote}
