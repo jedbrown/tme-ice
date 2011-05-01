@@ -193,9 +193,9 @@ The Jacobian is always symmetric positive definite and has a natural block size 
   \centering\caption{Throughput (Mflop/s) for different matrix formats on Core 2 Duo (P8700) and Opteron 2356 (two sockets). \texttt{MatSolve} is a forward- and back-solve with incomplete Cholesky factors.  The AIJ format is using ``inodes'' which unrolls across consecutive rows with identical nonzero pattern (pairs in this case).}\label{tab:sbaij}
   \begin{tabular}{l rrr rrr}
     \toprule
-     & \multicolumn{3}{c}{Core 2, 1 process} & \multicolumn{3}{c}{Opteron, 4 processes} \\
-     \cmidrule(r){2-4} \cmidrule(l){5-7}
-    Kernel                  & AIJ & BAIJ & SBAIJ & AIJ  & BAIJ & SBAIJ \\
+    \multirow{3}{*}{Kernel} & \multicolumn{3}{c}{Core 2, 1 process} & \multicolumn{3}{c}{Opteron, 4 processes} \\
+    \cmidrule(r){2-4} \cmidrule(l){5-7}
+                      & AIJ & BAIJ & SBAIJ & AIJ  & BAIJ & SBAIJ \\
     \midrule
     \texttt{MatMult}  & 812 & 985  & 1507  & 2226 & 2918 & 3119  \\
     \texttt{MatSolve} & 718 & 957  & 955   & 1573 & 2869 & 2858  \\
@@ -327,9 +327,9 @@ We first consider one-level domain decomposition methods with incomplete factori
   \centering\caption{Average number of GMRES iterations per Newton iteration for one-level domain decomposition with different overlap and fill.}\label{tab:1level}
   \begin{tabular}{lcccc}
     \toprule
-    & \multicolumn{4}{c}{Subdomain solver} \\
+    \multirow{3}{*}{Decomposition} & \multicolumn{4}{c}{Subdomain solver} \\
     \cmidrule{2-5}
-    Decomposition & ICC(0) & ICC(1) & ICC(4) & Cholesky \\
+     & ICC(0) & ICC(1) & ICC(4) & Cholesky \\
     \midrule
     Block Jacobi & 367 & 315 & 220 & 97 \\
     $\ASM(1)$     & 508 & 441 & 296 & 59 \\
