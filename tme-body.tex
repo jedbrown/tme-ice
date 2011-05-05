@@ -27,7 +27,7 @@ globalized by using grid sequencing, is robust to parameters and geometry, coars
 almost all cases, and exhibits excellent parallel scalability.  Our code is freely available as part
 of the Portable Extensible Toolkit for Scientific computing (PETSc)~\citep{petsc-web-page}.
 
-Section~\ref{sec:equations} presents the equations and discretization, Section~\ref{sec:solver} describes the solver, and Section~\ref{sec:examples} demonstrates performance and scalability with numerical examples. Section 5 summarizes our conclusions.
+Section~\ref{sec:equations} presents the equations and discretization, Section~\ref{sec:solver} describes the solver, and Section~\ref{sec:hstatexamples} demonstrates performance and scalability with numerical examples. Section 5 summarizes our conclusions.
 
 \section{Equations and Discretization}\label{sec:equations}
 The hydrostatic equations are obtained from the non-Newtonian Stokes equations in the limit where
@@ -213,7 +213,7 @@ These operators work well for some problems, but computing the sparse matrix pro
 Additionally, second-order-accurate interpolation operators cause a loss of sparsity in the coarse-level operators, an effect known as stencil growth.
 Stencil growth tends to blur regions where the solution has local structure and usually reduces the effectiveness of inexpensive smoothers.
 
-\section{Numerical Examples}\label{sec:examples}
+\section{Numerical Examples}\label{sec:hstatexamples}
 
 We present several numerical examples that demonstrate the algorithmic and parallel scalability of the Newton-Krylov multigrid approach.
 
