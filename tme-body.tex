@@ -6,12 +6,12 @@ the shallow ice approximation (SIA)~\citep{hutter1983tgm} and shallow stream app
 (SSA)~\citep{morland1987unconfined,weis1999theory}, to simulate these processes was cited as a major
 deficiency in the Fourth Assesment Report of the Intergovernmental Panel on Climate Change~\citep{ipcc2007ar4-syr}.
 
-The hydrostatic equations were introduced by \cite{blatter1995vas} as a model of intermediate complexity between the full non-Newtonian Stokes system and the vertically-integrated SIA and SSA models.
-A more precise analysis, including the limiting cases of fast and slow sliding, was given in \cite{schoof2010thin}.
-Well-posedness was proven in \cite{colinge1999strongly}, and approximation properties of finite-element methods were analyzed in \cite{glowinski2003approximation,chow2004finite}.
-\cite{hindmarsh2004numerical} conducted a perturbation analysis in one horizontal dimension to study validity of different continuum models including SIA, hydrostatic, and Stokes.
-\cite{pattyn2008beh} contains a model intercomparison using several implementations of the hydrostatic equations for periodic benchmark problems with large amplitude basal topography and stickyness variability.
-The hydrostatic equations were used for transient simulation in \cite{pattyn2002tgr} and in 3D models in \cite{pattyn2003ntd}, as well as subsequent work.
+The hydrostatic equations were introduced by \citet{blatter1995vas} as a model of intermediate complexity between the full non-Newtonian Stokes system and the vertically-integrated SIA and SSA models.
+A more precise analysis, including the limiting cases of fast and slow sliding, was given in \citet{schoof2010thin}.
+Well-posedness was proven in \citet{colinge1999strongly}, and approximation properties of finite-element methods were analyzed in \citet{glowinski2003approximation,chow2004finite}.
+\citet{hindmarsh2004numerical} conducted a perturbation analysis in one horizontal dimension to study validity of different continuum models including SIA, hydrostatic, and Stokes.
+\citet{pattyn2008beh} contains a model intercomparison using several implementations of the hydrostatic equations for periodic benchmark problems with large amplitude basal topography and stickyness variability.
+The hydrostatic equations were used for transient simulation in \citet{pattyn2002tgr} and in 3D models in \citet{pattyn2003ntd}, as well as subsequent work.
 These equations have been known by a variety of names in the literature including ``Blatter'', ``Pattyn'', ``Blatter-Pattyn'', ``LMLa''~\citep{hindmarsh2004numerical}, and ``first order''~\citep{greve2009dynamics}.
 
 The use of hydrostatic equations in current models has been limited, however, by the cost of solving the 3D nonlinear system for velocity.  This cost comes from both slow convergence on the
@@ -33,7 +33,7 @@ Section~\ref{sec:equations} presents the equations and discretization, Section~\
 The hydrostatic equations are obtained from the non-Newtonian Stokes equations in the limit where
 horizontal derivatives of vertical velocity are small.  Neglecting these terms allows
 incompressibility to be enforced implicitly by eliminating pressure and vertical velocity, leaving a
-system involving only horizontal components of velocity.  See \cite{schoof2010thin} for a rigorous
+system involving only horizontal components of velocity.  See \citet{schoof2010thin} for a rigorous
 derivation and asymptotic analysis.
 
 Consider an ice domain $\Omega \subset \R^3$ lying between a Lipschitz continuous bed $b(x,y)$ and surface $s(x,y)$ with thickness $h = s-b$ bounded below by a positive constant.
@@ -85,7 +85,7 @@ The source code for our implementation is distributed as an example in PETSc~\ci
 Upon unpacking the source, which can be downloaded from \url{http://mcs.anl.gov/petsc}, see \texttt{src/snes/examples/tutorials/ex48.c.}
 }
 Several generalizations of the tests from ISMIP-HOM~\citep{pattyn2008beh} are implemented, run with the option \texttt{-help} for a complete list of options.  Incidentally, our results for ``\SI{5}{\kilo\metre} test $C$'' in that paper (variable slipperiness on a flat bed) agree to three significant figures with the ``Stokes'' results therein.
-This is consistent with the asympotic analysis of \cite{schoof2010thin}, which shows that slipperiness perturbations are not present in the leading-order error terms for the hydrostatic equations (which are purely geometric); \cf \cite[Table~4 and Figure~8]{pattyn2008beh}, where the ensemble range is nearly as large as the mean.
+This is consistent with the asympotic analysis of \citet{schoof2010thin}, which shows that slipperiness perturbations are not present in the leading-order error terms for the hydrostatic equations (which are purely geometric); \cf \citet[Table~4 and Figure~8]{pattyn2008beh}, where the ensemble range is nearly as large as the mean.
 
 \section{Solver and Implementation}\label{sec:solver}
 We begin by writing the discretization of \eqref{eq:weak} as an algebraic system $F(U) = 0$ with
@@ -151,7 +151,7 @@ number of subdomains (provided they do not get too small: there is some degredat
 size approaches a single column).  However, none of these favorable performance characteristics
 remain when the elements become small relative to the ice thickness or when the bed becomes
 slippery since the usual $\bigO\big((L/H)^2\big)$ condition number for second-order elliptic problems
-preconditioned by one-level Schwarz methods with subdomains of size $H$ (see \cite{smith1996domain}) becomes apparent.
+preconditioned by one-level Schwarz methods with subdomains of size $H$, see \citet{smith1996domain}, becomes apparent.
 Indeed, we have found low-fill incomplete factorization to be nearly unusable as part of a one-level additive Schwarz method for problems with slippery beds or steep geometry, even at low resolution, as investigated in Section~\ref{sec:1level}.
 
 \subsection{Dirichlet Boundary Conditions}\label{ssec:dirichlet}
@@ -244,7 +244,7 @@ To demonstrate algorithmic scalability as the problem size is increased, this te
 A visual representation of the nonlinear solve process is shown in Figure~\ref{fig:xgridseq}.
 In this example and the next one, Luis Chac\'on's variant of the Eisenstat-Walker~\citep{eisenstat1996cft} method was used to automatically adjust linear solve tolerances as the nonlinear solve converges.  Solving the linear systems to higher tolerance would have little impact on the number of nonlinear iterations and would be visible in the form of more $\times$ marks below the solid lines.  That most $\times$ marks lie on the solid line for nonlinear residual is an indication that effort is well balanced between linear and nonlinear solves.
 Note that approximately 10 linear V-cycles on the fine level are required to reduce the residual by 10 orders of magnitude.
-We remark that Picard iteration takes at least 50 iterations to reach this tolerance (cf\onedot \cite{desmedt2010using} in which hundreds or thousands of iterations were needed for an easier problem).
+We remark that Picard iteration takes at least 50 iterations to reach this tolerance (cf\onedot \citet{desmedt2010using} in which hundreds or thousands of iterations were needed for an easier problem).
 When used in a time-stepping code, the solution at the last time step is available so typically only the terminal convergence rate is important which further favors Newton methods.
 For example, an initial guess might have a residual $10^3$ higher than the required tolerance which takes 15 Picard iterations to solve, but only one Newton iteration.
 Additionally, each linear solve for this fine-level problem requires hundreds or thousands of iterations with a one-level additive Schwarz method; see Section~\ref{sec:1level}, which considers a smaller problem.
@@ -293,7 +293,7 @@ We investigate strong scaling using test $Z$ at \SI{80}{\kilo\metre} with basal 
 Figure~\ref{fig:shaheen-strong} shows strong scalability for four fixed global problem sizes with coarse meshes of $16\times 16\times 3$, $32\times 32\times 3$, $64\times 64\times 3$, and $64\times 64\times 1$.
 The first three use five levels of isotropic refinement to reach target meshes of $256\times 256\times 48$, $512\times 512\times 48$, and $1024\times 1024\times 48$, the latter with nominal element sizes of $78\times 78\times 21$ meters.
 The last coarse mesh is refined anisotropically and more aggressively to reach $1024\times 1024\times 64$ with only four levels.
-The smallest two coarse problems are solved redundantly and the second is also solved using the ``$XX^T$'' direct solver of~\cite{tufo2001fast} (TFS) which exhibits significantly better scalability but the coarse-level problem still presents a bottleneck.
+The smallest two coarse problems are solved redundantly and the second is also solved using the ``$XX^T$'' direct solver of~\citet{tufo2001fast} (TFS) which exhibits significantly better scalability but the coarse-level problem still presents a bottleneck.
 The largest two coarse problems are only solved approximately using a V-cycle of the algebraic multigrid package BoomerAMG~\citep{henson2002bpa}, which removes the severe scalability bottleneck of a direct coarse-level solve.
 These coarse problems have been designed so that BoomerAMG is effective, see Section~\ref{sec:1level} for BoomerAMG applied to fine-level problems.
 
@@ -410,22 +410,22 @@ The present velocity solver can be immediately incorporated in a semi-implicit i
 Fully implicit time integration offers an alternative that has no such constraint and is thus suitable for simulations over full ice ages and longer, but requires the solution of more difficult algebraic equations.
 A prototype using the present velocity discretization has been developed, but scalable linear solvers for velocity-surface coupled problems is the subject of future investigation.
 
-Several models involving only a vertically-integrated elliptic solve have been proposed as less costly alternatives to solving the hydrostatic equations (e.g. \cite{bueler2009shallow,goldberg2009grounding,goldberg2010variational}).
+Several models involving only a vertically-integrated elliptic solve have been proposed as less costly alternatives to solving the hydrostatic equations, \eg \citep{bueler2009shallow,goldberg2009grounding,goldberg2010variational}.
 A scalable solver has not yet been proposed for these vertically-integrated elliptic problems so the present model is faster than existing implementations at sufficiently high resolution.
 To make a useful comparison, we estimate relative costs with the assumption that a similarly optimal solver exists for the vertically-integrated system, in which case the cost difference should be a constant factor independent of problem size and number of processors.
-The ``hybrid'' model of \cite{goldberg2010variational} requires evaluating effective viscosity in 3D and integrating to produce depth-averaged viscosity which appears in the vertically-integrated equations.
+The ``hybrid'' model of \citet{goldberg2010variational} requires evaluating effective viscosity in 3D and integrating to produce depth-averaged viscosity which appears in the vertically-integrated equations.
 Evaluating effective viscosity accounts for most of the cost of residual evaluation for the hydrostatic equations.
-Therefore the cost of such an evaluation is comparable to the cost of the nonlinear viscosity evaluation required in a Picard iteration for the hybrid model of \cite{goldberg2010variational}.
+Therefore the cost of such an evaluation is comparable to the cost of the nonlinear viscosity evaluation required in a Picard iteration for the hybrid model of \citet{goldberg2010variational}.
 Our solver produces high-accuracy solutions in about 30 times the cost of a residual evaluation, less if a good initial guess was available as when time stepping.
-\cite{goldberg2010variational} uses a Picard iteration to solve the nonlinear system, requiring 50 iterations per nonlinear solve, therefore the hybrid solver is only likely to have similar cost to our hydrostatic solver when the linear solves require negligible time.
+\citet{goldberg2010variational} uses a Picard iteration to solve the nonlinear system, requiring 50 iterations per nonlinear solve, therefore the hybrid solver is only likely to have similar cost to our hydrostatic solver when the linear solves require negligible time.
 If the hybrid equations were instead solved by Newton iteration and the linear solves required similar or less time than evaluating viscosity, then the hybrid equations might be solved as much as 5 times faster than the hydrostatic equations.
-\cite{bueler2009shallow} factors depth dependent velocity and temperature contributions out of the vertically-integrated nonlinear problem.
-The process only applies if the constitutive relation can be factored and the resulting continuum equations have a lower formal order of accuracy with respect to shallowness and stickyness distribution than the model of \cite{goldberg2010variational}.
-In exchange, the nonlinear elliptic solve can be completed without revisiting the 3D velocity field so the model cost has weaker dependence on the number of nonlinear iterations and thus potential to be a few times faster than the model of \cite{goldberg2010variational}.
+\citet{bueler2009shallow} factors depth dependent velocity and temperature contributions out of the vertically-integrated nonlinear problem.
+The process only applies if the constitutive relation can be factored and the resulting continuum equations have a lower formal order of accuracy with respect to shallowness and stickyness distribution than the model of \citet{goldberg2010variational}.
+In exchange, the nonlinear elliptic solve can be completed without revisiting the 3D velocity field so the model cost has weaker dependence on the number of nonlinear iterations and thus potential to be a few times faster than the model of \citet{goldberg2010variational}.
 Vertically-integrated models do not involve linear algebra operating on the 3D velocity field so they require significantly less memory than the hydrostatic equations when all operators are assembled.
 
 The hydrostatic equations are well-suited to investigation of ice streams and outlet glaciers with gentle slope and arbitrary stickyness distribution.
-For example, 3D ice stream thermodynamics (see \cite{raymond2000energy} for analytic and \cite{truffer2003isbrae} for numerical investigation with along-flow symmetry) could be reliably investigated using velocity defined by the hydrostatic equations.
+For example, 3D ice stream thermodynamics (see \citet{raymond2000energy} for analytic and \citet{truffer2003isbrae} for numerical investigation with along-flow symmetry) could be reliably investigated using velocity defined by the hydrostatic equations.
 The methods in this paper can efficiently solve the discrete hydrostatic equations in regimes with extreme basal topography and stickyness distributions.
 The solution method is efficient even in regimes which are far in excess of where the continuum hydrostatic approximation is valid as an approximation to the Stokes equations.
 The latter issue of continuum validity has been partially addressed using asymptotic analysis~\citep{schoof2010thin} and numerical comparison~\citep{hindmarsh2004numerical,pattyn2008beh}.

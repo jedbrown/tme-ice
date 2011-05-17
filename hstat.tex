@@ -6,9 +6,12 @@
 \usepackage[utf8x]{inputenc}
 \usepackage{siunitx}
 \usepackage{booktabs}
-
 \usepackage{hyperref}
-\newcommand{\citep}[1]{{\cite{#1}}}
+%\usepackage{natbib} % natbib itself has some problem with siam.bst
+\usepackage{twoopt}
+\usepackage{ifthen}
+\providecommand{\citet}[2][]{{\ifthenelse{\equal{#1}{}}{\cite{#2}}{\cite[#1]{#2}}}}
+\providecommandtwoopt{\citep}[3][][]{{\ifthenelse{\equal{#1}{}}{}{#1 }\ifthenelse{\equal{#2}{}}{\cite{#3}}{\cite[#2]{#3}}}}
 \newcommand\email[1]{{\href{mailto:#1}{\nolinkurl{#1}}}}
 
 % \usepackage[displaymath]{lineno}
