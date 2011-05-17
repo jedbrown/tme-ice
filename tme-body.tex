@@ -398,8 +398,8 @@ We remark that when using grid sequencing and the method in the last row of Tabl
 If the Eisenstat-Walker method is used to avoid oversolving, the problem takes eight Newton iterations with a total of 12 V-cycles.
 
 \section{Conclusion}
-Several projects \citep{seacism,issm,johnson2007modeling,desmedt2010using,pattyn2003ntd} have developed software to simulate ice sheets using the hydrostatic equations.
-All of these projects solve the resulting algebraic equations using Picard linearization with one-level domain decomposition and incomplete factorization.
+Several projects \citep{lemieux2011jfnk,issm,johnson2007modeling,desmedt2010using,pattyn2003ntd,lemieux2011jfnk} have developed software to simulate ice sheets using the hydrostatic equations.
+All of these projects solve the resulting algebraic equations using one-level domain decomposition (if parallel) and incomplete factorization, and all but \citep{lemieux2011jfnk} use Picard linearization.
 These methods are not scalable in the strong or weak sense so resolution and simulation turn-around time has been severely limited by the cost of the solver.
 
 We have presented a grid-sequenced Newton-Krylov multigrid algorithm for solving the algebraic equations resulting from a finite element discretization of the hydrostatic equations.
