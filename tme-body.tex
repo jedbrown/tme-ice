@@ -38,11 +38,10 @@ derivation and asymptotic analysis.
 
 Consider an ice domain $\Omega \subset \R^3$ lying between a Lipschitz continuous bed $b(x,y)$ and surface $s(x,y)$ with thickness $h = s-b$ bounded below by a positive constant.
 \footnote{The singular limit $h\to 0$ is important in the case of grounded margins, but the present work does not pursue it.}
-The
-velocity $\bm u = (u,v) \in \bm V = \bm W^{1,1+1/n}(\Omega)$ satisfies conservation of momentum, which,
+The velocity $\bm u = (u,v) \in \VV = \bm W^{1,1+1/n}(\Omega)$ satisfies conservation of momentum, which,
 omitting inertial and convective terms as is standard for ice sheets, is given by
 \begin{align}\label{eq:momentum}
-  - \nabla\cdot \left[ \eta
+  - \div \left[ \eta
   \begin{pmatrix}
     4 u_x + 2 v_y & u_y + v_x & u_z \\
     u_y + v_x & 2 u_x + 4 v_y & v_z
@@ -147,7 +146,7 @@ Indeed, with a typical ice thickness of \SI{1}{\kilo\metre} resting on a frozen 
 a side, block Jacobi with zero-fill incomplete Cholesky converges to relative tolerance of $10^{-5}$
 in about 10 Krylov iterations independent of the horizontal extent of the domain (number of elements
 in the horizontal), independent of the number of elements in the vertical, and independent of the
-number of subdomains (provided they do not get too small: there is some degredation when subdomain
+number of subdomains (provided they do not get too small: there is some degradation when subdomain
 size approaches a single column).  However, none of these favorable performance characteristics
 remain when the elements become small relative to the ice thickness or when the bed becomes
 slippery since the usual $\bigO\big((L/H)^2\big)$ condition number for second-order elliptic problems
