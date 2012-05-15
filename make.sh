@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+set -e
 
 petscplot="python2.7 petscplot/petscplot --mode paper"
 
