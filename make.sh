@@ -21,7 +21,7 @@ generate_figures() {
 
     $petscplot -t snes -m paper --solve-spec '1:' output/y.10km.m10p6l5.ew.log -o figures/y-10km-m10p6l5-ew.pdf
 
-    $petscplot  -t algorithmic --width-pt 380 \
+    $petscplot  -t algorithmic --width-pt 360 \
         output/z.m6p4l5.newton.icc.log : output/z.m6p4l5.picard.asm8.icc1.log : output/z.m6p4l6.picard.icc.log : output/z.m6p4l6.mult.n8.o0.r2.log \
         --legend-labels 'Newton, ICC(0), serial:Picard ASM(1)/ICC(1), 8 subdomains:Picard ICC(0) serial:Newton, V-cycle, 8 subdomains' \
         -o figures/linear4.pdf
