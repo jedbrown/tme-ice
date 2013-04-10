@@ -327,7 +327,7 @@ These coarse problems have been designed so that BoomerAMG is effective; see Sec
 \end{figure}
 
 Figure~\ref{fig:shaheen-weak} shows weak scalability for test $X$ at \SI{40}{\kilo\metre} with basal friction exponent $m=0.2$ on Shaheen.
-The size of the coarse grid was held constant, and additional levels were added as the number of processes was increased, such that the subdomain sizes remain approximately constant.
+The size of the coarse grid was held constant, and additional levels were added as the number of processes was increased, such that the subdomain sizes remain approximately constant at around \num{2.5e5} elements.
 As the resolution increases, the nonlinearity strength and linear stiffness also changes, explaining the relatively expensive solve with four processes.
 This effect is also apparent in the Level 3 convergence of Figure~\ref{fig:xgridseq}.
 Four phases of the solution process dominate the run time and are identified in Figure~\ref{fig:shaheen-weak}.
